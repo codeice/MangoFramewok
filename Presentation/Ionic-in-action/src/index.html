@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <!--    <link href="css/animate.css" rel="stylesheet" />-->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+</head>
+<body animation="slide-left-right-ios7">
+    <!--splashScreen portion-->
+    <div class="splash-screen">
+        <div class="screen-container">
+            <div class="messaging">
+                <h1>
+                    加载中....
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!--content Portion-->
+    <div>
+        <ion-nav-bar class="bar-stable">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+        </ion-nav-bar>
+        <!--view start here-->
+        <ion-nav-view></ion-nav-view>
+    </div>
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/common/config.js"></script>
+    <script src="js/common/app.js"></script>
+    <script src="js/common/directives.js"></script>
+    <script src="js/common/services.js"></script>
+
+    <!--模块js-->
+    <script src="js/demo/userService.js"></script>
+    <script src="js/demo/userCtrl.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+使用node.js 和r.js
+
+build-config.js 为配置文件
+命令
+
+利用NodeJs来进行压缩
+node r.js -o build-config.js
+
+参见 http://www.cnblogs.com/lhb25/p/requirejs-ptimizer-using.html
+
+
+//SPASmaple使用Note:
+1. modules 分四大模块
+a. commonModule 是将common下除了XXXXXservice.js之外的所有模块定义在改module下
+b. ctrlModule是将controllers下的所有ctrl定义在该模块
+c. dirModule 是directives文件下所有指令绑定在该模块
+d. serviceModule 是将service下的所有service定义在该模块下
+
+2. contentApp 是为了单页应用所提供新的app
+

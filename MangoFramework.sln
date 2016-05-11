@@ -1,0 +1,108 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MangoFramework", "MangoFramework", "{879E65FC-9A61-49ED-AD6F-9114A8D1D227}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{73422EF8-06AF-44F2-A3B6-1999D83D44EA}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SPASample", "http://localhost:61752", "{DCBC12F6-FDF7-4367-950D-CC785A0A7362}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = ""
+		SccAuxPath = ""
+		SccLocalPath = ""
+		SccProvider = ""
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_61752"
+		Debug.AspNetCompiler.PhysicalPath = "Presentation\SPASample\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61752\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_61752"
+		Release.AspNetCompiler.PhysicalPath = "Presentation\SPASample\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_61752\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "Presentation\SPASample\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{33939BDE-1882-4C78-8127-DD81B4B0F35E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoFramework", "MangoFramework\MangoFramework.csproj", "{A3A45048-E061-47EE-AE64-873F951A61D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoFramework.Infrastructure", "MangoFramework.Infrastructure\MangoFramework.Infrastructure.csproj", "{BD0715C5-3295-4F30-A3E1-21598EE797A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{30DAC311-926A-4AE2-A9C3-8C768F9FB0D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{380F0190-868A-48C1-9DB6-CCC1467670AA}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Ionic-in-action", "http://localhost:26604", "{883DFAC0-AEAE-4367-98A2-B800D533B0FB}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_26604"
+		Debug.AspNetCompiler.PhysicalPath = "Presentation\Ionic-in-action\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_26604\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_26604"
+		Release.AspNetCompiler.PhysicalPath = "Presentation\Ionic-in-action\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_26604\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "Presentation\Ionic-in-action\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCBC12F6-FDF7-4367-950D-CC785A0A7362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBC12F6-FDF7-4367-950D-CC785A0A7362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBC12F6-FDF7-4367-950D-CC785A0A7362}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBC12F6-FDF7-4367-950D-CC785A0A7362}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{A3A45048-E061-47EE-AE64-873F951A61D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3A45048-E061-47EE-AE64-873F951A61D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3A45048-E061-47EE-AE64-873F951A61D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3A45048-E061-47EE-AE64-873F951A61D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD0715C5-3295-4F30-A3E1-21598EE797A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD0715C5-3295-4F30-A3E1-21598EE797A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD0715C5-3295-4F30-A3E1-21598EE797A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD0715C5-3295-4F30-A3E1-21598EE797A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{380F0190-868A-48C1-9DB6-CCC1467670AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{380F0190-868A-48C1-9DB6-CCC1467670AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{380F0190-868A-48C1-9DB6-CCC1467670AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{380F0190-868A-48C1-9DB6-CCC1467670AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{883DFAC0-AEAE-4367-98A2-B800D533B0FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{883DFAC0-AEAE-4367-98A2-B800D533B0FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{883DFAC0-AEAE-4367-98A2-B800D533B0FB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{883DFAC0-AEAE-4367-98A2-B800D533B0FB}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DCBC12F6-FDF7-4367-950D-CC785A0A7362} = {73422EF8-06AF-44F2-A3B6-1999D83D44EA}
+		{A3A45048-E061-47EE-AE64-873F951A61D9} = {879E65FC-9A61-49ED-AD6F-9114A8D1D227}
+		{BD0715C5-3295-4F30-A3E1-21598EE797A8} = {879E65FC-9A61-49ED-AD6F-9114A8D1D227}
+		{380F0190-868A-48C1-9DB6-CCC1467670AA} = {30DAC311-926A-4AE2-A9C3-8C768F9FB0D0}
+		{883DFAC0-AEAE-4367-98A2-B800D533B0FB} = {73422EF8-06AF-44F2-A3B6-1999D83D44EA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

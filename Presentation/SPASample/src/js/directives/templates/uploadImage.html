@@ -1,0 +1,16 @@
+﻿<div>
+    <div class="thumbnail">
+        <img ng-show="uploadedFile==null" ng-src="images/default-image.png" alt="默认图片">
+        <img ng-show="uploadedFile.url!=null" ng-src="{{appConfig.apiServer+uploadedFile.url}}" alt="uploadedFile.fileName">
+    </div>
+    <div class="progress progress-warning progress-small progress-striped active " ng-hide="uploader.progress==100||uploader.progress==null">
+        <div class="bar" style="width: { {uploader.progress}}%;"></div>
+    </div>
+    <div>
+        <span class="btn btn-small btn-success" dir-uploadify="uploader" url="url" settings="uploaderSettings" return-value="returnValue" on-success="onSuccess">
+            <i class=" icon-cloud-upload icon-on-right bigger-110"></i>
+            上传
+        </span>
+    </div>
+</div>
+
