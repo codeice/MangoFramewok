@@ -1,0 +1,1 @@
+version_v=1;var appConfig={apiServer:location.protocol+"//"+location.host+"/CE.WebApi/",apiBatchServer:this.apiServer+"/batch/"};

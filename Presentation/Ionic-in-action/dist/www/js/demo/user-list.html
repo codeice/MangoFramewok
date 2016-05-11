@@ -1,0 +1,41 @@
+<ion-view view-title="用户列表">
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="person in persons" type="item-text-wrap" href="#/tab/users/{{person.id}}">
+                <img ng-src="{{person.face}}">
+                <h2>{{person.name}}</h2>
+                <p>{{person.lastText}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-positive" ng-click="openModal(person)">
+                    编辑
+                </ion-option-button>
+                <ion-option-button class="button-assertive" ng-click="remove(person)">
+                    删除
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
+
+<!--modal demo-->
+<script id="modal.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+            <h1 class="title">编辑表单</h1>
+            <button class="button button-clear button-primary" ng-click="modal.hide()">关闭</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">姓名</span>
+                    <input ng-model="user.name" type="text">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">邮箱</span>
+                    <input ng-model="user.email" type="text">
+                </label>
+                <button class="button button-full button-positive" ng-click="createContact(newUser)">保存</button>
+            </div>
+        </ion-content>
+    </ion-modal-view>
+</script>
