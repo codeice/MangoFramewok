@@ -13,20 +13,20 @@ var isProduct = false;
 
 //----原文件路径
 var srcPath = {
-    css: ['../src/css/*.css'],
-    img: ['../src/img/*.{png,jpg,jpeg}'],
-    js: ['../src/js/**/*.js', '!../src/js/**/config.js'],
-    html: ['../src/js/**/*.html'],
-    indexHtml: ['../src/index.html']
+    css: ['src/css/*.css'],
+    img: ['src/img/*.{png,jpg,jpeg}'],
+    js: ['src/js/**/*.js', '!../src/js/**/config.js'],
+    html: ['src/js/**/*.html'],
+    indexHtml: ['src/index.html']
 };
 
 //----目标文件路径
 var distPath = {
-    css: '../dist/www/css',
-    img: '../dist/www/img',
-    js: '../dist/www/js',
-    html: '../dist/www/js',
-    indexHtml: '../dist/www'
+    css: 'dist/css',
+    img: 'dist/img',
+    js: 'dist/js',
+    html: 'dist/js',
+    indexHtml: 'dist'
 };
 
 
