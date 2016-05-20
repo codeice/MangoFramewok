@@ -1,4 +1,6 @@
 ﻿var gulp = require('gulp');
+var browserSync = require('browser-sync').create();
+var reload = browserSync.reload;
 var gulputil = require('gulp-util');
 var del = require('del');
 var concat = require('gulp-concat');
@@ -9,44 +11,34 @@ var gulpif = require('gulp-if');
 var runSequence = require('run-sequence');
 var replace = require('gulp-replace');
 var path = require('path');
-var connect = require('gulp-connect');
 
 //----生产环境不做压缩操作
 var isProduct = false;
 
 var config = {
-    dest: 'dist/www',
-    src: 'src',
-    server: {
-        host: 'localhost',
-        port: '8000'
-    }
+    dest: './dist/www',
+    src: './src'
 };
 //----原文件路径
 var srcPath = {
-    css: ['src/css/*.css'],
-    img: ['src/img/*.{png,jpg,jpeg}'],
-    js: ['src/js/**/*.js', '!../src/js/**/config.js'],
-    html: ['src/js/**/*.html'],
-    indexHtml: ['src/index.html']
+    css: ['./src/css/*.css'],
+    img: ['./src/img/*.{png,jpg,jpeg}'],
+    js: ['./src/js/**/*.js', '!../src/js/**/config.js'],
+    html: ['./src/js/**/*.html'],
+    indexHtml: ['./src/index.html']
 };
 
-gulp.task('connect-dev', function () {
-    connect.server({
-        root: 'src',
-        host: 'localhost',
-        port: 8008,
-        livereload: true
+gulp.task('serve', ['build-css', 'build-img', 'build-js', 'build-html', 'build-index'], function () {
+    browserSync.init({
+        server: {
+            baseDir: config.dest,
+        }
     });
-});
-
-gulp.task('connect-dist', function () {
-    connect.server({
-        root: 'dist/www',
-        server: 'localhost',
-        port: 8001,
-        livereload: true
-    });
+    gulp.watch(srcPath.css, ['build-css']);
+    gulp.watch(srcPath.img, ['build-img']);
+    gulp.watch(srcPath.js, ['build-js']);
+    gulp.watch(srcPath.html).on('change', reload);
+    gulp.watch(srcPath.index, ['build-index']);
 });
 
 //----build css
@@ -72,8 +64,7 @@ gulp.task('build-js', function () {
 
 gulp.task('build-html', function () {
     var stream = gulp.src(srcPath.html)
-        .pipe(gulp.dest(path.join(config.dest, "js")))
-        .pipe(connect.reload());
+        .pipe(gulp.dest(path.join(config.dest, "js")));
     return stream;
 });
 
@@ -82,7 +73,6 @@ gulp.task('build-index', function () {
         .pipe(gulp.dest(config.dest));
     return stream;
 });
-
 
 gulp.task('toggleToDev', function () {
     isProduct = false;
@@ -94,33 +84,12 @@ gulp.task('toggleToProduct', function () {
     console.log("切换到生产环境");
 });
 
-
-gulp.task('watch-src', function () {
-    gulp.watch(['./src/css/**/*'], ['build-css']);
-    /* gulp.watch(srcPath.img, ['build-img']);
-     gulp.watch(srcPath.js, ['build-js']);
-     gulp.watch(srcPath.html, ['build-html']);
-     gulp.watch(srcPath.index, ['build-index']);*/
-});
-
-/*==============================================================
-=            Setup live reloading on source changes            =
-==============================================================*/
-gulp.task('livereload', function () {
-    gulp.src(path.join(config.dest, '*.html'))
-      .pipe(connect.reload());
-});
-gulp.task('watch-dist', function () {
-    gulp.watch([config.dest + '/**/*'], ['livereload']);
-});
-
 //----开发环境
 gulp.task('dev', function () {
-    runSequence('toggleToDev', 'connect-dev', 'watch-src');
+    runSequence('toggleToDev', 'serve');
 });
 
 //----生产环境
 gulp.task('product', function () {
-    runSequence('toggleToProduct', 'connect-dist', 'build-css', 'build-img', 'build-js', 'build-html', 'build-index');
+    runSequence('toggleToProduct', 'serve');
 });
-
