@@ -3,8 +3,6 @@
 
     //----用户列表
     ctrlModule.controller('userCtrl', ['$scope', 'demoService', '$ionicModal', function ($scope, demoService, $ionicModal) {
-
-
         /*        //----http service demo
                 demoService.getAll().$promise.then(function (response) {
                     $scope.list = response.data.Data;

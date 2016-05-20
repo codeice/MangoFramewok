@@ -1,9 +1,9 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 * {
     padding: 0;
     margin: 0;
-    font-family: "΢���ź�";
+    font-family: "微软雅黑";
 }
 
 /**************Splash Screen*************/
@@ -88,4 +88,13 @@
         transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
         opacity: 0;
     }
+}
+
+
+.test {
+    font-size: 20px;
+    font-family: "微软雅黑";
+    width: 200px;
+    height: 200px;
+    background: lightblue;
 }
