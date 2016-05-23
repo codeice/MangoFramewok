@@ -8,6 +8,7 @@
                     $scope.list = response.data.Data;
                     console.log("$scope.list=", $scope.list);
                 });*/
+        console.log("hello ionic");
 
         // Some fake testing data
         $scope.persons = demoService.getList();

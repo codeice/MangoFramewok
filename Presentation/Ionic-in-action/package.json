@@ -11,6 +11,7 @@
   "devDependencies": {
     "browser-sync": "^2.12.8",
     "del": "^2.2.0",
+    "event-stream": "^3.3.2",
     "gulp": "^3.9.1",
     "gulp-angular-filesort": "^1.1.1",
     "gulp-concat": "^2.6.0",
@@ -19,12 +20,17 @@
     "gulp-if": "^2.0.1",
     "gulp-imagemin": "^3.0.0",
     "gulp-inject": "^4.1.0",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-replace": "^0.5.4",
+    "gulp-sourcemaps": "^1.1.0",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.5",
     "gulp.spritesmith": "^6.2.1",
     "path": "^0.12.7",
-    "run-sequence": "^1.1.5"
+    "q": "^1.4.1",
+    "run-sequence": "^1.1.5",
+    "through2": "^2.0.1",
+    "uglify-js": "^2.6.2"
   }
 }
