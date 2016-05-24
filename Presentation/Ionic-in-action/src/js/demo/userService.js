@@ -9,7 +9,7 @@
     var list = [{
         id: 0,
         name: 'Ben Sparrow',
-        email:'benSparrow@126.com',
+        email: 'benSparrow@126.com',
         lastText: 'You on your way?',
         face: 'img/ben.png'
     }, {
@@ -54,10 +54,8 @@
         }
         return null;
     }
-
 }
 
-//----list service
-serviceModule.factory('demoService', ['service', function (service) {
+angular.module('user.service', []).factory('demoService', ['service', function (service) {
     return new demoServiceProxy(service);
 }]);

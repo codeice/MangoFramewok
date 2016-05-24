@@ -1,14 +1,14 @@
 ﻿(function () {
     'use strict';
+    var userModule = angular.module('user.ctrl', []);
 
     //----用户列表
-    ctrlModule.controller('userCtrl', ['$scope', 'demoService', '$ionicModal', function ($scope, demoService, $ionicModal) {
+    userModule.controller('userCtrl', ['$scope', 'demoService', '$ionicModal', function ($scope, demoService, $ionicModal) {
         /*        //----http service demo
                 demoService.getAll().$promise.then(function (response) {
                     $scope.list = response.data.Data;
                     console.log("$scope.list=", $scope.list);
                 });*/
-        console.log("hello ionic");
 
         // Some fake testing data
         $scope.persons = demoService.getList();
@@ -33,7 +33,7 @@
     }]);
 
     //----用户详情
-    ctrlModule.controller('userDetailCtrl', ['$scope', '$stateParams', 'demoService', function ($scope, $stateParams, demoService) {
+    userModule.controller('userDetailCtrl', ['$scope', '$stateParams', 'demoService', function ($scope, $stateParams, demoService) {
         var userId = $stateParams.userId;
         $scope.user = demoService.getDetail(userId);
     }]);

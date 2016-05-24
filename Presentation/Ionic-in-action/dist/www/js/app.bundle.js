@@ -9,7 +9,7 @@ function demoServiceProxy(service) {
     var list = [{
         id: 0,
         name: 'Ben Sparrow',
-        email:'benSparrow@126.com',
+        email: 'benSparrow@126.com',
         lastText: 'You on your way?',
         face: 'img/ben.png'
     }, {
@@ -54,24 +54,22 @@ function demoServiceProxy(service) {
         }
         return null;
     }
-
 }
 
-//----list service
-serviceModule.factory('demoService', ['service', function (service) {
+angular.module('user.service', []).factory('demoService', ['service', function (service) {
     return new demoServiceProxy(service);
 }]);
 (function () {
     'use strict';
+    var userModule = angular.module('user.ctrl', []);
 
     //----用户列表
-    ctrlModule.controller('userCtrl', ['$scope', 'demoService', '$ionicModal', function ($scope, demoService, $ionicModal) {
+    userModule.controller('userCtrl', ['$scope', 'demoService', '$ionicModal', function ($scope, demoService, $ionicModal) {
         /*        //----http service demo
                 demoService.getAll().$promise.then(function (response) {
                     $scope.list = response.data.Data;
                     console.log("$scope.list=", $scope.list);
                 });*/
-        console.log("hello ionic");
 
         // Some fake testing data
         $scope.persons = demoService.getList();
@@ -96,7 +94,7 @@ serviceModule.factory('demoService', ['service', function (service) {
     }]);
 
     //----用户详情
-    ctrlModule.controller('userDetailCtrl', ['$scope', '$stateParams', 'demoService', function ($scope, $stateParams, demoService) {
+    userModule.controller('userDetailCtrl', ['$scope', '$stateParams', 'demoService', function ($scope, $stateParams, demoService) {
         var userId = $stateParams.userId;
         $scope.user = demoService.getDetail(userId);
     }]);
@@ -110,6 +108,8 @@ serviceModule.factory('demoService', ['service', function (service) {
  */
 //scopeService
 service_v = '1.0.0';
+var serviceModule = angular.module('starter.services', []);
+
 serviceModule.service('scopeService', function () {
     return {
         safeApply: function ($scope, fn) {
@@ -278,6 +278,8 @@ serviceModule.factory('service', ['httpProxy', 'uiKit', function (httpProxy, uiK
               }
           }
       );*/
+
+var dirModule = angular.module('starter.directives', []);
 //---配置文件
 version_v = 1.0;
 var appConfig = {
@@ -290,12 +292,23 @@ var appConfig = {
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 'use strict';
+/*
 var ctrlModule = angular.module('starter.controllers', ['ionic']);
 var serviceModule = angular.module('starter.services', []);
 var filterModule = angular.module('starter.filters', []);
 var dirModule = angular.module('starter.directives', []);
+*/
 
-var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'starter.directives']);
+var app = angular.module('starter', [
+    'ionic',
+    'starter.services',
+    'starter.directives',
+
+    //-----component module
+    'user.service',
+    'user.ctrl'
+
+]);
 
 setTimeout(function asyncBootstrap() {
     angular.bootstrap(document, ["starter"]);

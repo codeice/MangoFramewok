@@ -4,12 +4,23 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 'use strict';
+/*
 var ctrlModule = angular.module('starter.controllers', ['ionic']);
 var serviceModule = angular.module('starter.services', []);
 var filterModule = angular.module('starter.filters', []);
 var dirModule = angular.module('starter.directives', []);
+*/
 
-var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'starter.directives']);
+var app = angular.module('starter', [
+    'ionic',
+    'starter.services',
+    'starter.directives',
+
+    //-----component module
+    'user.service',
+    'user.ctrl'
+
+]);
 
 setTimeout(function asyncBootstrap() {
     angular.bootstrap(document, ["starter"]);

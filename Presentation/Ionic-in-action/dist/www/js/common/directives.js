@@ -1,0 +1,1 @@
+var dirModule=angular.module("starter.directives",[]);

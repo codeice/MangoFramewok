@@ -46,7 +46,10 @@ gulp.task('serve', function () {
     });
     gulp.watch(srcPath.css, ['build-css']);
     watch_source('img');
-    gulp.watch(srcPath.js, ['build-js']).on('change', reload);
+    watch(srcPath.js, { events: ['add', 'change'] }, function () {
+        runSequence('build-bundlejs', 'build-index');
+    });
+    /*    gulp.watch(srcPath.js, ['build-js', 'build-index']).on('change', reload);*/
     gulp.watch(srcPath.html, ['build-html']).on('change', reload);
     gulp.watch(srcPath.index, ['build-index']).on('change', reload);
 });
@@ -112,19 +115,20 @@ gulp.task('build-html', function () {
     return stream;
 });*/
 
-gulp.task('build-index', function () {
+gulp.task('build-index', ['build-bundlejs'], function () {
     console.log("isProduct=", isProduct);
     var sources = "";
     if (isProduct) {
         //生产环境
-        sources = gulp.src(config.dest + "/js/app.bundle.js", { read: false });
+        sources = gulp.src(config.dest + "/js/app.bundle.js");
     } else {
         //开发环境
-        sources = gulp.src(config.dest + "/js/**/*.js", { read: false }).pipe(ngFilesort());
+        sources = gulp.src([config.dest + "/js/**/*.js", "!" + config.dest + "/js/app.bundle.js"]).pipe(ngFilesort());
     }
-    var stream = gulp.src(config.dest + "/index.html")
+    var stream = gulp.src(config.src + "/index.html")
         .pipe(inject(sources, {
-            relative: true,
+            ignorePath: 'dist/www',
+            addRootSlash: false,
             starttag: '<!-- inject:app:js -->'
         }))
         .pipe(gulp.dest(config.dest));
