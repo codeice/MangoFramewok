@@ -5,11 +5,11 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <!--    <link href="css/animate.css" rel="stylesheet" />-->
-    <link href="css/style.css" rel="stylesheet">
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+    <!--IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">-->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/app.bundle.css">
+    <!-- endinject -->
 </head>
 <body animation="slide-left-right-ios7">
     <!--splashScreen portion-->
@@ -33,18 +33,11 @@
     </div>
 
     <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="js/common/config.js"></script>
+    <!--    <script src="lib/ionic/js/ionic.bundle.js"></script>-->
     <!-- cordova script (this will be a 404 during development) -->
     <!--  <script src="cordova.js"></script>-->
-    <!--   $1$ your app's js#1#
-        <script src="js/common/config.js"></script>
-        <script src="js/common/app.js"></script>
-        <script src="js/common/directives.js"></script>
-        <script src="js/common/services.js"></script>
-        $1$模块js#1#
-        <script src="js/demo/userService.js"></script>
-        <script src="js/demo/userCtrl.js"></script>-->
-    <!-- inject:app:js -->
+    <!-- inject:js -->
     <script src="js/app.bundle.js"></script>
     <!-- endinject -->
 </body>

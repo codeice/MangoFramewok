@@ -4,11 +4,11 @@
 
     //----用户列表
     userModule.controller('userCtrl', ['$scope', 'demoService', '$ionicModal', function ($scope, demoService, $ionicModal) {
-        /*        //----http service demo
-                demoService.getAll().$promise.then(function (response) {
-                    $scope.list = response.data.Data;
-                    console.log("$scope.list=", $scope.list);
-                });*/
+        //----http service demo
+        demoService.getAll().$promise.then(function (response) {
+            $scope.list = response.data.Data;
+            console.log("$scope.list=", $scope.list);
+        });
 
         // Some fake testing data
         $scope.persons = demoService.getList();

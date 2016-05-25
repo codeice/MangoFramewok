@@ -19,6 +19,9 @@ var ngFilesort = require('gulp-angular-filesort');
 var ngAnnotate = require('gulp-ng-annotate');
 var inject = require('gulp-inject');
 var es = require('event-stream');
+//-----让队列中的流一一进入管道以保证顺序
+var streamqueue = require('streamqueue');
+
 
 //----生产环境不做压缩操作
 var isProduct = false;
@@ -26,14 +29,20 @@ var isProduct = false;
 var config = {
     dest: './dist/www',
     src: './src',
-    cordova: false
+    cordova: false,
+    vendor: {
+        js: ['./dist/www/lib/ionic/js/ionic.bundle.js'],
+        css: ["./dist/www/lib/ionic/css/ionic.css"],
+        fonts: []
+    }
 };
 //----原文件路径
 var srcPath = {
     css: ['./src/css/*.css'],
     img: ['./src/img/*'],
-    /*        js: ['./src/js/*#1#*.js', '!../src/js/*#1#config.js'],*/
-    js: ['./src/js/**/*.js'],
+    configjs: './src/js/**/*.js',
+    js: ['./src/js/**/*.js', '!../src/js/**/config.js'],
+    /*    js: ['./src/js/*#1#*.js'],*/
     html: ['./src/js/**/*.html'],
     indexHtml: ['./src/index.html']
 };
@@ -44,12 +53,17 @@ gulp.task('serve', function () {
             baseDir: config.dest,
         }
     });
-    gulp.watch(srcPath.css, ['build-css']);
+    gulp.run('watch');
+});
+
+gulp.task('watch', function () {
     watch_source('img');
-    watch(srcPath.js, { events: ['add', 'change'] }, function () {
-        runSequence('build-bundlejs', 'build-index');
+    watch(srcPath.css, { events: ['add', 'change'] }, function () {
+        gulp.run('build-css');
     });
-    /*    gulp.watch(srcPath.js, ['build-js', 'build-index']).on('change', reload);*/
+    watch(srcPath.js, { events: ['add', 'change'] }, function () {
+        runSequence('build-bundlejs', 'build-index').on('change', reload);
+    });
     gulp.watch(srcPath.html, ['build-html']).on('change', reload);
     gulp.watch(srcPath.index, ['build-index']).on('change', reload);
 });
@@ -74,14 +88,24 @@ gulp.task('build-css', function () {
     return stream;
 });
 
-gulp.task('build-img', function () {
-    console.log("isProduct=", isProduct);
-    var stream = gulp.src(srcPath.img)
-        .pipe(gulp.dest(path.join(config.dest, "img")));
+//----build css
+gulp.task('build-bundlecss', ['build-css'], function () {
+    var stream = gulp.src(srcPath.css)
+        .pipe(cssmin().on('error', util.log))
+        .pipe(concat('app.bundle.css').on('error', util.log))
+        .pipe(gulp.dest(path.join(config.dest, "css")))
+        .pipe(reload({ stream: true })); //通过流的方式通知浏览器变更
     return stream;
 });
 
-gulp.task('build-js', function () {
+//---copy configjs 
+gulp.task('copy-configjs', function () {
+    var stream = gulp.src(srcPath.configjs)
+        .pipe(gulp.dest(path.join(config.dest, "js")));
+    return stream;
+});
+
+gulp.task('build-js', ['copy-configjs'], function () {
     console.log("isProduct=", isProduct);
     var stream = gulp.src(srcPath.js)
         .pipe(ngFilesort())
@@ -93,12 +117,21 @@ gulp.task('build-js', function () {
 
 //----所有js链接成一个js
 gulp.task('build-bundlejs', ['build-js'], function () {
-    var stream = gulp.src(srcPath.js)
-    .pipe(ngFilesort())
-    .pipe(sourcemaps.init())
-    .pipe(concat('app.bundle.js').on('error', util.log))
-     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(path.join(config.dest, "js")));
+    var stream = streamqueue({ objectMode: true },
+            gulp.src(config.vendor.js),
+            gulp.src(srcPath.js).pipe(ngFilesort())
+        )
+        .pipe(sourcemaps.init())
+        .pipe(concat('app.bundle.js').on('error', util.log))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(path.join(config.dest, "js")));
+    return stream;
+});
+
+gulp.task('build-img', function () {
+    console.log("isProduct=", isProduct);
+    var stream = gulp.src(srcPath.img)
+        .pipe(gulp.dest(path.join(config.dest, "img")));
     return stream;
 });
 
@@ -109,31 +142,40 @@ gulp.task('build-html', function () {
     return stream;
 });
 
-/*gulp.task('build-index', function () {
-    var stream = gulp.src(srcPath.indexHtml)
-    .pipe(gulp.dest(config.dest));
-    return stream;
-});*/
-
+//----css & js 注入index.html
 gulp.task('build-index', ['build-bundlejs'], function () {
-    console.log("isProduct=", isProduct);
-    var sources = "";
+    var jsStream = "";
+    var cssStream = "";
     if (isProduct) {
         //生产环境
-        sources = gulp.src(config.dest + "/js/app.bundle.js");
+        jsStream = gulp.src(config.dest + "/js/app.bundle.js");
+        cssStream = gulp.src(config.dest + "/css/app.bundle.css");
     } else {
         //开发环境
-        sources = gulp.src([config.dest + "/js/**/*.js", "!" + config.dest + "/js/app.bundle.js"]).pipe(ngFilesort());
+        jsStream = streamqueue({ objectMode: true },
+            gulp.src(config.vendor.js),
+            gulp.src([config.dest + "/js/**/*.js", "!" + config.dest + "/js/**/config.js", "!" + config.dest + "/js/app.bundle.js"]).pipe(ngFilesort())
+        );
+
+        cssStream = streamqueue({ objectMode: true },
+            gulp.src([config.dest + "/css/**/*.css", "!" + config.dest + "/css/app.bundle.css"])
+        );
     }
     var stream = gulp.src(config.src + "/index.html")
-        .pipe(inject(sources, {
+        .pipe(inject(cssStream, {
             ignorePath: 'dist/www',
             addRootSlash: false,
-            starttag: '<!-- inject:app:js -->'
+            starttag: '<!-- inject:css -->'
+        }))
+        .pipe(inject(jsStream, {
+            ignorePath: 'dist/www',
+            addRootSlash: false,
+            starttag: '<!-- inject:js -->'
         }))
         .pipe(gulp.dest(config.dest));
     return stream;
 });
+
 
 gulp.task('toggleToDev', function () {
     isProduct = false;
@@ -146,7 +188,7 @@ gulp.task('toggleToProduct', function () {
 });
 
 gulp.task('build', function () {
-    runSequence('build-css', 'build-img', 'build-bundlejs', 'build-html', 'build-index');
+    runSequence('build-img', 'build-bundlecss', 'build-bundlejs', 'build-html', 'build-index');
 });
 
 //----开发环境
