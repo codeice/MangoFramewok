@@ -33,7 +33,7 @@ var config = {
     vendor: {
         js: ['./dist/www/lib/ionic/js/ionic.bundle.js'],
         css: ["./dist/www/lib/ionic/css/ionic.css"],
-        fonts: []
+        fonts: ["./dist/www/lib/ionic/fonts/*"]
     }
 };
 //----原文件路径
@@ -79,7 +79,15 @@ function watch_source(folder) {
 }
 
 //----build css
-gulp.task('build-css', function () {
+gulp.task('copy-fonts', function () {
+    console.log("isProduct=", isProduct);
+    var stream = gulp.src(config.vendor.fonts)
+        .pipe(gulp.dest(config.dest + "/fonts"));
+    return stream;
+});
+
+//----build css
+gulp.task('build-css', ['copy-fonts'], function () {
     console.log("isProduct=", isProduct);
     var stream = gulp.src(srcPath.css)
         .pipe(gulpif(isProduct, cssmin().on('error', util.log)))
@@ -90,7 +98,11 @@ gulp.task('build-css', function () {
 
 //----build css
 gulp.task('build-bundlecss', ['build-css'], function () {
-    var stream = gulp.src(srcPath.css)
+
+    var stream = streamqueue({ objectMode: true },
+            gulp.src(config.vendor.css),
+            gulp.src(srcPath.css)
+        )
         .pipe(cssmin().on('error', util.log))
         .pipe(concat('app.bundle.css').on('error', util.log))
         .pipe(gulp.dest(path.join(config.dest, "css")))
@@ -158,6 +170,7 @@ gulp.task('build-index', ['build-bundlejs'], function () {
         );
 
         cssStream = streamqueue({ objectMode: true },
+            gulp.src(config.vendor.css),
             gulp.src([config.dest + "/css/**/*.css", "!" + config.dest + "/css/app.bundle.css"])
         );
     }
