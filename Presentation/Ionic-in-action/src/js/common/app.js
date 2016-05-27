@@ -19,7 +19,6 @@ var app = angular.module('starter', [
     //-----component module
     'user.service',
     'user.ctrl'
-
 ]);
 
 setTimeout(function asyncBootstrap() {

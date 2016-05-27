@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,6 +8,7 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
     <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
     <!-- inject:css -->
+    <link rel="stylesheet" href="css/app.bundle.css">
     <!-- endinject -->
 </head>
 <body>
@@ -60,6 +61,14 @@
     <div ui-yield-to="modals"></div>
 
     <!-- inject:js -->
+    <script src="libs/angular.min.js"></script>
+    <script src="libs/angular-route.min.js"></script>
+    <script src="libs/mobile-angular-ui.min.js"></script>
+    <script src="libs/mobile-angular-ui.gestures.min.js"></script>
+    <script src="app/demo/userService.js"></script>
+    <script src="app/demo/userCtrl.js"></script>
+    <script src="app/base/services.js"></script>
+    <script src="app/app.js"></script>
     <!-- endinject -->
 </body>
 </html>

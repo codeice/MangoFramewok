@@ -1,4 +1,4 @@
-function demoServiceProxy(service) {
+﻿function demoServiceProxy(service) {
 
     //服务调用示例
     this.getAll = function () {

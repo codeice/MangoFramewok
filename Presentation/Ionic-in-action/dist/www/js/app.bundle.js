@@ -67496,7 +67496,6 @@ angular.module('user.service', []).factory('demoService', ['service', function (
 (function () {
     'use strict';
     var userModule = angular.module('user.ctrl', []);
-
     //----用户列表
     userModule.controller('userCtrl', ['$scope', 'demoService', '$ionicModal', function ($scope, demoService, $ionicModal) {
         //----http service demo
@@ -67741,7 +67740,6 @@ var app = angular.module('starter', [
     //-----component module
     'user.service',
     'user.ctrl'
-
 ]);
 
 setTimeout(function asyncBootstrap() {
