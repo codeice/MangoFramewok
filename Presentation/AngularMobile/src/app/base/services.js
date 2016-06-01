@@ -27,20 +27,20 @@ serviceModule.service('scopeService', function () {
 });
 
 //-----UI工具服务
-serviceModule.service('uiKit', ['$rootScope', '$q', '$ionicLoading', function ($rootScope, $q, $ionicLoading) {
+serviceModule.service('uiKit', ['$rootScope', '$q', function ($rootScope, $q) {
     var blockCount = 0;
     var service = {
         blockUI: function () {
             blockCount++;
-            $ionicLoading.show({
+/*            $ionicLoading.show({
                 template: '加载中',
                 noBackdrop: false
-            });
+            });*/
         },
         unblockUI: function () {
             blockCount--;
             if (blockCount <= 0) {
-                $ionicLoading.hide();
+          /*      $ionicLoading.hide();*/
             }
         },
     };

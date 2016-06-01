@@ -16,4 +16,4 @@
           }
       );*/
 
-var dirModule = angular.module('starter.directives', []);
+var dirModule = angular.module('app.directives', []);

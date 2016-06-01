@@ -32,7 +32,69 @@ function demoServiceProxy(service) {
         face: 'img/perry.png'
     }, {
         id: 4,
-        name: 'Mike Harrington',
+        name: 'Mike',
+        email: 'Harrington@126.com',
+        lastText: 'This is wicked good ice cream.',
+        face: 'img/mike.png'
+    }
+    , {
+        id: 5,
+        name: 'tina',
+        email: 'Harrington@126.com',
+        lastText: 'This is wicked good ice cream.',
+        face: 'img/mike.png'
+    }
+    , {
+        id: 6,
+        name: 'herry',
+        email: 'Harrington@126.com',
+        lastText: 'This is wicked good ice cream.',
+        face: 'img/mike.png'
+    }
+    , {
+        id: 7,
+        name: 'Mike ',
+        email: 'Harrington@126.com',
+        lastText: 'This is wicked good ice cream.',
+        face: 'img/mike.png'
+    }
+    , {
+        id: 8,
+        name: ' Harrington',
+        email: 'Harrington@126.com',
+        lastText: 'This is wicked good ice cream.',
+        face: 'img/mike.png'
+    }
+    , {
+        id: 9,
+        name: 'jack',
+        email: 'Harrington@126.com',
+        lastText: 'This is wicked good ice cream.',
+        face: 'img/mike.png'
+    }, {
+        id: 10,
+        name: 'eva',
+        email: 'Harrington@126.com',
+        lastText: 'This is wicked good ice cream.',
+        face: 'img/mike.png'
+    }
+    , {
+        id: 10,
+        name: 'judy',
+        email: 'Harrington@126.com',
+        lastText: 'This is wicked good ice cream.',
+        face: 'img/mike.png'
+    },
+    {
+        id: 11,
+        name: 'bottle',
+        email: 'Harrington@126.com',
+        lastText: 'This is wicked good ice cream.',
+        face: 'img/mike.png'
+    }
+    , {
+        id: 12,
+        name: 'bill',
         email: 'Harrington@126.com',
         lastText: 'This is wicked good ice cream.',
         face: 'img/mike.png'

@@ -1,0 +1,59 @@
+@charset "utf-8";
+.app {
+  background: #fff;
+}
+.app-content-loading {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  position: relative;
+}
+.loading-spinner {
+  position: absolute;
+  font-size: 50px;
+  color: #4daa7d;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+}
+.navbar-app {
+  min-height: 50px;
+  color: #fff;
+  background: #4daa7d;
+  border: none;
+  border-color: #4daa7d;
+}
+.navbar-app .btn-navbar,
+.navbar-app .btn {
+  padding: 10px 0;
+  color: #7F7F7F;
+}
+.navbar-app .btn-navbar:hover,
+.navbar-app .btn:hover,
+.navbar-app .btn-navbar.active,
+.navbar-app .btn.active {
+  color: #4daa7d;
+}
+.navbar-app .btn-navbar p,
+.navbar-app .btn p {
+  line-height: 0;
+}
+.navbar-app > .navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-size: 18px;
+}
+.navbar-absolute-bottom {
+  min-height: 60px;
+  color: #007aff;
+  background: #f7f7f7;
+  border-color: #4daa7d;
+}
+.has-navbar-top .app-body {
+  padding-top: 51px;
+}
+.has-navbar-bottom .app-body {
+  padding-bottom: 81px;
+}

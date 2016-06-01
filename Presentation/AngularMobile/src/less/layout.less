@@ -1,0 +1,66 @@
+﻿@import "app-variables.less";
+//*************************app layout style start ***************************//
+.app {
+    background: @app-bg;
+}
+
+.app-content-loading {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    position: relative;
+}
+
+.loading-spinner {
+    position: absolute;
+    font-size: 50px;
+    color: @theme-color;
+    left: 50%;
+    top: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+}
+
+//*************navbar brand***************//
+.navbar-app {
+    min-height: @navbar-app-height;
+    color: @navbar-default-color;
+    background: @navbar-default-bg;
+    border: none;
+    border-color: @navbar-default-border;
+
+    .btn-navbar, .btn {
+        padding: @navbar-padding 0;
+        color: @navbar-default-link-color;
+
+        &:hover, &.active {
+            color: @navbar-default-link-hover-color;
+        }
+
+        p {
+            line-height: 0;
+        }
+    }
+}
+
+.navbar-app > .navbar-brand {
+    font-weight: @base-font-weight;
+    letter-spacing: @base-letter-spacing;
+    font-size: @brand-font-size;
+}
+
+.navbar-absolute-bottom {
+    min-height: @navbar-app-bottom-height;
+    color: @navbar-app-bottom-color;
+    background: @navbar-app-bottom-bg;
+    border-color: @navbar-app-bottom-border;
+}
+
+.has-navbar-top .app-body {
+    padding-top: @navbar-app-height+1;
+}
+
+.has-navbar-bottom .app-body {
+    padding-bottom: @navbar-app-bottom-height + @navbar-padding*2+ 1;
+}

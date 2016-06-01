@@ -7,6 +7,7 @@ define(['../modules/dirModule', 'umeditor'], function (module) {
             restrict: 'A',
             require: 'ngModel',
             link: function (scope, element, attrs, ngModel) {
+
                 //初始化umeditor容器id
                 var id = 'angular-' + Math.floor((Math.random() * 999999999) + 1);
                 if (attrs.id) {
@@ -41,13 +42,21 @@ define(['../modules/dirModule', 'umeditor'], function (module) {
                             }
                             editor.addListener('contentChange', function () {
                                 /* 调用  ctrl.$setViewValue 才能改变 ngmodel 的值， 其他表单相关的也跟随着改变，如：验证 form.$invalid .etc*/
-                                scopeService.safeApply(scope, function () {
-                                    var html = editor.getContent();
-                                    ngModel.$setViewValue(html);
-                                });
+                                ueObj.setModelValue();
                             });
+                            editor.addListener('afterSelectionChange', function () {
+                                ueObj.setModelValue();
+                            })
 
                         });//end um ready
+                    },
+                    //设置model value
+                    setModelValue: function () {
+                        /* 调用  ctrl.$setViewValue 才能改变 ngmodel 的值， 其他表单相关的也跟随着改变，如：验证 form.$invalid .etc*/
+                        scopeService.safeApply(scope, function () {
+                            var html = editor.getContent();
+                            ngModel.$setViewValue(html);
+                        });
                     },
                     //----设置editor内容
                     setContent: function (content) {

@@ -1,32 +1,39 @@
-console.log("hello angular mobile");
-var app = angular.module('app', [
+var app = angular.module('mobileApp', [
     'ngRoute',
     'mobile-angular-ui',
-     'mobile-angular-ui.gestures',
-
+    'mobile-angular-ui.gestures',
+    //common module 
+    'app',
     //-----component module
-    'user.service',
-    'user.ctrl'
+    'user'
 ]);
 
 app.run(function ($transform) {
     window.$transform = $transform;
 });
 
-
 setTimeout(function asyncBootstrap() {
-    angular.bootstrap(document, ["app"]);
+    if (window.angular.bootstrap) {
+        angular.element(document.querySelector('.splash-screen')).addClass('flipOutY');
+    }
     //---启动成功移除启动画面
-    // angular.element(document.querySelector('.splash-screen')).addClass('flipOutY');
-}, 2000);
+
+}, 0);
 
 //----路由配置
 app.config(function ($routeProvider) {
     $routeProvider
-        .when('/',
+        .when('/users',
         {
             templateUrl: 'app/demo/user-list.html',
             controller: 'userCtrl',
             reloadOnSearch: false
+        }).when('/users/:id', {
+            templateUrl: 'app/demo/user-detail.html',
+            controller: 'userDetailCtrl',
+            reloadOnSearch: false
+        }).otherwise(
+        {
+            redirectTo: 'users'
         });
 });

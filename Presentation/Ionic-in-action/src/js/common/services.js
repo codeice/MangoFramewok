@@ -6,7 +6,7 @@
  */
 //scopeService
 service_v = '1.0.0';
-var serviceModule = angular.module('starter.services', []);
+var serviceModule = angular.module('app.services', []);
 
 serviceModule.service('scopeService', function () {
     return {

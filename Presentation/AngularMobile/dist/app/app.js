@@ -1,32 +1,39 @@
-console.log("hello angular mobile");
-var app = angular.module('app', [
+var app = angular.module('mobileApp', [
     'ngRoute',
     'mobile-angular-ui',
-     'mobile-angular-ui.gestures',
-
+    'mobile-angular-ui.gestures',
+    //common module 
+    'app',
     //-----component module
-    'user.service',
-    'user.ctrl'
+    'user'
 ]);
 
 app.run(["$transform", function ($transform) {
     window.$transform = $transform;
 }]);
 
-
 setTimeout(function asyncBootstrap() {
-    angular.bootstrap(document, ["app"]);
+    if (window.angular.bootstrap) {
+        angular.element(document.querySelector('.splash-screen')).addClass('flipOutY');
+    }
     //---�𶯳ɹ��Ƴ��𶯻���
-    // angular.element(document.querySelector('.splash-screen')).addClass('flipOutY');
-}, 2000);
+
+}, 0);
 
 //----·������
 app.config(["$routeProvider", function ($routeProvider) {
     $routeProvider
-        .when('/',
+        .when('/users',
         {
             templateUrl: 'app/demo/user-list.html',
             controller: 'userCtrl',
             reloadOnSearch: false
+        }).when('/users/:id', {
+            templateUrl: 'app/demo/user-detail.html',
+            controller: 'userDetailCtrl',
+            reloadOnSearch: false
+        }).otherwise(
+        {
+            redirectTo: 'users'
         });
 }]);

@@ -1,7 +1,4 @@
-﻿/// <reference path="bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js" />
-/// <reference path="bower_components/angular-route/angular-route.min.js" />
-/// <reference path="bower_components/angular-route/angular-route.min.js" />
-var gulp = require('gulp');
+﻿var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 var watch = require('gulp-watch');
@@ -38,7 +35,7 @@ var config = {
     src: './src',
     less: {
         src: [
-            './src/less/app.less'
+             './src/less/**/*.less'
         ],
         paths: [
             './src/less', './bower_components'
@@ -52,15 +49,15 @@ var config = {
         indexHtml: ['./src/index.html']
     },
     libs: [
-        './dist/libs/angular.min.js',
-        './dist/libs/angular-route.min.js',
+        './dist/libs/angular.js',
+        './dist/libs/angular-route.js',
         './dist/libs/mobile-angular-ui.min.js',
         './dist/libs/mobile-angular-ui.gestures.min.js'
     ],
     vendor: {
         js: [
-            './bower_components/angular/angular.min.js',
-            './bower_components/angular-route/angular-route.min.js',
+            './bower_components/angular/angular.js',
+            './bower_components/angular-route/angular-route.js',
             /*     './bower_components/angular-ui-router/release/angular-ui-router.min.js',*/
             './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js',
             './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js'
@@ -111,7 +108,7 @@ gulp.task('watch', function () {
 
     //watch component's html 
     watch(config.sourcePath.html, { events: ['add', 'change'] }, function () {
-        gulp.run('build-html').on('change', reload);
+        gulp.run('build-html');
     });
 
     //watch less
@@ -120,7 +117,7 @@ gulp.task('watch', function () {
     });
     //watch app js
     watch(config.sourcePath.js, { events: ['add', 'change'] }, function () {
-        runSequence('build-bundlejs', 'build-index').on('change', reload);
+        runSequence('build-bundlejs', 'build-index');
     });
 
     //watch index.html
@@ -156,7 +153,8 @@ gulp.task('build-img', function () {
 
 gulp.task('build-html', function () {
     var stream = gulp.src(config.sourcePath.html)
-        .pipe(gulp.dest(path.join(config.dest, "app")));
+        .pipe(gulp.dest(path.join(config.dest, "app")))
+        .pipe(reload({ stream: true })); //通过流的方式通知浏览器变更
     return stream;
 });
 
@@ -165,7 +163,7 @@ gulp.task('build-html', function () {
 ======================================================================*/
 
 //----build css
-gulp.task('build-less', ['copy-fonts'], function () {
+gulp.task('build-less', function () {
     var stream = gulp.src(config.less.src)
         .pipe(less({
             paths: config.less.paths.map(function (p) {
@@ -192,7 +190,8 @@ gulp.task('build-js', ['copy-configjs'], function () {
         .pipe(ngFilesort())
         .pipe(ngAnnotate())
         .pipe(gulpif(isProduct, uglify().on('error', util.log)))
-        .pipe(gulp.dest(path.join(config.dest, "app")));
+        .pipe(gulp.dest(path.join(config.dest, "app")))
+        .pipe(reload({ stream: true }));
     return stream;
 });
 
@@ -262,7 +261,7 @@ gulp.task('toggleToProduct', function () {
 
 //---所有任务
 gulp.task('build', function () {
-    runSequence('build-img', 'build-html', 'build-less', 'build-bundlejs', 'build-index');
+    runSequence('build-img', 'copy-fonts', 'build-html', 'build-less', 'build-bundlejs', 'build-index');
     gulp.run('watch');
 });
 

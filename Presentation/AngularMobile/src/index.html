@@ -10,55 +10,59 @@
     <!-- inject:css -->
     <!-- endinject -->
 </head>
-<body>
-    <!--$1$ Sidebars #1#
-        <div ng-include="'sidebar.html'" ui-track-as-search-param='true' class="sidebar sidebar-left"></div>
-        <div ng-include="'sidebarRight.html'" class="sidebar sidebar-right"></div>
+<body ng-app="mobileApp" ng-controller="mainCtrl" ui-prevent-touchmove-defaults>
+    <!--splashScreen portion-->
+    <div class="splash-screen">
+        <div class="screen-container">
+            <div class="messaging">
+                <h1>
+                    加载中....
+                </h1>
+            </div>
+        </div>
+    </div>
 
-        <div class="app" ui-swipe-right='Ui.turnOn("uiSidebarLeft")' ui-swipe-left='Ui.turnOff("uiSidebarLeft")'>-->
+    <!--app start-->
     <div class="app">
         <!-- Navbars -->
-        <div class="navbar navbar-app navbar-absolute-top">
-            <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
+        <div class="navbar navbar-app  navbar-absolute-top">
+            <div class="navbar-brand  navbar-brand-center" ui-yield-to="title">
                 Appss
             </div>
-            <!--            <div class="btn-group pull-left">
-                            <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle">
-                                <i class="fa fa-bars"></i> Menu
-                            </div>
-                        </div>
-                        <div class="btn-group pull-right" ui-yield-to="navbarAction">
-                            <div ui-toggle="uiSidebarRight" class="btn">
-                                <i class="fa fa-comment"></i> Chat
-                            </div>
-                        </div>-->
         </div>
 
         <div class="navbar navbar-app navbar-absolute-bottom">
             <div class="btn-group justified">
-                <a ui-sref="demo" class="btn btn-navbar">
-                    <i class="fa fa-home fa-navbar"></i> Demo
+                <a ng-href="#/users" class="btn btn-navbar">
+                    <i class="fa fa-home "></i>
+                    <p>Demo</p>
                 </a>
-                <!--  <a href="https://github.com/mcasimir/mobile-angular-ui" class="btn btn-navbar">
-                      <i class="fa fa-github fa-navbar"></i> Sources
-                  </a>
-                  <a href="https://github.com/mcasimir/mobile-angular-ui/issues" class="btn btn-navbar">
-                      <i class="fa fa-exclamation-circle fa-navbar"></i> Issues
-                  </a>-->
+                <a ng-href="#/users/1" class="btn btn-navbar">
+                    <i class="fa fa-home "></i>
+                    <p>测试1</p>
+                </a>
+                <a ng-href="#" class="btn btn-navbar">
+                    <i class="fa fa-home "></i>
+                    <p>测试2</p>
+                </a>
             </div>
         </div>
 
         <!-- App body -->
-        <div class='app-body'>
+        <div class='app-body' ng-class="{loading: loading}">
+            <div ng-show="loading" class="app-content-loading">
+                <i class="fa fa-spinner fa-spin loading-spinner"></i>
+            </div>
             <div class='app-content'>
                 <ng-view></ng-view>
             </div>
         </div>
     </div>
-    <!-- ~ .app -->
+    <!-- app end-->
     <!-- Modals and Overlays -->
     <div ui-yield-to="modals"></div>
 
+    <script src="app/config.js"></script>
     <!-- inject:js -->
     <!-- endinject -->
 </body>
