@@ -1,4 +1,4 @@
-var app = angular.module('mobileApp', [
+锘縱ar app = angular.module('mobileApp', [
     'ngRoute',
     'mobile-angular-ui',
     'mobile-angular-ui.gestures',
@@ -16,23 +16,13 @@ setTimeout(function asyncBootstrap() {
     if (window.angular.bootstrap) {
         angular.element(document.querySelector('.splash-screen')).addClass('flipOutY');
     }
-    //---启动成功移除启动画面
+    //---鍚姩鎴愬姛绉婚櫎鍚姩鐢婚潰
 
 }, 0);
 
-//----路由配置
+//----璺敱閰嶇疆
 app.config(function ($routeProvider) {
-    $routeProvider
-        .when('/users',
-        {
-            templateUrl: 'app/demo/user-list.html',
-            controller: 'userCtrl',
-            reloadOnSearch: false
-        }).when('/users/:id', {
-            templateUrl: 'app/demo/user-detail.html',
-            controller: 'userDetailCtrl',
-            reloadOnSearch: false
-        }).otherwise(
+    $routeProvider.otherwise(
         {
             redirectTo: 'users'
         });

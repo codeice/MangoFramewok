@@ -16,23 +16,13 @@ setTimeout(function asyncBootstrap() {
     if (window.angular.bootstrap) {
         angular.element(document.querySelector('.splash-screen')).addClass('flipOutY');
     }
-    //---�𶯳ɹ��Ƴ��𶯻���
+    //---启动成功移除启动画面
 
 }, 0);
 
-//----·������
+//----路由配置
 app.config(["$routeProvider", function ($routeProvider) {
-    $routeProvider
-        .when('/users',
-        {
-            templateUrl: 'app/demo/user-list.html',
-            controller: 'userCtrl',
-            reloadOnSearch: false
-        }).when('/users/:id', {
-            templateUrl: 'app/demo/user-detail.html',
-            controller: 'userDetailCtrl',
-            reloadOnSearch: false
-        }).otherwise(
+    $routeProvider.otherwise(
         {
             redirectTo: 'users'
         });

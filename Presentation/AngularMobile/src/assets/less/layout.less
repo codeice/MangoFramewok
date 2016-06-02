@@ -1,5 +1,7 @@
 ﻿@import "app-variables.less";
-//*************************app layout style start ***************************//
+@import "icon-sprite.less";
+
+//************************* layout style start ***************************//
 .app {
     background: @app-bg;
 }
@@ -40,6 +42,22 @@
 
         p {
             line-height: 0;
+        }
+
+        .nav-icon {
+            font-size: 32px;
+        }
+
+        .icon-home {
+            .sprite-ritina(@home);
+        }
+
+        &:hover, &.active {
+            color: @navbar-default-link-hover-color;
+
+            .icon-home {
+                .sprite-ritina(@home-active);
+            }
         }
     }
 }

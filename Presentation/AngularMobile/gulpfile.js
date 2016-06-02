@@ -11,6 +11,9 @@ var sourcemaps = require('gulp-sourcemaps');
 var less = require('gulp-less');
 var cssmin = require('gulp-cssmin');
 var spritesmith = require('gulp.spritesmith');
+var imagemin = require('gulp-imagemin');
+var buffer = require('vinyl-buffer');
+var merge = require('merge-stream');
 var gulpif = require('gulp-if');
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
@@ -35,14 +38,15 @@ var config = {
     src: './src',
     less: {
         src: [
-             './src/less/**/*.less'
+             './src/assets/less/**/*.less'
         ],
         paths: [
-            './src/less', './bower_components'
+            './src/assets/less', './bower_components'
         ]
     },
     sourcePath: {
-        img: ['./src/images/*'],
+        icon: ['./src/assets/icons/*'],
+        img: ['./src/assets/images/*'],
         configjs: './src/app/**/config.js',
         js: ['./src/app/**/*.js', '!../src/app/**/config.js'],
         html: ['./src/app/**/*.html'],
@@ -58,7 +62,6 @@ var config = {
         js: [
             './bower_components/angular/angular.js',
             './bower_components/angular-route/angular-route.js',
-            /*     './bower_components/angular-ui-router/release/angular-ui-router.min.js',*/
             './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js',
             './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js'
         ],
@@ -161,6 +164,28 @@ gulp.task('build-html', function () {
 /*======================================================================
 =            Compile, minify, mobilize less                         =
 ======================================================================*/
+
+//----build sprite
+gulp.task('build-sprite', function () {
+    var spriteData = gulp.src(config.sourcePath.icon)
+        .pipe(spritesmith({
+            imgPath: '../images/icon-sprite.png',
+            imgName: 'icon-sprite.png',
+            padding: 4,
+            cssName: 'icon-sprite.less'
+        }));
+
+    // Pipe image stream through image optimizer and onto disk
+    var imgStream = spriteData.img
+        .pipe(buffer())
+        .pipe(imagemin().on('error', util.log))
+        .pipe(gulp.dest("./src/assets/images"));
+
+    var cssStream = spriteData.css
+        .pipe(gulp.dest('./src/assets/less'));
+
+    return merge(imgStream, cssStream);
+});
 
 //----build css
 gulp.task('build-less', function () {
