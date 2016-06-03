@@ -27,27 +27,26 @@ serviceModule.service('scopeService', function () {
 });
 
 //-----UI工具服务
-serviceModule.service('uiKit', ['$rootScope', '$q', function ($rootScope, $q) {
+serviceModule.service('uiKit', ['$rootScope', '$q', 'scopeService', function ($rootScope, $q, scopeService) {
     var blockCount = 0;
     var service = {
         blockUI: function () {
             blockCount++;
-/*            $ionicLoading.show({
-                template: '加载中',
-                noBackdrop: false
-            });*/
+            $rootScope.loading = true;
         },
         unblockUI: function () {
             blockCount--;
             if (blockCount <= 0) {
-          /*      $ionicLoading.hide();*/
+                $rootScope.$apply(function () {
+                    $rootScope.loading = false;
+                });
             }
         },
     };
     return service;
 }]);
 
-serviceModule.factory('httpProxy', ['$http', function ($http) {
+serviceModule.factory('httpProxy', ['$http', 'appConfig', function ($http, appConfig) {
     var service = {
         call: function (route, param, methodType, userToken) {
             var result = [];

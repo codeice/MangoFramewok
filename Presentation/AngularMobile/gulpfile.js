@@ -47,8 +47,8 @@ var config = {
     sourcePath: {
         icon: ['./src/assets/icons/*'],
         img: ['./src/assets/images/*'],
-        configjs: './src/app/**/config.js',
-        js: ['./src/app/**/*.js', '!../src/app/**/config.js'],
+        configjs: './src/app/**/constants.js',
+        js: ['./src/app/**/*.js'],
         html: ['./src/app/**/*.html'],
         indexHtml: ['./src/index.html']
     },
@@ -100,6 +100,7 @@ gulp.task('serve', function () {
             baseDir: config.dest,
         }
     });
+    gulp.run('watch');
 });
 
 //----文件监视
@@ -202,15 +203,9 @@ gulp.task('build-less', function () {
     return stream;
 });
 
-//---copy configjs 
-gulp.task('copy-configjs', function () {
-    var stream = gulp.src(path.join(config.src, "app/config.js"))
-        .pipe(gulp.dest(path.join(config.dest, "app")));
-    return stream;
-});
 
 //----build app js
-gulp.task('build-js', ['copy-configjs'], function () {
+gulp.task('build-js', function () {
     var stream = gulp.src(config.sourcePath.js)
         .pipe(ngFilesort())
         .pipe(ngAnnotate())
@@ -287,7 +282,6 @@ gulp.task('toggleToProduct', function () {
 //---所有任务
 gulp.task('build', function () {
     runSequence('build-img', 'copy-fonts', 'build-html', 'build-less', 'build-bundlejs', 'build-index');
-    gulp.run('watch');
 });
 
 //----开发环境

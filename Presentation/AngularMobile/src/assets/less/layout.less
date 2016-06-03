@@ -1,5 +1,6 @@
 ﻿@import "app-variables.less";
 @import "icon-sprite.less";
+@import "icons.less";
 
 //************************* layout style start ***************************//
 .app {
@@ -23,7 +24,6 @@
     margin-left: -25px;
     margin-top: -25px;
 }
-
 //*************navbar brand***************//
 .navbar-app {
     min-height: @navbar-app-height;
@@ -38,6 +38,18 @@
 
         &:hover, &.active {
             color: @navbar-default-link-hover-color;
+
+            .icon-home {
+                .sprite-ritina(@home-active);
+            }
+
+            .icon-user {
+                .sprite-ritina(@user-active);
+            }
+
+            .icon-mark {
+                .sprite-ritina(@mark-active);
+            }
         }
 
         p {
@@ -52,12 +64,12 @@
             .sprite-ritina(@home);
         }
 
-        &:hover, &.active {
-            color: @navbar-default-link-hover-color;
+        .icon-user {
+            .sprite-ritina(@user);
+        }
 
-            .icon-home {
-                .sprite-ritina(@home-active);
-            }
+        .icon-mark {
+            .sprite-ritina(@mark);
         }
     }
 }

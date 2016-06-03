@@ -8,16 +8,21 @@ var app = angular.module('mobileApp', [
     'user'
 ]);
 
+//----系统常量配置
+app.constant('appConfig', {
+    apiServer: 'http://localhost/CE.WebApi/',
+    apiBatchServer: this.apiServer + '/batch/'
+});
+
 app.run(["$transform", function ($transform) {
     window.$transform = $transform;
 }]);
 
 setTimeout(function asyncBootstrap() {
+    //---启动成功移除启动画面
     if (window.angular.bootstrap) {
         angular.element(document.querySelector('.splash-screen')).addClass('flipOutY');
     }
-    //---启动成功移除启动画面
-
 }, 0);
 
 //----路由配置

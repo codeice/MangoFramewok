@@ -83,6 +83,36 @@ This must be run when you have at least 2 sprites.
 .navbar-app .btn.active {
   color: #4daa7d;
 }
+.navbar-app .btn-navbar:hover .icon-home,
+.navbar-app .btn:hover .icon-home,
+.navbar-app .btn-navbar.active .icon-home,
+.navbar-app .btn.active .icon-home {
+  background-image: url(../images/icon-sprite.png);
+  background-size: 118px auto;
+  background-position: 0px 0px;
+  width: 38px;
+  height: 38px;
+}
+.navbar-app .btn-navbar:hover .icon-user,
+.navbar-app .btn:hover .icon-user,
+.navbar-app .btn-navbar.active .icon-user,
+.navbar-app .btn.active .icon-user {
+  background-image: url(../images/icon-sprite.png);
+  background-size: 118px auto;
+  background-position: -80px 0px;
+  width: 38px;
+  height: 38px;
+}
+.navbar-app .btn-navbar:hover .icon-mark,
+.navbar-app .btn:hover .icon-mark,
+.navbar-app .btn-navbar.active .icon-mark,
+.navbar-app .btn.active .icon-mark {
+  background-image: url(../images/icon-sprite.png);
+  background-size: 118px auto;
+  background-position: 0px -40px;
+  width: 38px;
+  height: 38px;
+}
 .navbar-app .btn-navbar p,
 .navbar-app .btn p {
   line-height: 0;
@@ -94,26 +124,26 @@ This must be run when you have at least 2 sprites.
 .navbar-app .btn-navbar .icon-home,
 .navbar-app .btn .icon-home {
   background-image: url(../images/icon-sprite.png);
-  background-size: 119.5px auto;
-  background-position: 0px 0px;
-  width: 38.5px;
-  height: 38.5px;
+  background-size: 118px auto;
+  background-position: -40px 0px;
+  width: 38px;
+  height: 38px;
 }
-.navbar-app .btn-navbar:hover,
-.navbar-app .btn:hover,
-.navbar-app .btn-navbar.active,
-.navbar-app .btn.active {
-  color: #4daa7d;
-}
-.navbar-app .btn-navbar:hover .icon-home,
-.navbar-app .btn:hover .icon-home,
-.navbar-app .btn-navbar.active .icon-home,
-.navbar-app .btn.active .icon-home {
+.navbar-app .btn-navbar .icon-user,
+.navbar-app .btn .icon-user {
   background-image: url(../images/icon-sprite.png);
-  background-size: 119.5px auto;
-  background-position: -40.5px 0px;
-  width: 38.5px;
-  height: 38.5px;
+  background-size: 118px auto;
+  background-position: -80px -40px;
+  width: 38px;
+  height: 38px;
+}
+.navbar-app .btn-navbar .icon-mark,
+.navbar-app .btn .icon-mark {
+  background-image: url(../images/icon-sprite.png);
+  background-size: 118px auto;
+  background-position: -40px -40px;
+  width: 38px;
+  height: 38px;
 }
 .navbar-app > .navbar-brand {
   font-weight: 700;
