@@ -5271,8 +5271,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #4daa7d;
-  border-color: #4daa7d;
+  background-color: #f7f7f7;
+  border-color: #ccc;
 }
 .navbar-default .navbar-brand {
   color: #7F7F7F;
@@ -5283,21 +5283,21 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: #fff;
+  color: #007aff;
 }
 .navbar-default .navbar-nav > li > a {
   color: #7F7F7F;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #4daa7d;
+  color: #4ba9da;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #2d6449;
-  background-color: #43936c;
+  color: #21739e;
+  background-color: #e6e6e6;
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -5317,13 +5317,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #4daa7d;
+  border-color: #ccc;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  background-color: #43936c;
-  color: #2d6449;
+  background-color: #e6e6e6;
+  color: #21739e;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
@@ -5331,14 +5331,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #4daa7d;
+    color: #4ba9da;
     background-color: transparent;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #2d6449;
-    background-color: #43936c;
+    color: #21739e;
+    background-color: #e6e6e6;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -5351,14 +5351,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #7F7F7F;
 }
 .navbar-default .navbar-link:hover {
-  color: #4daa7d;
+  color: #4ba9da;
 }
 .navbar-default .btn-link {
   color: #7F7F7F;
 }
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus {
-  color: #4daa7d;
+  color: #4ba9da;
 }
 .navbar-default .btn-link[disabled]:hover,
 fieldset[disabled] .navbar-default .btn-link:hover,
@@ -7541,11 +7541,11 @@ a.list-group-item .icon.pull-right {
 }
 .navbar-app {
   min-height: 50px;
-  border-color: #4daa7d;
-  background: #4daa7d;
+  border-color: #ccc;
+  background: #f7f7f7;
   border-width: 1px;
   border-style: solid;
-  color: #fff;
+  color: #007aff;
 }
 .navbar-app .btn-icon-only .fa,
 .navbar-app .btn-icon-only .icon {
@@ -7895,6 +7895,66 @@ ui-switch {
 .dropdown-menu {
   display: block;
 }
+/*@loading-content-padding: 15px;
+@spinner-size: 30px;
+@spinner-color: #fff;
+
+.loading-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.loading-wrapper > .loading-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: @loading-content-padding;
+    margin-top: -(@spinner-size/2+@loading-content-padding);
+    margin-left: -(@spinner-size/2+@loading-content-padding);
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgba(0,0,0,.5);
+}
+
+.loading-spinner {
+    font-size: @spinner-size;
+    color: @spinner-color;
+}*/
+.widget-center-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  z-index: -100;
+  font-family: "微软雅黑";
+}
+.widget-center-wrapper .widget-content {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 13px;
+  border-radius: 10px;
+}
+.widget-center-wrapper .widget-content .loading-spinner {
+  font-size: 3em;
+  color: #fff;
+}
+.widget-center-wrapper .widget-content .msg-content {
+  color: #fff;
+  margin: 0;
+  font-size: 1em;
+}
+.widget-show {
+  opacity: 1;
+  z-index: 10;
+}
 .splash-screen {
   position: fixed;
   bottom: 0;
@@ -8014,119 +8074,154 @@ This must be run when you have at least 2 sprites.
 
 .sprites(@spritesheet-sprites);
 */
+.icon-checkbox {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  vertical-align: middle;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  text-align: center;
+  margin-right: 5px;
+}
+.icon-checkbox.active {
+  border-color: #4ba9da;
+}
+.icon-checkbox.active::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 5px;
+  border-bottom: 2px solid #4ba9da;
+  border-left: 2px solid #4ba9da;
+  margin-top: 3px;
+  margin-left: 1px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
 .app {
   background: #fff;
 }
-.app-content-loading {
-  text-align: center;
-  height: 100%;
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+i {
+  display: inline-block;
+}
+.error-block {
   width: 100%;
-  background: #fff;
-  position: relative;
+  text-align: center;
+  background: #c8c8c8;
+  color: #ee1616;
+  margin: 8px 0;
 }
-.loading-spinner {
-  position: absolute;
-  font-size: 50px;
-  color: #4daa7d;
-  left: 50%;
-  top: 50%;
-  margin-left: -25px;
-  margin-top: -25px;
+.error-block div {
+  padding: 5px 0;
 }
-.navbar-app {
+.navbar-absolute-top {
   min-height: 50px;
   color: #fff;
-  background: #4daa7d;
+  background: #4ba9da;
   border: none;
-  border-color: #4daa7d;
-}
-.navbar-app .btn-navbar,
-.navbar-app .btn {
-  padding: 10px 0;
-  color: #7F7F7F;
-}
-.navbar-app .btn-navbar:hover,
-.navbar-app .btn:hover,
-.navbar-app .btn-navbar.active,
-.navbar-app .btn.active {
-  color: #4daa7d;
-}
-.navbar-app .btn-navbar:hover .icon-home,
-.navbar-app .btn:hover .icon-home,
-.navbar-app .btn-navbar.active .icon-home,
-.navbar-app .btn.active .icon-home {
-  background-image: url(../images/icon-sprite.png);
-  background-size: 118px auto;
-  background-position: 0px 0px;
-  width: 38px;
-  height: 38px;
-}
-.navbar-app .btn-navbar:hover .icon-user,
-.navbar-app .btn:hover .icon-user,
-.navbar-app .btn-navbar.active .icon-user,
-.navbar-app .btn.active .icon-user {
-  background-image: url(../images/icon-sprite.png);
-  background-size: 118px auto;
-  background-position: -80px 0px;
-  width: 38px;
-  height: 38px;
-}
-.navbar-app .btn-navbar:hover .icon-mark,
-.navbar-app .btn:hover .icon-mark,
-.navbar-app .btn-navbar.active .icon-mark,
-.navbar-app .btn.active .icon-mark {
-  background-image: url(../images/icon-sprite.png);
-  background-size: 118px auto;
-  background-position: 0px -40px;
-  width: 38px;
-  height: 38px;
-}
-.navbar-app .btn-navbar p,
-.navbar-app .btn p {
-  line-height: 0;
-}
-.navbar-app .btn-navbar .nav-icon,
-.navbar-app .btn .nav-icon {
-  font-size: 32px;
-}
-.navbar-app .btn-navbar .icon-home,
-.navbar-app .btn .icon-home {
-  background-image: url(../images/icon-sprite.png);
-  background-size: 118px auto;
-  background-position: -40px 0px;
-  width: 38px;
-  height: 38px;
-}
-.navbar-app .btn-navbar .icon-user,
-.navbar-app .btn .icon-user {
-  background-image: url(../images/icon-sprite.png);
-  background-size: 118px auto;
-  background-position: -80px -40px;
-  width: 38px;
-  height: 38px;
-}
-.navbar-app .btn-navbar .icon-mark,
-.navbar-app .btn .icon-mark {
-  background-image: url(../images/icon-sprite.png);
-  background-size: 118px auto;
-  background-position: -40px -40px;
-  width: 38px;
-  height: 38px;
+  border-color: #4ba9da;
 }
 .navbar-app > .navbar-brand {
   font-weight: 700;
   letter-spacing: 0.02em;
   font-size: 18px;
 }
+.navbar-app .ui-back {
+  font-size: 18px;
+  color: #fff;
+}
 .navbar-absolute-bottom {
   min-height: 60px;
   color: #007aff;
   background: #f7f7f7;
-  border-color: #4daa7d;
+  border-color: #f7f7f7;
+}
+.navbar-absolute-bottom .btn-navbar,
+.navbar-absolute-bottom .btn {
+  padding: 5px 0;
+  color: #7F7F7F;
+  line-height: normal;
+}
+.navbar-absolute-bottom .btn-navbar:hover,
+.navbar-absolute-bottom .btn:hover,
+.navbar-absolute-bottom .btn-navbar.active,
+.navbar-absolute-bottom .btn.active {
+  color: #4ba9da;
+}
+.navbar-absolute-bottom .btn-navbar:hover .icon-home,
+.navbar-absolute-bottom .btn:hover .icon-home,
+.navbar-absolute-bottom .btn-navbar.active .icon-home,
+.navbar-absolute-bottom .btn.active .icon-home {
+  background-image: url(../images/icon-sprite.png);
+  background-size: 118px auto;
+  background-position: 0px 0px;
+  width: 38px;
+  height: 38px;
+}
+.navbar-absolute-bottom .btn-navbar:hover .icon-user,
+.navbar-absolute-bottom .btn:hover .icon-user,
+.navbar-absolute-bottom .btn-navbar.active .icon-user,
+.navbar-absolute-bottom .btn.active .icon-user {
+  background-image: url(../images/icon-sprite.png);
+  background-size: 118px auto;
+  background-position: -80px 0px;
+  width: 38px;
+  height: 38px;
+}
+.navbar-absolute-bottom .btn-navbar:hover .icon-mark,
+.navbar-absolute-bottom .btn:hover .icon-mark,
+.navbar-absolute-bottom .btn-navbar.active .icon-mark,
+.navbar-absolute-bottom .btn.active .icon-mark {
+  background-image: url(../images/icon-sprite.png);
+  background-size: 118px auto;
+  background-position: 0px -40px;
+  width: 38px;
+  height: 38px;
+}
+.navbar-absolute-bottom .btn-navbar p,
+.navbar-absolute-bottom .btn p {
+  line-height: 20px;
+  margin-bottom: 0px;
+}
+.navbar-absolute-bottom .btn-navbar .nav-icon,
+.navbar-absolute-bottom .btn .nav-icon {
+  font-size: 32px;
+}
+.navbar-absolute-bottom .btn-navbar .icon-home,
+.navbar-absolute-bottom .btn .icon-home {
+  background-image: url(../images/icon-sprite.png);
+  background-size: 118px auto;
+  background-position: -40px 0px;
+  width: 38px;
+  height: 38px;
+}
+.navbar-absolute-bottom .btn-navbar .icon-user,
+.navbar-absolute-bottom .btn .icon-user {
+  background-image: url(../images/icon-sprite.png);
+  background-size: 118px auto;
+  background-position: -80px -40px;
+  width: 38px;
+  height: 38px;
+}
+.navbar-absolute-bottom .btn-navbar .icon-mark,
+.navbar-absolute-bottom .btn .icon-mark {
+  background-image: url(../images/icon-sprite.png);
+  background-size: 118px auto;
+  background-position: -40px -40px;
+  width: 38px;
+  height: 38px;
 }
 .has-navbar-top .app-body {
-  padding-top: 51px;
+  padding-top: 50px;
 }
 .has-navbar-bottom .app-body {
-  padding-bottom: 81px;
+  padding-bottom: 70px;
 }

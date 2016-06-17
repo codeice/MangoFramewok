@@ -62,10 +62,10 @@ gulp.task('watch', function () {
         gulp.run('build-css');
     });
     watch(srcPath.js, { events: ['add', 'change'] }, function () {
-        runSequence('build-bundlejs', 'build-index').on('change', reload);
+        runSequence('build-bundlejs', 'build-index');
     });
-    gulp.watch(srcPath.html, ['build-html']).on('change', reload);
-    gulp.watch(srcPath.index, ['build-index']).on('change', reload);
+    gulp.watch(srcPath.html, ['build-html']);
+    gulp.watch(srcPath.index, ['build-index']);
 });
 
 //----监视文件夹变化
@@ -123,7 +123,8 @@ gulp.task('build-js', ['copy-configjs'], function () {
         .pipe(ngFilesort())
         .pipe(ngAnnotate())
         .pipe(gulpif(isProduct, uglify().on('error', util.log)))
-        .pipe(gulp.dest(path.join(config.dest, "js")));
+        .pipe(gulp.dest(path.join(config.dest, "js")))
+      .pipe(reload({ stream: true })); //通过流的方式通知浏览器变更
     return stream;
 });
 
@@ -143,7 +144,8 @@ gulp.task('build-bundlejs', ['build-js'], function () {
 gulp.task('build-img', function () {
     console.log("isProduct=", isProduct);
     var stream = gulp.src(srcPath.img)
-        .pipe(gulp.dest(path.join(config.dest, "img")));
+        .pipe(gulp.dest(path.join(config.dest, "img")))
+      .pipe(reload({ stream: true })); //通过流的方式通知浏览器变更
     return stream;
 });
 

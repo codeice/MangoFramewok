@@ -11,10 +11,10 @@ var filterModule = angular.module('starter.filters', []);
 var dirModule = angular.module('starter.directives', []);
 */
 
-var app = angular.module('starter', [
+var app = angular.module('mobileApp', [
     'ionic',
-    'starter.services',
-    'starter.directives',
+    'app.services',
+    'app.directives',
 
     //-----component module
     'user.service',
@@ -22,8 +22,8 @@ var app = angular.module('starter', [
 ]);
 
 setTimeout(function asyncBootstrap() {
-    angular.bootstrap(document, ["starter"]);
-    //---�𶯳ɹ��Ƴ��𶯻���
+    angular.bootstrap(document, ["mobileApp"]);
+    //---�����ɹ��Ƴ���������
     angular.element(document.querySelector('.splash-screen')).addClass('flipOutY');
 }, 2000);
 

@@ -1,6 +1,7 @@
 ﻿@charset "utf-8";
 //网站主题颜色
-@theme-color: #4daa7d;
+@theme-color: #4ba9da;
+
 
 //基础定义
 @base-zh-font-family: "微软雅黑";
@@ -21,15 +22,11 @@
 @app-bg: #fff;
 
 //----Navbars(top)
-@navbar-app-height: 50px;
-@navbar-default-bg: @theme-color;
-@navbar-default-color: #fff;
-@navbar-default-border: @theme-color;
-@navbar-border-radius: 0;
-@navbar-padding: 10px;
-@navbar-default-link-color: #7F7F7F;
-@navbar-default-link-hover-color: @theme-color;
-@navbar-default-link-active-color: darken(@theme-color, 20%);
+@navbar-app-top-height: 50px;
+@navbar-top-bg: @theme-color;
+@navbar-top-color: #fff;
+@navbar-top-border: @theme-color;
+@navbar-top-radius: 0;
 
 //----Navbar Brand
 @brand-font-size: 18px;
@@ -38,15 +35,25 @@
 @navbar-app-bottom-height: 60px;
 @navbar-app-bottom-bg: #f7f7f7;
 @navbar-app-bottom-color: @brand-primary;
-@navbar-app-bottom-border: @theme-color;
+@navbar-app-bottom-border: @navbar-app-bottom-bg;
+@navbar-bottom-padding: 5px;
+@navbar-default-link-color: #7F7F7F;
+@navbar-default-link-hover-color: @theme-color;
+@navbar-default-link-active-color: darken(@theme-color, 20%);
 
+//base button define
+@color-success: #51C8A2;
 
+.btn-success(@radius: 0) {
+    border-radius: @radius;
+    background-color: @color-success;
+    border-color: @color-success;
+    color: #fff;
+    cursor: pointer;
+}
 
-
-
-
-
-
-
-
-
+.btn-success-active(@radius: 0) {
+    .btn-success(@radius);
+    background-color: darken(@color-success,10%);
+    border-color: darken(@color-success,10%);
+}

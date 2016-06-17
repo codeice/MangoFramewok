@@ -37,8 +37,9 @@ var config = {
     dest: './dist',
     src: './src',
     less: {
+        app: ['./src/assets/less/**/app.less'],
         src: [
-             './src/assets/less/**/*.less'
+            './src/assets/less/**/*.less'
         ],
         paths: [
             './src/assets/less', './bower_components'
@@ -53,23 +54,30 @@ var config = {
         indexHtml: ['./src/index.html']
     },
     libs: [
+        './dist/libs/zepto.min.js',
         './dist/libs/angular.js',
-        './dist/libs/angular-route.js',
+        './dist/libs/angular-route.min.js',
+        './dist/libs/angular-http-batch.min.js',
         './dist/libs/mobile-angular-ui.min.js',
-        './dist/libs/mobile-angular-ui.gestures.min.js'
+        './dist/libs/mobile-angular-ui.gestures.min.js',
+        './dist/libs/swiper.min.js'
     ],
     vendor: {
         js: [
+            './bower_components/zepto/zepto.min.js',
             './bower_components/angular/angular.js',
-            './bower_components/angular-route/angular-route.js',
+            './bower_components/angular-route/angular-route.min.js',
+            './bower_components/angular-http-batcher/dist/angular-http-batch.min.js',
             './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js',
-            './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js'
+            './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js',
+            './bower_components/swiper/dist/js/swiper.min.js'
         ],
-        css: [
-            './bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-hover.min.css',
-            './bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-base.min.css',
-            './bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.min.css'
-        ],
+        /*        css: [
+                    './bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-hover.min.css',
+                    './bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-base.min.css',
+                    './bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.min.css',
+                    './bower_components/swiper/dist/css/swiper.min.css'
+                ],*/
         fonts: [
             './bower_components/font-awesome/fonts/fontawesome-webfont.*'
         ]
@@ -107,7 +115,7 @@ gulp.task('serve', function () {
 gulp.task('watch', function () {
     //watch images
     watch(config.sourcePath.img, { events: ['add', 'change'] }, function () {
-        gulp.run('build-img').on('change', reload);
+        gulp.run('build-img');
     });
 
     //watch component's html 
@@ -151,7 +159,8 @@ gulp.task('copy-fonts', function () {
 gulp.task('build-img', function () {
     console.log("isProduct=", isProduct);
     var stream = gulp.src(config.sourcePath.img)
-        .pipe(gulp.dest(path.join(config.dest, "images")));
+        .pipe(gulp.dest(path.join(config.dest, "images")))
+       .pipe(reload({ stream: true })); //通过流的方式通知浏览器变更
     return stream;
 });
 
@@ -190,7 +199,7 @@ gulp.task('build-sprite', function () {
 
 //----build css
 gulp.task('build-less', function () {
-    var stream = gulp.src(config.less.src)
+    var stream = gulp.src(config.less.app)
         .pipe(less({
             paths: config.less.paths.map(function (p) {
                 return path.resolve(__dirname, p);

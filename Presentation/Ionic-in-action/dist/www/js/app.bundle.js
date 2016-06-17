@@ -67541,7 +67541,7 @@ angular.module('user.service', []).factory('demoService', ['service', function (
  */
 //scopeService
 service_v = '1.0.0';
-var serviceModule = angular.module('starter.services', []);
+var serviceModule = angular.module('app.services', []);
 
 serviceModule.service('scopeService', function () {
     return {
@@ -67712,7 +67712,7 @@ serviceModule.factory('service', ['httpProxy', 'uiKit', function (httpProxy, uiK
           }
       );*/
 
-var dirModule = angular.module('starter.directives', []);
+var dirModule = angular.module('app.directives', []);
 //---閰嶇疆鏂囦欢
 version_v = 1.0;
 var appConfig = {
@@ -67732,10 +67732,10 @@ var filterModule = angular.module('starter.filters', []);
 var dirModule = angular.module('starter.directives', []);
 */
 
-var app = angular.module('starter', [
+var app = angular.module('mobileApp', [
     'ionic',
-    'starter.services',
-    'starter.directives',
+    'app.services',
+    'app.directives',
 
     //-----component module
     'user.service',
@@ -67743,7 +67743,7 @@ var app = angular.module('starter', [
 ]);
 
 setTimeout(function asyncBootstrap() {
-    angular.bootstrap(document, ["starter"]);
+    angular.bootstrap(document, ["mobileApp"]);
     //---启动成功移除启动画面
     angular.element(document.querySelector('.splash-screen')).addClass('flipOutY');
 }, 2000);

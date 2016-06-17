@@ -37,6 +37,8 @@
         var userId = $routeParams.id;
         $scope.user = demoService.getDetail(userId);
         console.log("$scope.user=", $scope.user);
+
+
     }]);
 
 })();

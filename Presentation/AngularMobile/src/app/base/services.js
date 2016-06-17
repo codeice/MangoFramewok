@@ -32,16 +32,34 @@ serviceModule.service('uiKit', ['$rootScope', '$q', 'scopeService', function ($r
     var service = {
         blockUI: function () {
             blockCount++;
-            $rootScope.loading = true;
+            angular.element(document.querySelector('.loading-wrapper')).removeClass('hide').addClass('show');
         },
         unblockUI: function () {
             blockCount--;
             if (blockCount <= 0) {
-                $rootScope.$apply(function () {
-                    $rootScope.loading = false;
-                });
+                angular.element(document.querySelector('.loading-wrapper')).removeClass('show').addClass('hide');
             }
         },
+        alert: function () {
+
+        },
+        confirm: function () {
+
+        },
+        messsage: function (msg) {
+
+        },
+        //显示底部的导航菜单
+        showFooter: function () {
+            angular.element(document.querySelector('.navbar-absolute-bottom')).removeClass('hide').addClass('show');
+            angular.element(document.querySelector('body')).addClass('has-navbar-bottom');
+        },
+        //隐藏底部的导航菜单
+        hideFooter: function () {
+            angular.element(document.querySelector('.navbar-absolute-bottom')).removeClass('show').addClass('hide');
+            angular.element(document.querySelector('body')).removeClass('has-navbar-bottom');
+        },
+
     };
     return service;
 }]);

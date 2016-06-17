@@ -1,9 +1,79 @@
-<div ui-content-for="title">
-    <span>详情</span>
+<div>
+    <div ui-content-for="title">
+        <span>用户详情</span>
+    </div>
+    <div ui-content-for="navbarAction">
+        <a class="btn" ng-href="#/users">
+            <i class="fa fa-angle-left ui-back"></i>
+        </a>
+    </div>
 </div>
-
 <div class="scrollable">
     <div class="scrollable-content">
         <div>{{user.name}}</div>
+        <i class="icon-checkbox active"></i>
+        <i class="icon-checkbox"></i>
+
+        <style>
+            .img-container {
+                float: left;
+                width: 200px;
+            }
+
+                .img-container > img {
+                    width: 100%;
+                    display: block;
+                }
+
+                .img-container > .fix-width {
+                    width: 100%;
+                    height: auto;
+                }
+
+                .img-container > .fix-height {
+                    width: auto;
+                    height: 100%;
+                }
+        </style>
+
+        <!--LazyLoad Image-->
+        <div class="photo-wall">
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160408/276ef1c5-3b87-43db-bdf4-19543ce1ba61/QQ图片20160224143638.png" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160421/b455aa21-bae6-465f-83f0-8346cf069a1d/t_1.jpg" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160331/5a0f49fb-e502-4607-934c-bdec33ebff19/u=2339098902,1367579138&fm=21&gp=0.jpg" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160408/276ef1c5-3b87-43db-bdf4-19543ce1ba61/QQ图片20160224143638.png" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160421/b455aa21-bae6-465f-83f0-8346cf069a1d/t_1.jpg" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160331/5a0f49fb-e502-4607-934c-bdec33ebff19/u=2339098902,1367579138&fm=21&gp=0.jpg" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160408/276ef1c5-3b87-43db-bdf4-19543ce1ba61/QQ图片20160224143638.png" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160421/b455aa21-bae6-465f-83f0-8346cf069a1d/t_1.jpg" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160331/5a0f49fb-e502-4607-934c-bdec33ebff19/u=2339098902,1367579138&fm=21&gp=0.jpg" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160408/276ef1c5-3b87-43db-bdf4-19543ce1ba61/QQ图片20160224143638.png" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160421/b455aa21-bae6-465f-83f0-8346cf069a1d/t_1.jpg" />
+            </div>
+            <div class="img-container">
+                <img data-src="http://172.16.194.37/Resource/Match/20160331/5a0f49fb-e502-4607-934c-bdec33ebff19/u=2339098902,1367579138&fm=21&gp=0.jpg" />
+            </div>
+        </div>
     </div>
 </div>

@@ -1,0 +1,73 @@
+﻿@import "app-variables.less";
+
+
+//----loading
+/*@loading-content-padding: 15px;
+@spinner-size: 30px;
+@spinner-color: #fff;
+
+.loading-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.loading-wrapper > .loading-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: @loading-content-padding;
+    margin-top: -(@spinner-size/2+@loading-content-padding);
+    margin-left: -(@spinner-size/2+@loading-content-padding);
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgba(0,0,0,.5);
+}
+
+.loading-spinner {
+    font-size: @spinner-size;
+    color: @spinner-color;
+}*/
+
+
+
+
+//-----Message
+.widget-center-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    z-index: -100;
+    font-family: @base-zh-font-family;
+
+    .widget-content {
+        background-color: rgba(0,0,0,.5);
+        padding: 13px;
+        border-radius: 10px;
+
+        .loading-spinner {
+            font-size: 3em;
+            color: #fff;
+        }
+
+        .msg-content {
+            color: #fff;
+            margin: 0;
+            font-size: 1em;
+        }
+    }
+}
+
+.widget-show {
+    opacity: 1;
+    z-index: 10;
+}
