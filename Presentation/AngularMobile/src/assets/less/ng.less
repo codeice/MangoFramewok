@@ -1,0 +1,49 @@
+﻿/**********************解决angularjs闪烁问题************************/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+    display: none !important;
+}
+
+ng\:form {
+    display: block;
+}
+
+.ng-animate-start {
+    clip: rect(0,auto,auto,0);
+    -ms-zoom: 1.0001;
+}
+
+.ng-animate-active {
+    clip: rect(-1px,auto,auto,0);
+    -ms-zoom: 1;
+}
+
+/*.*ng-enter {
+    animation: moveToLeft 0.5s both ease-in;
+    z-index: 8888;
+}*/
+
+
+.ng-leave {
+    animation: moveToLeft 0.5s both ease-in;
+    z-index: 9999;
+}
+
+
+@-webkit-keyframes moveToLeft {
+    from {
+    }
+
+    to {
+        -webkit-transform: translateX(-100%);
+    }
+}
+
+@keyframes moveToLeft {
+    from {
+    }
+
+    to {
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+    }
+}

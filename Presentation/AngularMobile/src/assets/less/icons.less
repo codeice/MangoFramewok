@@ -1,5 +1,4 @@
 ﻿@import "icon-sprite.less";
-@import "app-variables.less";
 
 .sprite-width-retina(@sprite) {
     width: extract(@sprite, 5) / 2;
@@ -27,35 +26,4 @@
     .sprite-position-retina(@sprite);
     .sprite-width-retina(@sprite);
     .sprite-height-ritina(@sprite);
-}
-
-
-//----checkbox
-.icon-checkbox {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    vertical-align: middle;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    text-align: center;
-    margin-right: 5px;
-
-    &.active {
-        border-color: @theme-color;
-
-        &::after {
-            content: "";
-            display: block;
-            width: 10px;
-            height: 5px;
-            border-bottom: 2px solid @theme-color;
-            border-left: 2px solid @theme-color;
-            margin-top: 3px;
-            margin-left: 1px;
-            transform: rotate(-45deg);
-            -webkit-transform: rotate(-45deg);
-        }
-    }
 }

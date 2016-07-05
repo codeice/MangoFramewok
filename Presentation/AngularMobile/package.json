@@ -33,6 +33,7 @@
     "streamqueue": "^1.1.1",
     "through2": "^2.0.1",
     "uglify-js": "^2.6.2",
-    "vinyl-buffer": "^1.0.0"
+    "vinyl-buffer": "^1.0.0",
+    "weinre": "^2.0.0-pre-I0Z7U9OV"
   }
 }

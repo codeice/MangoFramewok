@@ -2,78 +2,133 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>angularMobile</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>MobielApp</title>
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
+    <!--<meta name="apple-mobile-web-app-status-bar-style" content="yes" />-->
     <!-- inject:css -->
     <link rel="stylesheet" href="css/app.bundle.css">
     <!-- endinject -->
 </head>
-<body ng-app="mobileApp" ng-controller="mainCtrl" ui-prevent-touchmove-defaults>
+<body ng-app="mobileApp" ng-controller="mainCtrl" ui-prevent-touchmove-defaults ng-cloak>
     <!--splashScreen portion-->
     <div class="splash-screen">
         <div class="screen-container">
             <div class="messaging">
-                <h1>
-                    加载中....
-                </h1>
+                <h1>加载中...</h1>
             </div>
         </div>
     </div>
 
     <!--app start-->
     <div class="app">
-        <!-- Navbars -->
+        <!-- Navbars-top -->
         <div class="navbar navbar-app  navbar-absolute-top">
             <div class="navbar-brand  navbar-brand-center" ui-yield-to="title">
-                Appss
+                AppName
             </div>
-            <div class="btn-group pull-left" ui-yield-to="navbarAction">
+            <div class="btn-group pull-left nav-action" ui-yield-to="navbarAction">
             </div>
-        </div>
-
-        <div class="navbar navbar-app navbar-absolute-bottom">
-            <div class="btn-group justified">
-                <a ng-href="#/users" class="btn btn-navbar">
-                    <i class="fa icon-home "></i>
-                    <p>Demo</p>
-                </a>
-                <a ng-href="#/users/1" class="btn btn-navbar">
-                    <i class="fa icon-user "></i>
-                    <p>测试1</p>
-                </a>
-                <a ng-href="http://www.baidu.com" class="btn btn-navbar">
-                    <i class="fa icon-mark"></i>
-                    <p>测试2</p>
-                </a>
+            <div class="btn-group pull-right nav-btn" ui-yield-to="navbarButton">
             </div>
         </div>
         <!-- App body -->
         <div class='app-body'>
             <div class='app-content'>
-                <ng-view></ng-view>
+                <div ng-view></div>
+            </div>
+        </div>
+        <!-- Navbars-bottom -->
+        <div class="navbar navbar-app navbar-absolute-bottom">
+            <div class="btn-group justified">
+                <a ng-href="#/users" class="btn btn-navbar">
+                    <i class="fa icon-cup" aria-hidden="true"></i>
+                    <p>Demo</p>
+                </a>
+                <a ng-href="#/matches" class="btn btn-navbar">
+                    <i class="fa icon-mark "></i>
+                    <p>Demo1</p>
+                </a>
+                <a ng-href="#/userCenter" class="btn btn-navbar">
+                    <i class="fa icon-user "></i>
+                    <p>Demo2</p>
+                </a>
+
+                <!--<a ng-href="#/match" class="btn btn-navbar">
+                    <i class="fa icon-user"></i>
+                    <p>我的赛圈</p>
+                </a>-->
             </div>
         </div>
     </div>
     <!-- app end-->
-    <!--UiKit Part-->
-    <!--loading -->
-    <div class="loading-wrapper">
-        <div class="loading-content ">
-            <i class="fa fa-spinner fa-spin loading-spinner"></i>
+    <!-- Modals and Overlays -->
+    <div ui-yield-to="modals"></div>
+
+    <!--<div ng-include="'../app/public/widgets.html'"></div>-->
+    <!--loading part-->
+    <div id="loading-widget" class="widget-center-wrapper">
+        <div class="widget-dialog">
+            <div class="widget-content">
+                <div class="widget-body">
+                    <i class="fa fa-spinner fa-spin loading-spinner"></i>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="message-box">
-        <p></p>
+    <!--message-->
+    <div id="msg-widget" class="widget-center-wrapper">
+        <div class="widget-dialog">
+            <div class="widget-content">
+                <div class="widget-body">
+                    网络不顺畅~
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!--alert box-->
+    <div id="alert-widget" class="widget-center-wrapper box-wrapper">
+        <div class="widget-dialog">
+            <div class="widget-content">
+                <div class="widget-header">
+                    <i class="fa fa-times close" dialog-close="alert-widget"></i>
+                </div>
+                <div class="widget-body">
+                </div>
+                <div class="widget-footer">
+                    <button class="btn btn-primary" dialog-close="alert-widget">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Modals and Overlays -->
-    <div ui-yield-to="modals"></div>
-    <!--UiKit Part End-->
+    <!--confirm box-->
+    <div id="confirm-widget" class="widget-center-wrapper box-wrapper">
+        <div class="widget-dialog">
+            <div class="widget-content">
+                <div class="widget-header">
+                    <i class="fa fa-times close" dialog-close="confirm-widget"></i>
+                </div>
+                <div class="widget-body">
+                </div>
+                <div class="widget-footer">
+                    <button class="btn btn-primary" ng-click="confirmDefer.resolve();" dialog-close="confirm-widget">确认</button>
+                    <button class="btn btn-default" ng-click="confirmDefer.reject();" dialog-close="confirm-widget">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var apiConfig = {
+            apiServer: 'http://172.16.193.4/CE.Api/',
+            apiBatchServer: 'http://172.16.193.4/CE.Api/batch/',
+            payRoot: 'http://fb.wicresoft.com/PayCenter/WeChatPay/Web/Product?'
+        };
+    </script>
+    <!--    <script src="http://172.16.193.4:8001/target/target-script-min.js#anonymous"></script>-->
     <!-- inject:js -->
     <script src="libs/zepto.min.js"></script>
     <script src="libs/angular.js"></script>
@@ -81,13 +136,17 @@
     <script src="libs/angular-http-batch.min.js"></script>
     <script src="libs/mobile-angular-ui.min.js"></script>
     <script src="libs/mobile-angular-ui.gestures.min.js"></script>
+    <script src="libs/swiper.min.js"></script>
+    <script src="app/demo2/testCtrl.js"></script>
     <script src="app/demo/userService.js"></script>
     <script src="app/demo/userCtrl.js"></script>
+    <script src="app/base/validations.js"></script>
     <script src="app/base/utility.js"></script>
     <script src="app/base/services.js"></script>
+    <script src="app/base/filters.js"></script>
     <script src="app/base/directives.js"></script>
     <script src="app/base/constants.js"></script>
-    <script src="app/constants.js"></script>
+    <script src="app/base/UIWidget.js"></script>
     <script src="app/app.main.js"></script>
     <script src="app/app.js"></script>
     <!-- endinject -->

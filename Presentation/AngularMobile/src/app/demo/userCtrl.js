@@ -21,24 +21,31 @@
     //----用户列表
     userModule.controller('userCtrl', ['$scope', 'demoService', function ($scope, demoService) {
 
-        //----http service demo
-        demoService.getAll().$promise.then(function (response) {
-            $scope.list = response.data.Data;
-            console.log("$scope.list=", $scope.list);
-        });
-
         // Some fake testing data
         $scope.persons = demoService.getList();
 
     }]);
 
     //----用户详情
-    userModule.controller('userDetailCtrl', ['$scope', '$routeParams', 'demoService', function ($scope, $routeParams, demoService) {
+    userModule.controller('userDetailCtrl', ['$scope', '$routeParams', 'demoService', 'uiKit', function ($scope, $routeParams, demoService, uiKit) {
         var userId = $routeParams.id;
         $scope.user = demoService.getDetail(userId);
-        console.log("$scope.user=", $scope.user);
 
+        $scope.showMsg = function () {
+            uiKit.message('服务报错...');
+        };
 
+        $scope.showAlert = function () {
+            uiKit.alert("alert 弹出框框");
+        }
+
+        $scope.showConfirm = function () {
+            uiKit.confirm("确认删除？").then(function () {
+                console.log("确认");
+            }, function () {
+                console.log("取消");
+            });
+        }
     }]);
 
 })();

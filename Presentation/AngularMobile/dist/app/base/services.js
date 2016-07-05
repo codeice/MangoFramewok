@@ -27,28 +27,44 @@ serviceModule.service('scopeService', function () {
 });
 
 //-----UI工具服务
-serviceModule.service('uiKit', ['$rootScope', '$q', 'scopeService', function ($rootScope, $q, scopeService) {
+serviceModule.service('uiKit', ['$rootScope', '$q', function ($rootScope, $q) {
     var blockCount = 0;
     var service = {
         blockUI: function () {
             blockCount++;
-            angular.element(document.querySelector('.loading-wrapper')).removeClass('hide').addClass('show');
+            $('#loading-widget').addClass('widget-show');
         },
         unblockUI: function () {
             blockCount--;
             if (blockCount <= 0) {
-                angular.element(document.querySelector('.loading-wrapper')).removeClass('show').addClass('hide');
+                $('#loading-widget').removeClass('widget-show');
             }
         },
-        alert: function () {
-
+        message: function (msg) {
+            $('#msg-widget .widget-body').html(msg);
+            var $msgWidget = $('#msg-widget');
+            $msgWidget.addClass('widget-show');
+            setTimeout(function () {
+                $msgWidget.removeClass('widget-show');
+            }, 3000);
         },
-        confirm: function () {
-
+        alert: function (msg, title) {
+            if (title != undefined) {
+                $('#alert-widget .widget-header .title').html(title);
+            }
+            $('#alert-widget .widget-body').html(msg);
+            $('#alert-widget').addClass('widget-show');
         },
-        messsage: function (msg) {
-
+        confirm: function (msg, title) {
+            if (title != undefined) {
+                $('#confirm-widget .widget-header .title').html(title);
+            }
+            $('#confirm-widget .widget-body').html(msg);
+            $('#confirm-widget').addClass('widget-show');
+            $rootScope.confirmDefer = $q.defer();
+            return $rootScope.confirmDefer.promise;
         },
+
         //显示底部的导航菜单
         showFooter: function () {
             angular.element(document.querySelector('.navbar-absolute-bottom')).removeClass('hide').addClass('show');
@@ -59,12 +75,57 @@ serviceModule.service('uiKit', ['$rootScope', '$q', 'scopeService', function ($r
             angular.element(document.querySelector('.navbar-absolute-bottom')).removeClass('show').addClass('hide');
             angular.element(document.querySelector('body')).removeClass('has-navbar-bottom');
         },
+        //隐藏top nav
+        hideHeader: function () {
+            angular.element(document.querySelector('.navbar-absolute-top')).removeClass('show').addClass('hide');
+            angular.element(document.querySelector('body')).removeClass('has-navbar-top');
+        },
+        //显示top nav
+        showHeader: function () {
+            angular.element(document.querySelector('.navbar-absolute-top')).removeClass('hide').addClass('show');
+            angular.element(document.querySelector('body')).addClass('has-navbar-top');
+        },
 
     };
     return service;
 }]);
 
-serviceModule.factory('httpProxy', ['$http', 'appConfig', function ($http, appConfig) {
+//----current user service
+serviceModule.factory('oauthService', ['$location', 'platform', function ($location, platform) {
+    var service = {
+        isAuthorized: function () {
+            return cookieHelper.getCookie('token') == null || cookieHelper.getCookie('token') == "" ? false : true;
+        },
+        getToken: function () {
+            return cookieHelper.getCookie('token');
+        },
+        saveToken: function (token, redirectUrl) {
+            cookieHelper.setCookie('token', token, platform.tokenLifetime);
+            if (redirectUrl == null || redirectUrl == "") {
+                $location.path('/');
+            } else {
+                $location.path(redirectUrl);
+            }
+        },
+        removeToken: function () {
+            cookieHelper.clearCookie('token');
+        },
+        goToAuthorize: function () {
+            if (!this.isAuthorized()) {
+                $location.path('/login/' + encodeURIComponent(window.location.hash.substring(1)));
+            }
+        },
+        getCurrentUser: function () {
+            if (!this.isAuthorized()) {
+                this.goToAuthorize();
+            }
+        }
+    };
+    return service;
+}]);
+
+//api http
+serviceModule.factory('httpProxy', ['$http', 'appConfig', 'oauthService', 'uiKit', function ($http, appConfig, oauthService, uiKit) {
     var service = {
         call: function (route, param, methodType, userToken) {
             var result = [];
@@ -73,16 +134,18 @@ serviceModule.factory('httpProxy', ['$http', 'appConfig', function ($http, appCo
             if (route.indexOf('http') >= 0) {
                 apihost = route;
             } else {
+                if (appConfig.apiServer.indexOf(appConfig.apiServer.length - 1) != '/') {
+                    appConfig.apiServer = appConfig.apiServer + "/";
+                }
                 apihost = appConfig.apiServer + route;
             }
 
-            //todo request with usertoken
-            /*   //要求登录(token已参数形式传递 )
-               if (userToken != null && userToken !== "") {
-                   apihost = apihost + "?token=" + userToken;
-               }
-               //---token 通过header传递
-               $http.defaults.headers.common.Authorization = 'Bearer ' + userToken;*/
+            //要求登录(token已参数形式传递 )
+            if (userToken != null && userToken !== "") {
+                apihost = apihost + "?token=" + userToken;
+            }
+            /*      //---token 通过header传递
+                $http.defaults.headers.common.Authorization = 'Bearer ' + userToken;*/
 
             if (methodType == undefined)
                 methodType = 'post';
@@ -118,12 +181,15 @@ serviceModule.factory('httpProxy', ['$http', 'appConfig', function ($http, appCo
             }
             if (result.$promise != null) {
                 result.$promise.then(function (response) {
+                    if (response.data.Code == 10) {
+                        oauthService.goToAuthorize();
+                    }
                     angular.extend(result, response.data);
                 }, function (response) {
                     if (response.status == 401) {
-                        /*  var m_oauthService = new oauthService();
-                          m_oauthService.goToAuthorize();*/
-                        //----todo goTologin
+                        oauthService.goToAuthorize();
+                    } else {
+                        uiKit.message("数据服务出错！");
                     }
                 });
                 result.$promise.refresh = function (newParam) {
@@ -141,18 +207,18 @@ serviceModule.factory('httpProxy', ['$http', 'appConfig', function ($http, appCo
 }]);
 
 //api http service
-serviceModule.factory('service', ['httpProxy', 'uiKit', function (httpProxy, uiKit) {
+serviceModule.factory('service', ['$location', 'httpProxy', 'oauthService', 'uiKit', function ($location, httpProxy, oauthService, uiKit) {
     var count = 0;
     var blocked = false;
     var service = {
         //----带loading call
-        "call": function (route, param, methodType) {
+        call: function (route, param, methodType, token) {
             count++;
             if (!blocked) {
                 blocked = true;
                 uiKit.blockUI();
             }
-            var result = httpProxy.call(route, param, methodType);
+            var result = httpProxy.call(route, param, methodType, token);
             result.$promise.finally(function () {
                 count--;
                 if (count <= 0) {
@@ -168,9 +234,28 @@ serviceModule.factory('service', ['httpProxy', 'uiKit', function (httpProxy, uiK
         },
 
         //----无loading call
-        'backgroundCall': function (route, param, methodType) {
+        backgroundCall: function (route, param, methodType) {
             return httpProxy.call(route, param, methodType);
+        },
+
+        //----授权后call
+        authorizedCall: function (route, param, methodType) {
+            if (oauthService.isAuthorized()) {
+                return httpProxy.call(route, param, methodType, oauthService.getToken());
+            } else {
+                oauthService.goToAuthorize();
+            }
+        },
+
+        //----授权并带loading效果
+        authorizedLoadingCall: function (route, param, methodType) {
+            if (oauthService.isAuthorized()) {
+                return this.call(route, param, methodType, oauthService.getToken());
+            } else {
+                oauthService.goToAuthorize();
+            }
         }
     };
     return service;
 }]);
+

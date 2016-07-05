@@ -3,6 +3,7 @@ var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 var watch = require('gulp-watch');
 var util = require('gulp-util');
+var weinre = require('weinre');
 //----文件清除
 var rimraf = require('gulp-rimraf');
 var concat = require('gulp-concat');
@@ -57,6 +58,7 @@ var config = {
         './dist/libs/zepto.min.js',
         './dist/libs/angular.js',
         './dist/libs/angular-route.min.js',
+  /*      './dist/libs/angular-animate.min.js',*/
         './dist/libs/angular-http-batch.min.js',
         './dist/libs/mobile-angular-ui.min.js',
         './dist/libs/mobile-angular-ui.gestures.min.js',
@@ -67,21 +69,24 @@ var config = {
             './bower_components/zepto/zepto.min.js',
             './bower_components/angular/angular.js',
             './bower_components/angular-route/angular-route.min.js',
+      /*      './bower_components/angular-animate/angular-animate.min.js',*/
             './bower_components/angular-http-batcher/dist/angular-http-batch.min.js',
             './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js',
             './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js',
             './bower_components/swiper/dist/js/swiper.min.js'
         ],
-        /*        css: [
-                    './bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-hover.min.css',
-                    './bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-base.min.css',
-                    './bower_components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.min.css',
-                    './bower_components/swiper/dist/css/swiper.min.css'
-                ],*/
         fonts: [
             './bower_components/font-awesome/fonts/fontawesome-webfont.*'
         ]
     },
+    weinre: {
+        httpPort: 8008,
+        boundHost: '172.16.193.4',
+        verbose: false,
+        debug: false,
+        readTimeout: 5,
+        deathTimeout: 15
+    }
 };
 
 //----Report Errors to Console        
@@ -265,13 +270,18 @@ gulp.task('build-index', ['build-bundlejs'], function () {
             addRootSlash: false,
             starttag: '<!-- inject:css -->'
         }))
+        .pipe(inject(cssStream, {
+            ignorePath: 'dist',
+            addRootSlash: false,
+            starttag: '<!-- inject:css -->'
+        }))
         .pipe(inject(jsStream, {
             ignorePath: 'dist',
             addRootSlash: false,
             starttag: '<!-- inject:js -->'
         }))
         .pipe(gulp.dest(config.dest))
-        .pipe(reload({ stream: true }));//通过流的方式通知浏览器变更
+        .pipe(reload({ stream: true })); //通过流的方式通知浏览器变更
 
     return stream;
 });
@@ -301,4 +311,8 @@ gulp.task('dev', function () {
 //----生产环境
 gulp.task('product', function () {
     runSequence('serve', 'toggleToProduct', 'build');
+});
+
+gulp.task('weinre', function () {
+    weinre.run(config.weinre);
 });

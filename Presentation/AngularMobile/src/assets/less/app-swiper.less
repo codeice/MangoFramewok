@@ -1,0 +1,41 @@
+﻿@import "app-variables.less";
+//------swiper
+@swiper-pagination-color: #3d946a;
+
+.swiper-container {
+    width: 100%;
+    height: @swiper-container-height;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+//----分页
+.swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.8;
+}
+
+.swiper-pagination-bullet-active {
+    background: @swiper-pagination-color;
+}
+
+.swiper-slide > img {
+    width: 100%;
+    height: 100%;
+}

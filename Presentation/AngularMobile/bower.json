@@ -1,27 +1,29 @@
 {
-    "name": "angularMobile",
-    "homepage": "https://github.com/codeice/MangoFramewok",
-    "authors": [
-        "jessie <lyb.jessie@hotmail.com>"
-    ],
-    "description": "",
-    "main": "",
-    "license": "MIT",
-    "private": true,
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "angular": "1.x",
-        "angular-route": "1.x",
-        "angular-ui-router": "1.x",
-        "mobile-angular-ui": "1.2.x",
-        "font-awesome": "4.2",
-        "bootstrap": "3.x",
-        "zepto": "^1.1.6"
-    }
+  "name": "angularMobile",
+  "homepage": "https://github.com/codeice/MangoFramewok",
+  "authors": [
+    "jessie <lyb.jessie@hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.x",
+    "angular-route": "1.x",
+    "mobile-angular-ui": "1.2.x",
+    "font-awesome": "4.2",
+    "bootstrap": "3.x"
+  },
+  "devDependencies": {
+    "swiper": "swiper#^3.3.1",
+    "zepto": "^1.1.6"
+  }
 }

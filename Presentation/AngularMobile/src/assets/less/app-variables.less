@@ -2,6 +2,11 @@
 //网站主题颜色
 @theme-color: #4ba9da;
 
+//----字体大小
+@normal-font-size: 14px; //正常字体
+@extras-font-size: 12px; //附加信息
+@title-size: 16px; //正文标题
+@strong-title-font-size: 18px; //强调字体
 
 //基础定义
 @base-zh-font-family: "微软雅黑";
@@ -18,6 +23,11 @@
 @brand-danger: #ff3b30;
 @brand-info: #34aadc;
 
+@has-error: #E26A6A;
+
+
+@grey: #c8c8c8;
+
 //----App
 @app-bg: #fff;
 
@@ -29,10 +39,10 @@
 @navbar-top-radius: 0;
 
 //----Navbar Brand
-@brand-font-size: 18px;
+@brand-font-size: 1.3rem;
 
 //----Navbars(bottom)
-@navbar-app-bottom-height: 60px;
+@navbar-app-bottom-height: 50px;
 @navbar-app-bottom-bg: #f7f7f7;
 @navbar-app-bottom-color: @brand-primary;
 @navbar-app-bottom-border: @navbar-app-bottom-bg;
@@ -43,6 +53,11 @@
 
 //base button define
 @color-success: #51C8A2;
+@border-bottom-color: #E8E8E8;
+
+//list
+
+@list-font-color: #a0a0a0;
 
 .btn-success(@radius: 0) {
     border-radius: @radius;
@@ -57,3 +72,5 @@
     background-color: darken(@color-success,10%);
     border-color: darken(@color-success,10%);
 }
+
+@swiper-container-height: 125px;

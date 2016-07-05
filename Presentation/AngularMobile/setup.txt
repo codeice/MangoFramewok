@@ -1,0 +1,12 @@
+
+// 命令行切换到项目路径
+1. 安装node js
+
+2. npm install
+
+3. bower install 
+
+4. icon 生成sprite运行 gulp build-sprite
+
+5. 开发环境执行 gulp dev
+线上环境 gulp product

@@ -2,11 +2,133 @@
 @import "icon-sprite.less";
 @import "icons.less";
 
-//************************* layout style start ***************************//
+/************************* layout style start ***************************/
+* {
+    font-family: @base-zh-font-family;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-size: 14px;
+}
+
 .app {
     background: @app-bg;
 }
 
+.bg-grey {
+    background: #eaeaea;
+}
+
+.bg-white {
+    background: #fff;
+}
+
+.bg-transparent {
+    background: transparent !important;
+}
+
+/*************navbar app***************/
+.navbar-absolute-top {
+    min-height: @navbar-app-top-height;
+    color: @navbar-top-color;
+    background: @navbar-top-bg;
+    border: none;
+    border-color: @navbar-top-border;
+
+    .navbar-brand {
+        font-weight: @base-font-weight;
+        letter-spacing: @base-letter-spacing;
+        font-size: @brand-font-size;
+    }
+
+    .nav-action {
+        i {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+    }
+
+    .nav-btn {
+        a {
+            color: #fff;
+        }
+    }
+}
+
+//---navbar bottom
+.navbar-absolute-bottom {
+    height: @navbar-app-bottom-height;
+    color: @navbar-app-bottom-color;
+    background: @navbar-app-bottom-bg;
+    border-color: @navbar-app-bottom-border;
+
+    .btn-navbar, .btn {
+        padding: @navbar-bottom-padding 0;
+        color: @navbar-default-link-color;
+        line-height: normal;
+
+        &:hover, &.active {
+            color: @navbar-default-link-hover-color;
+
+            .icon-cup {
+                .sprite-ritina(@cup-active);
+            }
+
+            .icon-user {
+                .sprite-ritina(@user-active);
+            }
+
+            .icon-mark {
+                .sprite-ritina(@mark-active);
+            }
+        }
+
+        p {
+            font-size: 12px;
+            line-height: 12px;
+            margin-bottom: 0px;
+        }
+
+        .icon-cup {
+            .sprite-ritina(@cup);
+        }
+
+        .icon-user {
+            .sprite-ritina(@user);
+        }
+
+        .icon-mark {
+            .sprite-ritina(@mark);
+        }
+    }
+}
+
+
+//----appbody
+.app-body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.has-navbar-top .app-body {
+    padding-top: @navbar-app-top-height;
+}
+
+.has-navbar-bottom .app-body {
+    padding-bottom: @navbar-app-bottom-height;
+}
+
+
+//-------------common css---------------------//
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: @base-zh-font-family;
+}
 
 .hide {
     display: none;
@@ -18,6 +140,25 @@
 
 i {
     display: inline-block;
+}
+
+.warning {
+    color: @brand-warning;
+}
+
+.success {
+    color: @brand-success;
+}
+
+.mask {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.1);
+    z-index: 100;
 }
 
 //错误提示块
@@ -33,81 +174,103 @@ i {
     padding: 5px 0;
 }
 
-//*************navbar app***************//
-.navbar-absolute-top {
-    min-height: @navbar-app-top-height;
-    color: @navbar-top-color;
-    background: @navbar-top-bg;
-    border: none;
-    border-color: @navbar-top-border;
+
+
+//---empty text
+.empty-tip,
+.no-data {
+    font-size: 12px;
+    color: @list-font-color;
+    line-height: 100px;
+    text-align: center;
 }
 
-.navbar-app > .navbar-brand {
-    font-weight: @base-font-weight;
-    letter-spacing: @base-letter-spacing;
-    font-size: @brand-font-size;
+.no-data {
+    line-height: 40px;
 }
 
-.navbar-app .ui-back {
-    font-size: @brand-font-size;
-    color: #fff;
-}
+.empty-tip {
+    padding-top: 50%;
+    margin-top: -25%;
+    text-align: center;
 
-//---navbar bottom
-.navbar-absolute-bottom {
-    min-height: @navbar-app-bottom-height;
-    color: @navbar-app-bottom-color;
-    background: @navbar-app-bottom-bg;
-    border-color: @navbar-app-bottom-border;
+    .empty-img {
+        width: 163px;
+        height: 163px;
+        margin: 0 auto;
+        border: none;
+        background-image: url(../images/empty-data.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
-    .btn-navbar, .btn {
-        padding: @navbar-bottom-padding 0;
-        color: @navbar-default-link-color;
-        line-height: normal;
-
-        &:hover, &.active {
-            color: @navbar-default-link-hover-color;
-
-            .icon-home {
-                .sprite-ritina(@home-active);
-            }
-
-            .icon-user {
-                .sprite-ritina(@user-active);
-            }
-
-            .icon-mark {
-                .sprite-ritina(@mark-active);
-            }
-        }
-
-        p {
-            line-height: 20px;
-            margin-bottom: 0px;
-        }
-
-        .nav-icon {
-            font-size: 32px;
-        }
-
-        .icon-home {
-            .sprite-ritina(@home);
-        }
-
-        .icon-user {
-            .sprite-ritina(@user);
-        }
-
-        .icon-mark {
-            .sprite-ritina(@mark);
-        }
+    .tip-text {
+        margin-top: 40px;
+        font-size: 16px;
     }
 }
 
-.has-navbar-top .app-body {
-    padding-top: @navbar-app-top-height;
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.has-navbar-bottom .app-body {
-    padding-bottom: @navbar-app-bottom-height + @navbar-bottom-padding*2;
+//----------页面底部按钮----------//
+.fix-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .btn-grey,
+    .btn-blue {
+        width: 100%;
+        border-radius: 0;
+        background-color: @grey;
+        font-size: 16px;
+        color: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .btn-blue {
+        background-color: @theme-color;
+    }
+
+    ul {
+        padding-left: 0;
+        margin-bottom: 0;
+        overflow: hidden;
+        border-top: 1px solid #d4d4de;
+
+        li {
+            float: left;
+            width: 33.3%;
+            padding: 17px 0;
+            text-align: center;
+
+            a {
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+                border-right: 1px solid #dcdcdc;
+                text-decoration: none;
+            }
+        }
+
+        li:last-child {
+            background-color: @theme-color;
+
+            a {
+                color: #fff;
+                border-right: none;
+            }
+        }
+
+        li.grey {
+            background-color: @grey;
+        }
+    }
 }
