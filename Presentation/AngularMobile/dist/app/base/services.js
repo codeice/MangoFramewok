@@ -146,7 +146,6 @@ serviceModule.factory('httpProxy', ['$http', 'appConfig', 'oauthService', 'uiKit
             }
             /*      //---token 通过header传递
                 $http.defaults.headers.common.Authorization = 'Bearer ' + userToken;*/
-
             if (methodType == undefined)
                 methodType = 'post';
             methodType = methodType.toLowerCase();

@@ -8441,32 +8441,60 @@ button.swiper-pagination-bullet {
 ng\:form {
   display: block;
 }
-.ng-animate-start {
-  clip: rect(0, auto, auto, 0);
-  -ms-zoom: 1.0001;
+.view-slide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
-.ng-animate-active {
-  clip: rect(-1px, auto, auto, 0);
-  -ms-zoom: 1;
+.slide-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
-/*.*ng-enter {
-    animation: moveToLeft 0.5s both ease-in;
-    z-index: 8888;
-}*/
-.ng-leave {
-  animation: moveToLeft 0.5s both ease-in;
-  z-index: 9999;
+.slide-left.ng-enter,
+.slide-left.ng-leave {
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
 }
-@-webkit-keyframes moveToLeft {
-  to {
-    -webkit-transform: translateX(-100%);
-  }
+.slide-left.ng-enter {
+  left: 100%;
 }
-@keyframes moveToLeft {
-  to {
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-  }
+.slide-left.ng-enter-active {
+  left: 0;
+}
+.slide-left.ng-leave {
+  left: 0;
+}
+.slide-left.ng-leave-active {
+  left: -100%;
+}
+.slide-down {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.slide-down.ng-enter,
+.slide-down.ng-leave {
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+.slide-down.ng-enter {
+  top: -100%;
+}
+.slide-down.ng-enter-active {
+  top: 0;
+}
+.slide-down.ng-leave {
+  top: 0;
+}
+.slide-down.ng-leave-active {
+  top: 100%;
 }
 /************splash screen animation************/
 .animated {

@@ -20,7 +20,6 @@
 
     //----用户列表
     userModule.controller('userCtrl', ['$scope', 'demoService', function ($scope, demoService) {
-
         // Some fake testing data
         $scope.persons = demoService.getList();
 

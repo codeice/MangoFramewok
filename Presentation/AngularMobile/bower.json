@@ -20,7 +20,8 @@
     "angular-route": "1.x",
     "mobile-angular-ui": "1.2.x",
     "font-awesome": "4.2",
-    "bootstrap": "3.x"
+    "bootstrap": "3.x",
+    "angular-animate": "1.5.5"
   },
   "devDependencies": {
     "swiper": "swiper#^3.3.1",

@@ -58,7 +58,7 @@ var config = {
         './dist/libs/zepto.min.js',
         './dist/libs/angular.js',
         './dist/libs/angular-route.min.js',
-  /*      './dist/libs/angular-animate.min.js',*/
+        './dist/libs/angular-animate.min.js',
         './dist/libs/angular-http-batch.min.js',
         './dist/libs/mobile-angular-ui.min.js',
         './dist/libs/mobile-angular-ui.gestures.min.js',
@@ -69,7 +69,7 @@ var config = {
             './bower_components/zepto/zepto.min.js',
             './bower_components/angular/angular.js',
             './bower_components/angular-route/angular-route.min.js',
-      /*      './bower_components/angular-animate/angular-animate.min.js',*/
+            './bower_components/angular-animate/angular-animate.min.js',
             './bower_components/angular-http-batcher/dist/angular-http-batch.min.js',
             './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js',
             './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js',

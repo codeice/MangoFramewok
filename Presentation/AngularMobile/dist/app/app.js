@@ -1,6 +1,6 @@
 var app = angular.module('mobileApp', [
     'ngRoute',
-/*    'ngAnimate',*/
+    'ngAnimate',
     'jcs.angular-http-batch',
     'mobile-angular-ui',
     'mobile-angular-ui.gestures',
