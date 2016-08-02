@@ -42,11 +42,38 @@
         }
 
         //----节点移动
-        $scope.moveNode = function (sourceNode, targetNode) {
+        var moveTypes = ["inner", "prev", "next"];
+        //----节点移动
+        $scope.moveNode = function (sourceNode, targetNode, moveType) {
+            console.log("MoveType=", moveType);
+            console.log("TargetNode=", targetNode);
+            console.log("sourceNode=", sourceNode);
             queryService.getQueryResult(sourceNode.id).$promise.then(function (response) {
                 var node = response.data;
-                node.ParentId = targetNode.id;
-                node.ParentCode = targetNode.code;
+                //移动成为目标节点的子节点
+                if (moveType === moveTypes[0]) {
+                    node.ParentId = targetNode.id;
+                    node.ParentCode = targetNode.code;
+                }
+                //移动成为同级节点的前一个节点
+                if (moveType === moveTypes[1]) {
+                    if (sourceNode.pId == 0) {
+                        node.ParentId = null;
+                        node.ParentCode = "";
+                        node.SortIndex = targetNode.sortIndex == 1 ? 0 : targetNode.sortIndex - 1;
+                    }
+                }
+
+                //移动成为同级节点的下一个节点
+                if (moveType === moveTypes[2]) {
+                    if (sourceNode.pId == 0) {
+                        node.ParentId = null;
+                        node.ParentCode = "";
+                        node.SortIndex = targetNode.SortIndex + 1;
+                    }
+                }
+
+
                 queryService.updateQueryResult(node.Id, node);
             });
         }

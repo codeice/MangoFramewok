@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+﻿/*define(['app'], function (app) {
     return app.config([
         '$routeProvider', function ($routeProvider) {
             $routeProvider
@@ -9,9 +9,26 @@
                 })
                 .otherwise(
                 {
-                    templateUrl: 'js/controllers/account/signin.html?nc=' + Math.random(),
-                    controller: 'signinCtrl'
+                    templateUrl: 'js/controllers/home/home.html?nc=' + Math.random(),
+                    controller: 'homeCtrl'
                 });
+        }
+    ]);
+});*/
+
+define(['app'], function (app) {
+    return app.config([
+        '$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+            $stateProvider
+                .state('home',
+                {
+                    url: '/home',
+                    templateUrl: 'js/controllers/home/home.html?nc=' + Math.random(),
+                    controller: 'homeCtrl'
+                });
+
+            // For any unmatched url, redirect to /state1
+            $urlRouterProvider.otherwise("/home");
         }
     ]);
 });

@@ -2,11 +2,8 @@
 define([
     './common/loadAllCommonScripts',
     './services/loadAllServiceScripts',
+    './mainCtrl',
     './menuCtrl',
-    './controllers/account/signinCtrl',
-
-        //----选人插件
-    './plugins/selectUser',
 
     //模块controller
     './controllers/home/homeCtrl',

@@ -72,7 +72,7 @@ define(['../modules/serviceModule', 'blockui'], function (module) {
                         result.$promise.then(function (response) {
                             angular.extend(result, response.data);
                         }, function (response) {
-                            if (response.data.status == 401) {
+                            if (response.status == 401) {
                                 var m_oauthService = new oauthService();
                                 m_oauthService.goToAuthorize();
                             }
@@ -127,51 +127,6 @@ define(['../modules/serviceModule', 'blockui'], function (module) {
             }
         };
         return service;
-    }]);
-
-    //---跨域调用
-    module.factory('httpJsonp', ['$http', function ($http) {
-        var service = {
-            "call": function (action, param) {
-                var accessToken = sessionStorage.getItem('access_token');
-                if (accessToken) {
-                    var result = [];
-                    result.$promise = null;
-                    var apihost = "";
-                    if (action.indexOf('http') >= 0) {
-                        apihost = action;
-                    } else {
-                        apihost = $rootScope.appConfig.apiServer + action;
-                    }
-                    apihost = apihost + "?callback=JSON_CALLBACK";
-                    result.$promise = $http.jsonp(apihost, { params: param });
-                    if (result.$promise != null) {
-                        result.$promise.then(function (response) {
-                            angular.extend(result, response.data);
-                        }, function (response) {
-                            if (response.data.status == 401) {
-                                var m_oauthService = new oauthService();
-                                m_oauthService.goToAuthorize();
-                            }
-                        });
-                        result.$promise.refresh = function (newParam) {
-                            result.$promise.then(function () {
-                                call(action, newParam).$promise.then(function (response) {
-                                    angular.extend(result, response.data);
-                                });
-                            });
-                        }
-                    }
-                    return result;
-                } else {
-                    //跳到认证页面
-                    var moauthService = new oauthService();
-                    moauthService.goToAuthorize();
-                }
-            }
-        };
-        return service;
-
     }]);
 
 });

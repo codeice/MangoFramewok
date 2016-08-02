@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using MangoFramework.Infrastructure.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Quartz;
+using Quartz.Impl;
 
 namespace UnitTest
 {
@@ -15,5 +17,8 @@ namespace UnitTest
             var letter = SpellingCode.GetSpellCode(name.Substring(0, 1));
             Debug.Print(letter);
         }
+
+
+
     }
 }

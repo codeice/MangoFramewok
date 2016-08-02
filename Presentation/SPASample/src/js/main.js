@@ -1,25 +1,30 @@
 ﻿require.config({
     baseUrl: '',
     paths: {
-        //ace common js 
-        'jquery': 'libs/jquery/jquery-1.10.2.min',
+
+        //ace common js
         'bootstrap': 'libs/assets/js/bootstrap.min',
         'bootbox': 'libs/assets/js/bootbox',
         'datepicker': 'libs/assets/js/date-time/bootstrap-datepicker.min',
-        'datepickerZh': 'libs/assets/js/date-time/locales/bootstrap-datepicker.zh-CN',
+        'datepickerZh': 'libs/assets/js/date-time/locales/bootstrap-datepicker.zh-CN.min',
+        'bootstrapTag': 'libs/assets/js/bootstrap-tag.min',
+
+        'jquery': 'libs/jquery/jquery-1.10.2.min',
         'jqueryui': 'libs/jquery/jquery-ui-1.10.3.full.min',
         'uploadify': 'libs/uploadify/jquery.uploadify.min',
         'blockui': 'libs/assets/js/jquery.blockUI',
         'cookie': 'libs/jquery/jquery.cookie',
+
         'aceExtra': 'libs/assets/js/ace-extra.min',
         'aceElement': 'libs/assets/js/ace-elements.min',
-        'bootstrapTag': 'libs/assets/js/bootstrap-tag.min',
         'ace': 'libs/assets/js/ace.min',
         'acetree': 'libs/assets/js/fuelux/fuelux.tree.min',
         //angular
         'angular': 'libs/angular/angular',
-        'angular-route': 'libs/angular/angular-route',
-        'angular-batch': 'libs/angular/angular-http-batch',
+        'angular-route': 'libs/angular-route/angular-route.min',
+        'angular-ui-router': 'libs/angular-ui-router/angular-ui-router',
+        'angular-batch': 'libs/angular-http-batcher/dist/angular-http-batch',
+
         'app': 'js/app',
         'routes': 'js/routes',
         //oauth
@@ -29,24 +34,23 @@
         'jws': 'libs/oauth/jws',
         'OAuthClient': 'libs/oauth/OAuthClient',
 
-        'zTree': 'libs/zTree/js/jquery.ztree.all-3.5',
-        'umeditor': 'libs/umeditor/umeditor',
-        'umeditorConfig': 'libs/umeditor/umeditor.config',
-        'jqGrid': 'libs/assets/js/jqGrid/jquery.jqGrid',
-        'jqGridcn': 'libs/assets/js/jqGrid/i18n/grid.locale-cn'
+        'zTree': 'libs/zTree/js/jquery.ztree.all-3.5'
     },
     shim: {
         //不符合AMD规范的js定义以及依赖关系配置
         'angular-route': { deps: ['angular'] },
+        'angular-ui-router': { deps: ['angular'] },
         'angular-batch': { deps: ['angular'] },
         'angular': { deps: ['jquery'] },
         'jquery': { deps: [] },
-
         ace: {
             deps: ['aceExtra', 'aceElement']
         },
+        /*        aceElement: {
+                  deps: ['bootstrap', 'jqueryui', 'bootbox']
+              },*/
         aceElement: {
-            deps: ['bootstrap', 'jqueryui', 'bootbox']
+            deps: ['bootstrap', 'bootbox']
         },
         bootstrap: {
             deps: ['jquery']
@@ -60,10 +64,10 @@
             deps: ['jquery', 'bootstrap']
         },
         datepicker: {
-            deps: ['jquery','bootstrap']
+            deps: ['jquery', 'bootstrap']
         },
         datepickerZh: {
-            deps: ['jquery', 'bootstrap', 'datepicker']
+            deps: ['datepicker']
         },
         acetree: {
             deps: ['ace', 'jquery']
@@ -76,20 +80,16 @@
         OAuthClient: {
             deps: ['rsa', 'jws']
         },
-        jqGrid: { deps: ['jquery'] },
-        jqGridcn: { deps: ['jqGrid'] },
-        zTree: { deps: ['jquery'] },
-        umeditor: { deps: ['umeditorConfig'] },
-        umeditorConfig: { deps: ['jquery'] }
+        zTree: { deps: ['jquery'] }
     },
     //开发环境使用，部署无需使用
-    /*    urlArgs: 'bust=13' + Math.random(),*/
+    /* urlArgs: 'bust=13' + Math.random(),*/
     waitSeconds: 60
 });
 
 require(['routes'], function () {
+    //ace 初始化程序
     $(function () {
-        //ace 初始化程序
         ace.handle_side_menu(jQuery);
         ace.enable_search_ahead(jQuery);
         ace.general_things(jQuery);

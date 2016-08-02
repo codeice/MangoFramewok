@@ -1,7 +1,9 @@
 ﻿define([
     '../common/loadAllCommonScripts',
+    './contentMainCtrl',
     '../service/organizationService',
-    '../controllers/account/signinCtrl',
+    '../service/accountService',
+/*    '../controllers/account/signinCtrl',*/
 
     //content app ctrl module
     './contentModule',

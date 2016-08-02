@@ -26,6 +26,25 @@ define(['../modules/dirModule'], function (module) {
         }
     });
 
+    //----ui-state 状态嵌套 默认第一个状态激活
+    module.directive("dirDefaultActive", ['$state', function ($state) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var namedNodes = angular.element(element).find('a')[0].attributes;
+                for (var i = 0; i < namedNodes.length; i++) {
+                    var node = namedNodes[i];
+                    if (node.nodeName == 'ui-sref') {
+                        var childState = node.nodeValue;
+                        $state.go(childState);
+                    }
+                }
+                /*                var childState = attrs.uiSref;
+                                $state.go(childState);*/
+            }
+        }
+    }]);
+
     //----格式化时间
     module.directive('dirDateFormat', ['$filter', function ($filter) {
         return {

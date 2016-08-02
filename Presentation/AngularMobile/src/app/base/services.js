@@ -134,7 +134,7 @@ serviceModule.factory('httpProxy', ['$http', 'appConfig', 'oauthService', 'uiKit
             if (route.indexOf('http') >= 0) {
                 apihost = route;
             } else {
-                if (appConfig.apiServer.indexOf(appConfig.apiServer.length - 1) != '/') {
+                   if (appConfig.apiServer.substr(appConfig.apiServer.length - 1, 1) != '/') {
                     appConfig.apiServer = appConfig.apiServer + "/";
                 }
                 apihost = appConfig.apiServer + route;

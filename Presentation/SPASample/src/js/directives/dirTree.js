@@ -1,5 +1,6 @@
 ﻿/*treeConfig = {
-    isExpandRootNode: true, //根借调是否展开
+    isExpandRootNode: true, //异步加载节点时，设为true,则自动加载子节点
+    isExpandAndClick:true,//是否展开的节点的同事触发点击事件,默认展开并触发点击事件
     isEditEnable: true, //设置 zTree 是否处于编辑状态（拖拽操作必须设置成eidit状态才可以）
     isAddHoverDom:true,//hover节点是否出现增删改按钮
     check: {
@@ -18,7 +19,12 @@ treeDataDemo=[{
                 }];
 */
 
-tree_v = "1.1";
+/*
+ * tree 1.4
+* 新增isExpandAndClick=true/false,是否展开的同时触发点击节点事件
+  *增加业务相关指令
+ */
+tree_v = "1.4";
 define(['../modules/dirModule', 'zTree'], function (module) {
 
     //*****************ztree directive********************//
@@ -27,11 +33,11 @@ define(['../modules/dirModule', 'zTree'], function (module) {
             reistrict: "A",
             scope: {
                 tree: "=?dirTree", //ztree 实例
-                treeConfig: '=treeConfig', //zTree配置项
-                treeData: '=treeData', //tree初始化数据源
+                treeConfig: '=?treeConfig', //zTree配置项
+                treeData: '=?treeData', //tree初始化数据源
 
                 clickNode: '=clickNode', //点击节点事件
-                loadChildNodes: '=loadChildNodes', //expand节点加载子节点数据事件
+                loadChildNodes: '=loadChildNodes', //异步加载子节点数据
                 moveNode: '=moveNode',//移动节点事件
                 checkNode: '=checkNode'//checkbox/radio勾选或者取消勾选节点事件
             },
@@ -49,10 +55,9 @@ define(['../modules/dirModule', 'zTree'], function (module) {
                     attrs.id = id;
                     element[0].id = id;
                 }
-
-
                 var treeObj = null;
                 /////////////////////////tree config的配制///////////////////////////
+
                 //ztree setting start 
                 var setting = {
                     data: {
@@ -76,109 +81,11 @@ define(['../modules/dirModule', 'zTree'], function (module) {
                     }
                 };//end setting
 
-                if (!angular.isUndefined(scope.treeConfig)) {
-                    //add button for node (add edit remove button)
-                    if (!angular.isUndefined(scope.treeConfig.isAddHoverDom) && scope.treeConfig.isAddHoverDom) {
-                        var tempView = {
-                            addHoverDom: addHoverDom,
-                            removeHoverDom: removeHoverDom,
-                            selectedMulti: false
-                        };
-                        angular.extend(setting.view, tempView);
-                    }//end hover dom
-
-                    //edit
-                    if (!angular.isUndefined(scope.treeConfig.isEditEnable) && scope.treeConfig.isEditEnable) {
-                        var edit = {
-                            enable: true,
-                            showRemoveBtn: false,
-                            showRenameBtn: false
-                        };
-                        setting.edit = edit;
-                    }//end edit
-
-                    //check
-                    if (!angular.isUndefined(scope.treeConfig.check)) {
-                        setting.check = scope.treeConfig.check;
-                        if (!angular.isUndefined(setting.check.chkStyle)) {
-                            if (setting.check.chkStyle == "checkbox") {
-                                setting.check.chkboxType = { "Y": "", "N": "" };
-                            }
-                            if (setting.check.chkStyle == "radio") {
-                                setting.check.radioType = "all";
-                            }
-                        }
-                    }//end check
+                if (angular.isUndefined(scope.treeConfig)) {
+                    scope.treeConfig = {};
                 }
 
-                //////////////////////////treeNode 的点击事件///////////////////////////
-                //节点点击事件
-                function treeNodeClick(event, treeId, treeNode) {
-                    if (treeNode == null) {
-                        return;
-                    }
-                    treeObj.selectNode(treeNode);
-                    //设置currentNode
-                    if (scope.tree.currentNode) {
-                        scope.tree.currentNode = {};
-                    }
-                    scope.tree.currentNode = { Id: treeNode.id, Name: treeNode.name, ParentId: treeNode.pId };
-                    scopeService.safeApply(scope);
-                    if (!angular.isUndefined(scope.clickNode)) {
-                        scope.clickNode(treeNode);
-                        scopeService.safeApply(scope);
-                    }
-                }
-
-                //节点展开事件（调用treeNodeClick事件）
-                function treeNodeExpand(event, treeId, treeNode) {
-                    if (treeNode == null) {
-                        return;
-                    }
-                    treeObj.selectNode(treeNode);
-                    treeNodeClick(event, treeId, treeNode);
-                    if (!angular.isUndefined(scope.loadChildNodes)) {
-                        if (angular.isUndefined(treeNode.children)) {
-                            scope.loadChildNodes(treeNode, treeObj);
-                        }
-                    }
-                }
-
-                //节点拖拽，drop事件
-                function treeNodeOnDrop(event, treeId, treeNodes, targetNode, moveType) {
-                    if (!angular.isUndefined(scope.moveNode)) {
-                        var sourceNode = treeNodes[0];
-                        scope.moveNode(sourceNode, targetNode);
-                    }
-                }
-
-                //节点选中事件
-                function treeNodeOnCheck(event, treeId, treeNode) {
-                    if (!angular.isUndefined(scope.checkNode)) {
-                        scope.checkNode(treeNode);
-                    }
-                }
-
-                //触发根节点的点击事件，并判断是否展开是否展开根节点
-                function expandRootNode() {
-                    var nodes = treeObj.getNodes();
-                    if (nodes.length >= 1) {
-                        treeObj.selectNode(nodes[0]);
-                        if (!angular.isUndefined(scope.treeConfig) && !angular.isUndefined(scope.treeConfig.isExpandRootNode) && scope.treeConfig.isExpandRootNode == true) {
-                            //调用事件  
-                            treeObj.setting.callback.onExpand(null, treeObj.setting.treeId, nodes[0]);
-                        }
-                    }
-                }
-
-                function getSelectedNodes() {
-                    var selectedNodes = treeObj.getSelectedNodes();
-                    if (!angular.isUndefined(scope.getSelectedNodes)) {
-                        scope.getSelectedNodes(getSelectedNodes(selectedNodes));
-                    }
-                }
-
-                //Hover Dom
+                //----鼠标移动节点时的dom
                 function addHoverDom(treeId, treeNode) {
                     var nodeTitle = $("#" + treeNode.tId + "_span");
                     //删除按钮
@@ -214,8 +121,8 @@ define(['../modules/dirModule', 'zTree'], function (module) {
 
                     //删除按钮事件
                     var removeBtn = $("#removeBtn_" + treeNode.tId);
-                    if (addBtn) {
-                        addBtn.bind("click", function () {
+                    if (removeBtn) {
+                        removeBtn.bind("click", function () {
                             if (!angular.isUndefined(scope.treeConfig) && !angular.isUndefined(scope.treeConfig.onRemoveNode)) {
                                 scope.treeConfig.onRemoveNode(treeNode);
                             }
@@ -233,11 +140,135 @@ define(['../modules/dirModule', 'zTree'], function (module) {
                     }
                 };
 
+                //----鼠标移出Dom节点时的dom
                 function removeHoverDom(treeId, treeNode) {
                     $("#addBtn_" + treeNode.tId).unbind().remove();
                     $("#editBtn_" + treeNode.tId).unbind().remove();
                     $("#removeBtn_" + treeNode.tId).unbind().remove();
                 };
+
+                //add button for node (add edit remove button)
+                if (!angular.isUndefined(scope.treeConfig.isAddHoverDom) && scope.treeConfig.isAddHoverDom) {
+                    var tempView = {
+                        addHoverDom: addHoverDom,
+                        removeHoverDom: removeHoverDom,
+                        selectedMulti: false
+                    };
+                    angular.extend(setting.view, tempView);
+                }//end hover dom
+
+                //edit
+                if (!angular.isUndefined(scope.treeConfig.isEditEnable) && scope.treeConfig.isEditEnable) {
+                    var edit = {
+                        enable: true,
+                        showRemoveBtn: false,
+                        showRenameBtn: false
+                    };
+                    setting.edit = edit;
+                }//end edit
+
+                //check
+                if (!angular.isUndefined(scope.treeConfig.check)) {
+                    setting.check = scope.treeConfig.check;
+                    if (!angular.isUndefined(setting.check.chkStyle)) {
+                        if (setting.check.chkStyle == "checkbox") {
+                            setting.check.chkboxType = { "Y": "", "N": "" };
+                        }
+                        if (setting.check.chkStyle == "radio") {
+                            setting.check.radioType = "all";
+                        }
+                    }
+                }//end check
+
+                //----展开节点的时候是否同时触发点击事件
+                if (angular.isUndefined(scope.treeConfig.isExpandAndClick)) {
+                    scope.treeConfig.isExpandAndClick = true;
+                }//end isExpandAndClick
+
+
+                //---是否展开根节点
+                if (angular.isUndefined(scope.treeConfig.isExpandRootNode)) {
+                    scope.treeConfig.isExpandRootNode = true;
+                }
+
+                //////////////////////////treeNode 的点击事件///////////////////////////
+                //----节点点击事件
+                function treeNodeClick(event, treeId, treeNode) {
+                    if (treeNode == null) {
+                        return;
+                    }
+                    treeObj.selectNode(treeNode);
+                    //设置currentNode
+                    if (scope.tree.currentNode) {
+                        scope.tree.currentNode = {};
+                    }
+                    scope.tree.currentNode = { Id: treeNode.id, Name: treeNode.name, ParentId: treeNode.pId };
+                    scopeService.safeApply(scope);
+                    if (!angular.isUndefined(scope.clickNode)) {
+                        scope.clickNode(treeNode);
+                        scopeService.safeApply(scope);
+                    }
+                }
+
+                //----节点展开事件（调用treeNodeClick事件）
+                function treeNodeExpand(event, treeId, treeNode) {
+                    if (treeNode == null) {
+                        return;
+                    }
+                    //展开节点并触发节点的click事件
+                    if (scope.treeConfig.isExpandAndClick) {
+                        treeObj.selectNode(treeNode);
+                        treeNodeClick(event, treeId, treeNode);
+                    }
+                    if (!angular.isUndefined(scope.loadChildNodes)) {
+                        if (angular.isUndefined(treeNode.children)) {
+                            scope.loadChildNodes(treeNode, treeObj);
+                        }
+                    }
+                }
+
+                //----节点拖拽，drop事件
+                function treeNodeOnDrop(event, treeId, treeNodes, targetNode, moveType) {
+                    if (!angular.isUndefined(scope.moveNode)) {
+                        var sourceNode = treeNodes[0];
+                        scope.moveNode(sourceNode, targetNode);
+                    }
+                }
+
+                //----节点选中事件
+                function treeNodeOnCheck(event, treeId, treeNode) {
+                    if (!angular.isUndefined(scope.checkNode)) {
+                        scope.checkNode(treeNode);
+                    }
+                }
+
+                //----触发根节点的点击事件，并判断是否展开是否展开根节点
+                function expandRootNode() {
+                    var nodes = treeObj.getNodes();
+                    if (nodes.length >= 1) {
+                        var rootNode = nodes[0];
+                        treeObj.selectNode(rootNode);
+                        //如果 第一个节点是父节点，则展开加载子节点
+                        if (scope.treeConfig.isExpandRootNode && rootNode.isParent) {
+                            //调用展开事件  
+                            treeObj.setting.callback.onExpand(null, treeObj.setting.treeId, rootNode);
+                        }
+                        //展开并触发节点的click事件触发
+                        if (scope.treeConfig.isExpandAndClick) {
+                            treeObj.selectNode(rootNode);
+                            treeNodeClick(event, treeObj.setting.treeId, rootNode);
+                        }
+                    }
+                }
+
+
+                function getSelectedNodes() {
+                    var selectedNodes = treeObj.getSelectedNodes();
+                    if (!angular.isUndefined(scope.getSelectedNodes)) {
+                        scope.getSelectedNodes(getSelectedNodes(selectedNodes));
+                    }
+                }
+
 
                 //----检测treeData,变化后initTree
                 scope.$watch("treeData", function () {
@@ -252,6 +283,7 @@ define(['../modules/dirModule', 'zTree'], function (module) {
                     //是否展开根节点
                     expandRootNode();
                 });//end watch
+
 
                 //----更新节点
                 function refreshNode(type, id, name) {
@@ -294,8 +326,7 @@ define(['../modules/dirModule', 'zTree'], function (module) {
                                 var rootNode = {
                                     id: id,
                                     pId: null,
-                                    name: name,
-                                    isParent: true
+                                    name: name
                                 };
                                 treeObj.addNodes(null, rootNode);
                                 treeObj.setting.callback.onExpand(null, treeObj.setting.treeId, rootNode);

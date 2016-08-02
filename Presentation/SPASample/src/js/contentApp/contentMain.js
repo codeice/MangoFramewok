@@ -79,7 +79,7 @@
     waitSeconds: 240
 });
 
-require(['js/contentApp/contentApp'], function () {
+require(['js/contentApp/contentRoute'], function () {
     $(function () {
         //ace 初始化程序
         ace.handle_side_menu(jQuery);

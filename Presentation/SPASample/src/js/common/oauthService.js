@@ -1,5 +1,5 @@
 ﻿/*
- *oauthService 1.2
+ *oauthService 1.3
 *修改返回defer对象
  */
 define(['../modules/serviceModule'], function (module) {
@@ -30,15 +30,6 @@ define(['../modules/serviceModule'], function (module) {
                         var deferResult = {
                             then: defer.promise.then
                         };
-                        if (sessionStorage.getItem('user_info') && sessionStorage.getItem('access_token')) {
-                            $rootScope.currentUser = angular.fromJson(sessionStorage.getItem('user_info'));
-                            defer.resolve({
-                                response: response,
-                                user: $rootScope.currentUser
-                            });
-                            angular.extend(deferResult, $rootScope.currentUser);
-                            return deferResult;
-                        }
                         if (response) {
                             if (response.id_token) {
                                 var url = $rootScope.oauthConfig.jwksUri + "?nc=" + Math.random();
@@ -62,7 +53,6 @@ define(['../modules/serviceModule'], function (module) {
                                             var getUserInfo = $http.get(userInfoUrl);
                                             return getUserInfo.then(function (result) {
                                                 sessionStorage.setItem("user_info", angular.toJson(result.data), accTokenInfo.exp);
-                                                $rootScope.currentUser = angular.fromJson(sessionStorage.getItem('user_info'));
                                                 defer.resolve({
                                                     response: response,
                                                     user: $rootScope.currentUser
@@ -88,7 +78,7 @@ define(['../modules/serviceModule'], function (module) {
                     //----注销
                     logout: function () {
                         var logoutEndpoint = $rootScope.oauthConfig.logoutEndpoint + "?id_token_hint=" + sessionStorage.getItem('id_token') + "&post_logout_redirect_uri=" + $rootScope.appConfig.baseUrl;
-                        if ($rootScope.currentUser.userId != undefined) {
+                        if ($rootScope.currentUser && $rootScope.currentUser.userId != undefined) {
                             sessionStorage.removeItem($rootScope.currentUser.userId + '_menus');
                         }
                         sessionStorage.removeItem('id_token');

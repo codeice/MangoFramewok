@@ -7,9 +7,13 @@ var settingsDemo = {
                     fileTypes: "*.gif;*.jpg;*.xls;*.xlsx;"
                 };
  */
-
-define(['../modules/dirModule', "uploadify"], function (module) {
-    module.directive('dirUploadify', ['scopeService', '$rootScope', function (scopeService, rootScope) {
+/*
+ * tree 1.4
+* 路由改变销毁uploadify
+ */
+tree_v = "1.4";
+define(["../modules/dirModule", "uploadify"], function (module) {
+    module.directive('dirUploadify', ['scopeService', '$rootScope', function (scopeService, $rootScope) {
         var dirObj = {
             restrict: 'A',
             scope: {
@@ -26,6 +30,11 @@ define(['../modules/dirModule', "uploadify"], function (module) {
             },
             replace: true,
             link: function (scope, element, attrs) {
+                //路由改变的时候销毁
+                $rootScope.$on('$routeChangeStart', function (scope, next, current) {
+                    $(".uploadify").uploadify("destroy");
+                });
+
                 if (angular.isUndefined(scope.uploader) || scope.uploader == null) {
                     scope.uploader = {
                         files: [], //所选择的文件
@@ -42,6 +51,7 @@ define(['../modules/dirModule', "uploadify"], function (module) {
                 }
                 //为指令所在元素append子元素并将uplodify绑定在改element
                 var uploadifyId = "#" + id + "-uploadify";
+
                 element.append("<div id='" + id + "-uploadify' style='display:none;'></div>");
                 var uploaderContainer = $(uploadifyId);
 
@@ -51,6 +61,8 @@ define(['../modules/dirModule', "uploadify"], function (module) {
                     buttonText: "",
                     url: ""
                 };
+
+
 
                 scope.$watch("settings", function () {
                     if (angular.isUndefined(scope.settings)) {
@@ -81,7 +93,6 @@ define(['../modules/dirModule', "uploadify"], function (module) {
                     }
                 });//end watch setting
 
-
                 //////////////////////////////uploadify 事件回调/////////////////////////////////
 
                 //初始化uploadify （将uplodify覆盖于指令所在元素）
@@ -94,7 +105,9 @@ define(['../modules/dirModule', "uploadify"], function (module) {
                     $(uploadifyId).css({ "position": "absolute", "top": "0", "left": "0", "bottom": "0", "right": "0", "height": "100%", "width": "100%" });
                     $(uploadifyId + " object").css({ "position": "absolute", "top": "0", "bottom": "0", "left": "0", "right": "0" })
                         .attr("height", $(uploadifyId).css("height"))
-                        .attr("width", $(uploadifyId).css("width"));
+                        .attr("width", $(uploadifyId).css("width"))
+                    /*   .attr("classid", "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"); //一定要加，修复ie bug*/
+
 
                     if (scope.onInit != undefined) {
                         scope.onInit();
@@ -113,6 +126,7 @@ define(['../modules/dirModule', "uploadify"], function (module) {
 
                     scopeService.safeApply(scope);
                 }
+
                 //上传进度事件
                 options.onUploadProgress = function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
                     if (!angular.isUndefined(scope.onProgress)) {
@@ -121,7 +135,6 @@ define(['../modules/dirModule', "uploadify"], function (module) {
                     scope.uploader.progress = Math.floor(bytesUploaded / bytesTotal * 100);
                     scopeService.safeApply(scope);
                 };
-
 
                 //上传成功触发该事件
                 options.onUploadSuccess = function (file, data, response) {
@@ -171,10 +184,16 @@ define(['../modules/dirModule', "uploadify"], function (module) {
                     if (!angular.isUndefined(scope.url) && scope.url.indexOf("http://") == 0) {
                         url = scope.url;
                     } else {
-                        url = rootScope.config.baseUrl + scope.url;
+                        url = $rootScope.config.baseUrl + scope.url;
                     }
                     angular.extend(options, { uploader: url });
-                    uploaderContainer.uploadify(options);
+
+                    //触发上传事件
+                    try {
+                        uploaderContainer.uploadify(options);
+                    } catch (e) {
+
+                    }
                 });//end watch url
 
 

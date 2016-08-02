@@ -4,7 +4,7 @@
 * appConfig添加wsaf配置
  */
 define(['ace', 'js/loadScripts'], function () {
-    var app = angular.module('app', ['ngRoute', 'jcs.angular-http-batch', 'app.common', 'app.controllers', 'app.directives', 'app.services']);
+    var app = angular.module('app', [ 'ui.router', 'jcs.angular-http-batch', 'app.common', 'app.controllers', 'app.directives', 'app.services']);
 
     app.config([
         'httpBatchConfigProvider', function (httpBatchConfigProvider) {

@@ -1,18 +1,22 @@
-﻿define(['../../modules/ctrlModule', '../../directives/dirPage', '../../directives/dirUmeditor', '../../directives/dirDatepicker', '../../directives/dirUploadify', '../../directives/dirUploadImage', '../../directives/dirUploadFile'], function (module) {
-    module.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/demo',
+﻿define(['../../modules/ctrlModule', '../../directives/dirPage', '../../directives/dirDatepicker'], function (module) {
+    module.config(['$stateProvider', function ($stateProvider) {
+        $stateProvider
+            .state('demo',
             {
+                url: '/demo',
                 templateUrl: 'js/controllers/demo/views/demo.html?nc=' + Math.random(),
                 controller: 'demoCtrl'
             })
-            .when('/formTemplate',
+            .state('formTemplate',
             {
+                url: '/formTemplate',
                 templateUrl: 'js/controllers/demo/views/formTemplate.html?nc=' + Math.random(),
                 controller: 'formCtrl'
             });
     }]);
 
-    module.controller("demoCtrl", ['$scope', '$location', 'demoService', 'scopeService', function ($scope, $location, demoService, scopeService) {
+    module.controller("demoCtrl", ['$scope', '$location', 'demoService', function ($scope, $location, demoService) {
+
         $scope.title = "CRUD Demo";
         //////////////////////////////Demo CRUD///////////////////////////////
         //----searchModel 初始化
@@ -22,14 +26,16 @@
                 PageSize: 2, //每页显示记录数
                 //搜索条件配置
                 Name: "",
-                IDCardNo: ""
+                IDCardNo: "",
+                Year: 2014,
             };
         }
 
         //----搜索
-        $scope.doSearch = function () {
+        $scope.doSearch = function (pageNumber) {
             //每次搜索将全选设置成false
             $scope.isAllChecked = false;
+            $scope.searchModel.PageNumber = pageNumber;
             $scope.pageModel = demoService.pageFindUsers($scope.searchModel);
             $scope.pageModel.$promise.then(function (response) {
                 $scope.users = response.data.Data;
@@ -40,8 +46,7 @@
 
         //----翻页
         $scope.changePage = function (pageNumber) {
-            $scope.searchModel.PageNumber = pageNumber;
-            $scope.doSearch();
+            $scope.doSearch(pageNumber);
         };
 
         //----获取所有选中的用户
@@ -180,85 +185,45 @@
         }
     }]);
 
-
     ///////////////////form Template////////////////////////
-    module.controller('formCtrl', ['$scope', 'appConstants', 'scopeService', 'fileService', function ($scope, appConstants, scopeService, fileService) {
+    module.controller('formCtrl', ['$scope', 'appConstants', 'demoService', function ($scope, appConstants, demoService) {
         $scope.genders = appConstants.genders;
-        //----岗位分类
-        $scope.positionCategories = [{ Key: 1, Value: "test" }];
+        /*        //----岗位分类
+                $scope.positionCategories = dictionaryService.getPositionCategories();
+        
+                //----岗位等级
+                $scope.positionLevels = dictionaryService.getPositionLevels();*/
 
-        //----岗位等级
-        $scope.positionLevels = [{ Key: 1, Value: "test" }];
+        //出国事由
+        $scope.leaveReasonCodes = appConstants.LeaveReasonCode;
 
-        $scope.model = {};
-        $scope.model = { Article: "<p >Hello world</p>" };
-
-        ///选人插件回调
-        function callback(selectedUsers) {
-            scopeService.safeApply($scope, function () {
-                $scope.selectedUsers = selectedUsers;
-                console.log("选择的人员=", selectedUsers);
-            });
+        //获取选中的出国(境)事由
+        function getSelectedReasonCode() {
+            for (var i = 0; i < $scope.leaveReasonCodes.length; i++) {
+                var reason = $scope.leaveReasonCodes[i];
+                if (reason.checked) {
+                    $scope.basicReport = reason.Key;
+                }
+            }
         }
 
-        $scope.openWindow = function () {
-            selectUser("open", callback);
-        }
+        $scope.currentQuarter = utility.getCurrentQuarter();
 
-        $scope.openModal = function () {
-            selectUser("modal", callback);
-        }
+        $scope.yearList = utility.getLatestYearList();
 
-        //----上传地址
-        $scope.uploadUrl = fileService.getUploadFileUrl();
-        //////////////////////////////dirUploadify//////////////////////////////
-        $scope.uploader = {};
-        $scope.uploaderSettings = {
-            maxFileSize: 4, //in MB 文件大小限制
-            fileTypes: "*.gif;*.jpg;*.xls;*.xlsx;", //可接受的文件类型  '*.gif; *.jpg; *.png',
-            isAuto: true,
-            isMultiple: true
-        };
-        $scope.onSuccess = function (file, returnData, uploader) {
-            console.log("file=", file);
-            console.log("returnData=", returnData);
-            console.log("uploader=", uploader);
-        }
+        /*        $scope.time = new Date();*/
+        $scope.time = 1990;
 
-        ///////////////////////////dirUploadImage///////////////////////////
-        /*  $scope.uploadedFile = { url: "http://localhost/wsaf.portal/images/test.png" };*/
+        $scope.users = demoService.getUserList();
+
+        $scope.list = [
+            { name: "test", time: "2015" }
+        ];
+
+        $scope.list2 = [
+            { name: "test", time: "2015-12" }
+        ];
 
 
-        ///////////////////////////dirUploadFile///////////////////////////
-        $scope.uploadedFiles = [
-        {
-            url: "http://localhost/wsaf.portal/images/test.png",
-            name: "test.png"
-        },
-        {
-            url: "http://localhost/wsaf.portal/images/test1.png",
-            name: "test1.png"
-        }];
-
-
-        /*     //---- 选人新窗口
-        $scope.openWindow = function () {
-            var funcId = "func" + new Date() * 1;//这里你随机生成一个 id
-            window[funcId] = callback;
-            var url = "http://localhost/wsaf.portal/selectUser.html?type=open&callback=" + funcId;
-            window.open(url);
-        }
-
-        //modal iframeurl
-        var getSelectUserUrl = function () {
-            var funcId = "func" + new Date() * 1;//这里你随机生成一个 id
-            window[funcId] = callback;
-            $scope.ifmSrc = "http://localhost/wsaf.portal/selectUser.html?type=modal&callback=" + funcId;
-        }
-        getSelectUserUrl();
-
-        $scope.openModal = function () {
-            $("#selectUserModal").modal();
-        }*/
     }]);
 });

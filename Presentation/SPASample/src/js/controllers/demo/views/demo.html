@@ -41,11 +41,24 @@
                                 <input type="text" name="IDCardNo" ng-model="searchModel.IDCardNo">
                             </div>
                         </div>
+                        <div class="span4 span4-ext">
+                            <div class="control-group ">
+                                <label class="form-label">年</label>
+                                <input type="text" dir-datepicker="yyyy" ng-model="searchModel.Year">
+                            </div>
+                        </div>
 
                         <div class="span4 span4-ext">
                             <div class="control-group ">
-                                <label class="form-label">日期</label>
-                                <input type="text" dir-datepicker="yyyy-MM-dd" name="Time" ng-model="searchModel.Time">
+                                <label class="form-label">年月</label>
+                                <input type="text" dir-datepicker="yyyy-MM" ng-model="searchModel.Month">
+                            </div>
+                        </div>
+
+                        <div class="span4 span4-ext">
+                            <div class="control-group ">
+                                <label class="form-label">年月日</label>
+                                <input type="text" dir-datepicker="yyyy-MM-dd" ng-model="searchModel.Day">
                             </div>
                         </div>
                     </div>
@@ -53,7 +66,7 @@
                     <div class="row-fluid">
                         <div class="span12 create-group">
                             <div class="controls pull-right">
-                                <button class="btn btn-small btn-info " ng-click="doSearch()">
+                                <button class="btn btn-small btn-info " ng-click="doSearch(1)">
                                     <i class="icon-search"></i>
                                     查询
                                 </button>
@@ -93,54 +106,54 @@
             <!-- table-->
             <table id="sample-table-2" class="table table-striped table-bordered table-hover">
                 <thead>
-                <tr>
-                    <th class="center">序号</th>
-                    <th class="center">
-                        <label>
-                            <input type="checkbox" class="ace" dir-toggle-check-all="users" ng-model="isAllChecked" ng-checked="isAllChecked"/>
-                            <span class="lbl"></span>
-                        </label>
-                    </th>
-                    <th class="center">
-                        操作
-                    </th>
-                    <th>姓名</th>
-                    <th>性别</th>
-                    <th>身份证</th>
-                    <th>学历</th>
-                    <th>专业</th>
+                    <tr>
+                        <th class="center">序号</th>
+                        <th class="center">
+                            <label>
+                                <input type="checkbox" class="ace" dir-toggle-check-all="users" ng-model="isAllChecked" ng-checked="isAllChecked" />
+                                <span class="lbl"></span>
+                            </label>
+                        </th>
+                        <th class="center">
+                            操作
+                        </th>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>身份证</th>
+                        <th>学历</th>
+                        <th>专业</th>
 
-                </tr>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="user in users">
-                    <td class="center">{{$index + 1}}</td>
-                    <td class="center">
-                        <label>
-                            <input type="checkbox" class="ace" dir-toggle-check="user.checked" ng-model=user.checked ng-checked="user.checked"/>
-                            <span class="lbl"></span>
-                        </label>
-                    </td>
-                    <td class="center">
-                        <button class="btn btn-minier btn-purple" title="查看" data-rel="tooltip" data-toggle="modal" data-target="#userDetailModal" ng-click="getUserDetail(user.Id)">
-                            <i class="icon-eye-open bigger-110"></i>
-                        </button>
-                        <button class="btn btn-minier btn-danger" title="删除" data-rel="tooltip" ng-click="deleteUser(user)">
-                            <i class="icon-trash bigger-110"></i>
+                    <tr ng-repeat="user in users">
+                        <td class="center">{{$index + 1}}</td>
+                        <td class="center">
+                            <label>
+                                <input type="checkbox" class="ace" dir-toggle-check="user.checked" ng-model=user.checked ng-checked="user.checked" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td class="center">
+                            <button class="btn btn-minier btn-purple" title="查看" data-rel="tooltip" data-toggle="modal" data-target="#userDetailModal" ng-click="getUserDetail(user.Id)">
+                                <i class="icon-eye-open bigger-110"></i>
+                            </button>
+                            <button class="btn btn-minier btn-danger" title="删除" data-rel="tooltip" ng-click="deleteUser(user)">
+                                <i class="icon-trash bigger-110"></i>
 
-                        </button>
-                        <button class="btn btn-minier btn-success" title="修改" data-rel=" tooltip" data-toggle="modal" data-target="#addOrEditModal" ng-click="editUser(user)">
-                            <i class="icon-pencil bigger-110"></i>
+                            </button>
+                            <button class="btn btn-minier btn-success" title="修改" data-rel=" tooltip" data-toggle="modal" data-target="#addOrEditModal" ng-click="editUser(user)">
+                                <i class="icon-pencil bigger-110"></i>
 
-                        </button>
-                    </td>
-                    <td>{{user.Name}}</td>
-                    <td>{{user.Gender}}</td>
-                    <td>{{user.IDCardNo}}</td>
-                    <td>{{user.Education}}</td>
-                    <td>{{user.Major}}</td>
+                            </button>
+                        </td>
+                        <td>{{user.Name}}</td>
+                        <td>{{user.Gender}}</td>
+                        <td>{{user.IDCardNo}}</td>
+                        <td>{{user.Education}}</td>
+                        <td>{{user.Major}}</td>
 
-                </tr>
+                    </tr>
                 </tbody>
             </table>
             <div dir-page page-model="pageModel" page-change="changePage">
@@ -148,8 +161,7 @@
         </div>
     </div>
 </div>
-{{currentUser}}
-
+            {{currentUser}}
 <!--查看详情-->
 <div id="userDetailModal" class="modal hide" tabindex="-1">
     <div class="modal-header">
@@ -282,4 +294,3 @@
         <button type="button" class="btn btn-small  btn-primary" ng-click="saveUser()">保存</button>
     </div>
 </div>
-

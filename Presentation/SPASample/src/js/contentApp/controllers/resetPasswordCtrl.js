@@ -1,9 +1,15 @@
 ﻿define(['../contentModule'], function (module) {
-    module.controller("resetPasswordCtrl", ['$scope', '$location', '$rootScope', 'scopeService', 'accountService', function ($scope, $location, $rootScope, scopeService, accountService) {
+    module.controller("resetPasswordCtrl", ['$scope', '$location', '$rootScope', 'scopeService', 'oauthService', 'accountService', function ($scope, $location, $rootScope, scopeService, oauthService, accountService) {
+        angular.element('body').addClass('login-layout');
 
-        var currentUser = angular.fromJson(sessionStorage.getItem('user_info'));
+        $rootScope.currentUser = angular.fromJson(sessionStorage.getItem('user_info'));
+        if ($rootScope.currentUser == null) {
+            var oauth = new oauthService();
+            $rootScope.currentUser = oauth.getCurrentUser();
+        }
+
         $scope.changePwdModel = {
-            account: currentUser.name,
+            account: $rootScope.currentUser.name,
             oldPassword: "",
             newPassword: ""
         }
@@ -27,6 +33,5 @@
                 bootbox.alert(response.data.Message);
             });
         }
-
     }]);
 });
