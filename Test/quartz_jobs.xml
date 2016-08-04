@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                version="2.0">
+
+  <processing-directives>
+    <overwrite-existing-data>true</overwrite-existing-data>
+    <ignore-duplicates>false</ignore-duplicates>
+    <schedule-trigger-relative-to-replaced-trigger>false</schedule-trigger-relative-to-replaced-trigger>
+  </processing-directives>
+
+  <schedule>
+    <job>
+      <name>JobDemo</name>
+      <group>demo</group>
+      <description>JobDemo测试</description>
+      <job-type>Test.JobDemo, Test</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+    <trigger>
+      <cron>
+        <name>JobDemoTrigger</name>
+        <group>demoTriggers</group>
+        <job-name>JobDemo</job-name>
+        <job-group>demo</job-group>
+        <cron-expression>0/1 * * * * ?</cron-expression>
+      </cron>
+    </trigger>
+  </schedule>
+</job-scheduling-data>

@@ -1,0 +1,224 @@
+﻿<!--addOrEditform-->
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget-box">
+            <div class="widget-header  header-color-light-blue">
+                <h5>添加和编辑表单Demo</h5>
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="1 icon-chevron-up bigger-125"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <form name="addOrEditForm">
+                        <fieldset>
+                            <div class="row-fluid">
+                                <input type="hidden" name="Id" ng-model="model.Id">
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group ">
+                                        <label class="form-label">
+                                            <span class="require-tip">*</span> 姓名
+                                        </label>
+                                        <input type="text" name="Name" ng-model="model.Name">
+                                        <span class="custom-error" ng-show="addOrEditForm.Name.$dirty||addOrEditForm.isSubmitted">
+                                            <span ng-show="addOrEditForm.Name.$error.required">名称不能为空</span>
+                                            <span ng-show="addOrEditForm.Name.$error.maxlength">最大长度30字符</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group  control-group-height-40">
+                                        <label class="form-label">
+                                            性别
+                                        </label>
+                                        <div class="radio-inline" ng-repeat="gender in genders">
+                                            <input type="radio" name="Gender" class="ace" ng-value="gender.Key" ng-model="model.GenderCode" />
+                                            <span class="lbl"> {{gender.Value}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group ">
+                                        <label class="form-label">身份证</label>
+                                        <input type="text" name="Name" ng-model="model.IDCardNo">
+                                    </div>
+                                </div>
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group">
+                                        <label class="form-label">岗位分类</label>
+                                        <select ng-options="item.Key as item.Value for item in positionCategories" ng-model="model.PositionCategoryCode">
+                                            <option value="">请选择----</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group">
+                                        <label class="form-label">岗位等级</label>
+                                        <select ng-options="item.Key as item.Value for item in positionLevels" ng-model="model.PositionLevelCode">
+                                            <option value="">请选择----</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end rowfluid-->
+                            <div class="row-fluid">
+                                <div class="span12 span12-ext">
+                                    <div class="control-group">
+                                        <label class="form-label">出国(境)事由:</label>
+                                        <div class="checkbox-inline" ng-value="item.Key" ng-repeat="item in leaveReasonCodes">
+                                            <input type="checkbox" class="ace" ng-checked="item.checked" dir-single-check="item" checkbox-items="leaveReasonCodes" ng-model="item.checked"><span class="lbl"> {{item.Value}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span12 span12-ext">
+                                    <div class="control-group">
+                                        <label class="form-label">备注</label>
+                                        <textarea class="span8" rows="5" name="Remark" ng-model="model.Remark"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--end rowfluid-->
+                            {{time}}
+                            <div class="row-fluid">
+                                时间：<input type="text" ng-model="time" dir-datepicker="yyyy-MM-dd" />
+                            </div>
+
+                            {{list}}
+                            <div class="row-fluid" ng-repeat="item in list">
+                                Name: <input type="text" ng-model="item.name" />
+                                时间：<input type="text" ng-model="item.time" dir-datepicker="yyyy" />
+                            </div>
+
+                            用户时间测试：
+                            <div class="row-fluid" ng-repeat="user in users">
+                                Name: <input type="text" ng-model="user.Name" />
+                                时间：<input type="text" ng-model="user.CreateTime" dir-datepicker="yyyy-MM" />
+                            </div>
+
+                        </fieldset>
+
+                        <div class="form-actions center">
+                            <button class="btn btn-small btn-success">
+                                <i class="icon-save icon-on-right bigger-110"></i>
+                                保存
+                            </button>
+                            <button class="btn btn-small btn-danger">
+                                <i class="icon-undo icon-on-right bigger-110"></i>
+                                重置
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Detail Template-->
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget-box">
+            <div class="widget-header  header-color-light-blue">
+                <h5>详情demo</h5>
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="1 icon-chevron-up bigger-125"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <form>
+                        <fieldset>
+                            <div class="row-fluid">
+                                <div class="span6 span6-ext">
+                                    <div class="control-group ">
+                                        <label class="form-label">
+                                            年份：
+                                        </label>
+                                        <label class="form-label-val">2012-0510</label>
+                                    </div>
+                                </div>
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group">
+                                        <label class=" form-label">
+                                            季度：
+                                        </label>
+                                        <label class="form-label-val">第一季度</label>
+                                    </div>
+                                </div>
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group">
+                                        <label class=" form-label">
+                                            单位名称：
+                                        </label>
+                                        <label class="form-label-val">微创软件</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group">
+                                        <label class=" form-label">
+                                            邮编号：
+                                        </label>
+                                        <label class="form-label-val">350800</label>
+                                    </div>
+                                </div>
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group">
+                                        <label class=" form-label">
+                                            单位地址：
+                                        </label>
+                                        <label class="form-label-val">欧阳露宿502号</label>
+                                    </div>
+                                </div>
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group">
+                                        <label class=" form-label">
+                                            联系电话：
+                                        </label>
+                                        <label class="form-label-val">15618098876</label>
+                                    </div>
+                                </div>
+
+                                <div class="span6 span6-ext">
+                                    <div class="control-group">
+                                        <label class=" form-label">
+                                            联系人：
+                                        </label>
+                                        <label class="form-label-val">小王</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end row fluid-->
+                        </fieldset>
+
+                        <div class="form-actions center">
+                            <span class="btn btn-small btn-success" ng-click="goBack()">
+                                <i class="icon-arrow-left icon-on-right bigger-110"></i>
+                                返回
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

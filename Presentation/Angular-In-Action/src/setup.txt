@@ -1,0 +1,9 @@
+使用node.js 和r.js
+
+build-config.js 为配置文件
+命令
+
+利用NodeJs来进行压缩
+node r.js -o build-config.js
+
+参见 http://www.cnblogs.com/lhb25/p/requirejs-ptimizer-using.html

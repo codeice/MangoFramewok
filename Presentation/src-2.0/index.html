@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>SPAFramework</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- basic styles -->
+    <link rel="stylesheet" href="libs/assets/css/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="libs/assets/css/chosen.css" />
+
+    <link href="libs/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="libs/assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+    <link href="libs/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!--[if IE 7]>
+      <link href="libs/assets/css/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!-- page specific plugin styles -->
+    <!--    <link href="libs/assets/css/datepicker.css" rel="stylesheet" />-->
+    <link href="libs/assets/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <!-- fonts -->
+    <link href="libs/assets/css/ace-fonts.css" rel="stylesheet" type="text/css" />
+    <!-- ace styles -->
+    <link href="libs/assets/css/ace.min.css" rel="stylesheet" type="text/css" />
+    <link href="libs/assets/css/ace-responsive.min.css" rel="stylesheet" type="text/css" />
+    <link href="libs/assets/css/ace-skins.min.css" rel="stylesheet" type="text/css" />
+    <!--[if lte IE 8]>
+      <link href="libs/assets/css/ace-ie.min.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <link rel="stylesheet" href="libs/ztree/css/metroStyle/metroStyle.css" type="text/css">
+
+    <link href="css/customFix.css" rel="stylesheet" type="text/css" />
+</head>
+<body ng-cloak ng-controller="mainCtrl">
+    <div id="content-body" class="display-none">
+        <div class="navbar" id="navbar">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a href="#" class="brand">
+                        <small>
+                            <i class="icon-leaf">微创软件应用管理平台</i>
+                        </small>
+                    </a>
+                    <!-- /.brand -->
+                    <ul class="nav ace-nav pull-right">
+                        <li class="light-blue">
+                            <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                <img class="nav-user-photo" src="libs/assets/avatars/user.jpg" alt="" />
+                                <span class="user-info">
+                                    <small>您好,</small>
+                                    <span ng-bind="currentUser.displayName"></span>
+                                    <!--   管理员-->
+                                </span>
+                                <i class="icon-caret-down"></i>
+                            </a>
+                            <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
+                                <li>
+                                    <a ng-href="resetPassword.html">
+                                        <i class="icon-cog"></i>
+                                        修改密码
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a ng-click="logout()">
+                                        <i class="icon-off"></i>
+                                        注销
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- /.ace-nav -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.navbar-inner -->
+        </div>
+
+        <div class="main-container container-fluid" ng-controller="menuCtrl">
+            <a class="menu-toggler" id="menu-toggler" href="#">
+                <span class="menu-text"></span>
+            </a>
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+                    <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                        <button class="btn btn-small btn-success">
+                            <i class="icon-signal"></i>
+                        </button>
+                        <button class="btn btn-small btn-info">
+                            <i class="icon-pencil"></i>
+                        </button>
+                        <button class="btn btn-small btn-warning">
+                            <i class="icon-group"></i>
+                        </button>
+                        <button class="btn btn-small btn-danger">
+                            <i class="icon-cogs"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                        <span class="btn btn-success"></span>
+                        <span class="btn btn-info"></span>
+                        <span class="btn btn-warning"></span>
+                        <span class="btn btn-danger"></span>
+                    </div>
+                </div>
+                <!-- #sidebar-shortcuts -->
+                <!--   Menu -->
+                <ul class="nav nav-list">
+                    <li ng-repeat="item in menus" ng-class="{'active':item.Active,'open':item.Open}">
+                        <a ui-sref="{{item.Url}}" ng-class="{'dropdown-toggle':item.Submenus!=undefined && item.Submenus.length>0}">
+                            <i class="{{item.Icon}}"></i>
+                            <span class="menu-text" ng-bind="item.Name"></span>
+                            <b class="arrow icon-angle-down" ng-show="item.Submenus!=undefined && item.Submenus.length>0"></b>
+                        </a>
+                        <ul class="submenu" ng-show="item.Submenus!=undefined && item.Submenus.length>0">
+                            <li ng-repeat="subitem in item.Submenus" ng-class="{'active':subitem.Active,'open':subitem.Open}">
+                                <a ui-sref="{{subitem.Url}}" ng-class="{'dropdown-toggle':subitem.Submenus!=undefined && subitem.Submenus.length>0}">
+                                    <i class="{{subitem.Icon}}"></i>
+                                    {{subitem.Name}}
+                                    <b class="arrow icon-angle-down" ng-show="subitem.Submenus!=undefined && subitem.Submenus.length>0"></b>
+                                </a>
+                                <ul class="submenu" ng-show="subitem.Submenus!=undefined && subitem.Submenus.length>0">
+                                    <li ng-repeat="subitem2 in subitem.Submenus" ng-class="{'active':subitem2.Active,'open':subitem2.Open}">
+                                        <a ui-sref="{{subitem2.Url}}">
+                                            <i class="{{subitem2.Icon}}"></i>
+                                            {{subitem2.Name}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /.nav-list -->
+                <div class="sidebar-collapse" id="sidebar-collapse">
+                    <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+                </div>
+            </div>
+            <!-- main-content-->
+            <div class="main-content">
+                <div class="breadcrumbs" id="breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li ng-repeat="item in nav.parents">
+                            <i class="{{item.icon}}"></i>
+                            <a href="{{item.url}}" ng-bind="item.title"></a>
+                            <span class="divider">
+                                <i class="icon-angle-right arrow-icon"></i>
+                            </span>
+                        </li>
+                        <li class="active" ng-bind="nav.currentTitle"></li>
+                    </ul>
+                    <!-- .breadcrumb -->
+                </div>
+
+                <!--内容页-->
+                <div class="page-content" ui-view>
+                </div>
+                <!-- /.page-content -->
+            </div>
+            <!-- /.main-content -->
+        </div>
+        <!-- /.main-container -->
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
+            <i class="icon-double-angle-up icon-only bigger-110"></i>
+        </a>
+    </div>
+    <div id="loading-mask">
+        <div class="loading">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf-8" data-main="app/main" src="libs/require.js"></script>
+</body>
+</html>

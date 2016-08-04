@@ -1,0 +1,475 @@
+﻿* {
+    font-family: 微软雅黑;
+}
+
+.defaultcursor {
+    cursor: default !important;
+}
+
+.background-grey {
+    background-color: rgb(241, 243, 250);
+}
+
+.pagination ul li {
+    cursor: pointer;
+}
+
+/*modal close button*/
+.close {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    font-size: 28px;
+}
+
+.display-none {
+    display: none;
+}
+
+/******error******/
+.require-tip,
+.custom-error {
+    color: red;
+}
+
+input.ng-invalid .ng-dirty {
+    border-color: red;
+}
+
+
+/***********padding margin************/
+
+.margin-left-2 {
+    margin-left: 2px;
+}
+
+.padding-left-8 {
+    padding-left: 8px;
+    cursor: pointer;
+}
+
+.padding-left-6 {
+    padding-left: 6px;
+    cursor: pointer;
+}
+
+.padding-right-3 {
+    padding-right: 3px;
+}
+
+.padding-right-5 {
+    padding-right: 5px;
+}
+
+.padding-right-8 {
+    padding-right: 8px;
+}
+
+.margin-left-5 {
+    margin-left: 5px;
+}
+
+.margin-right-5 {
+    margin-right: 5px;
+}
+
+.margin-right-15 {
+    margin-right: 15px;
+}
+
+.margin-right-20 {
+    margin-right: 20px;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-top-15 {
+    margin-top: 15px;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-top-3 {
+    margin-top: 3px;
+}
+
+.top-20 {
+    top: 20px;
+}
+
+.height-33 {
+    height: 33px;
+    line-height: 33px;
+}
+
+.line-height-20 {
+    height: 20px;
+    line-height: 20px;
+}
+
+.font-size-10 {
+    font-size: 10px;
+}
+
+.control-label-pullLeft {
+    float: left;
+    font-size: 17px;
+    height: 28px;
+    line-height: 28px;
+}
+
+
+.control-label-pullLeft-font14 {
+    float: left;
+    font-size: 14px;
+    height: 28px;
+    line-height: 28px;
+    padding-right: 8px;
+}
+
+
+/***************applciatioon oauth config list**************/
+.list-container {
+    max-height: 100px;
+    overflow-x: hidden;
+    margin-top: 5px;
+}
+
+    .list-container > .list-wrapper {
+        width: 220px;
+        height: 20px;
+        padding: 3px 25px 3px 5px;
+        margin: 2px 5px 5px 0;
+        color: gray;
+    }
+
+.list-wrapper .list-info {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+    max-width: 190px;
+}
+
+
+/******************ace tree and ztree style *********************/
+.tree:before {
+    display: none !important;
+}
+
+.tree-container {
+    min-height: 600px;
+}
+
+.org-container {
+    min-height: 573px;
+    border-left: none;
+}
+
+.user-container {
+    padding-bottom: 0;
+}
+
+.min-height-600 {
+    min-height: 600px;
+}
+
+/*********************ztree style ******************/
+
+.ztree li span.button.parent_ico_open {
+    margin-right: 2px;
+    background: url(../libs/ztree/css/zTreeStyle/img/diy/1_open.png) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+    *vertical-align: middle;
+}
+
+.ztree li span.button.parent_ico_close {
+    margin-right: 2px;
+    background: url(../libs/ztree/css/zTreeStyle/img/diy/1_close.png) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+    *vertical-align: middle;
+}
+
+.ztree li span.button.leaf_ico_open {
+    margin-right: 2px;
+    background: url(../libs/ztree/css/zTreeStyle/img/diy/1_open.png) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+    *vertical-align: middle;
+}
+
+.ztree li span.button.leaf_ico_close {
+    margin-right: 2px;
+    background: url(../libs/ztree/css/zTreeStyle/img/diy/1_close.png) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+}
+
+.ztree li span.button.parent_ico_docu {
+    margin-right: 2px;
+    background: url(../libs/ztree/css/zTreeStyle/img/diy/1_open.png) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+    *vertical-align: middle;
+}
+
+.ztree li span.button.leaf_ico_docu {
+    margin-right: 2px;
+    background: url(../libs/ztree/css/zTreeStyle//img/diy/3.png) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+    *vertical-align: middle;
+}
+
+/***************************ace style rewrite***************************/
+.profile-info-value {
+    height: 20px;
+}
+
+.dropdown-menu li:hover {
+    cursor: pointer;
+}
+
+.dropdown-menu li > a {
+    color: #555;
+}
+
+.search-pull-left {
+    left: 16px;
+}
+
+.checkbox-inline, .radio-inline, .label-inline {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: normal;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.header-color-light-blue {
+    background: #96C8EB;
+    border: #96c8eb;
+}
+
+    .header-color-light-blue + .widget-body {
+        border-color: #96C8EB;
+    }
+
+
+
+/**************************upload thumbnail***************/
+.thumbnail {
+    width: 200px;
+    height: 150px;
+    margin-bottom: 10px;
+}
+
+    .thumbnail img {
+        width: 100%;
+        height: 100%;
+    }
+
+.remove-circle-icon {
+    margin-right: 3px;
+    float: right;
+    background-color: #fb7142 !important;
+    border-radius: 15px;
+}
+
+.em-normal-red {
+    font-style: normal;
+    font-size: 6px;
+    color: #d36e6e;
+    padding-left: 60px;
+}
+
+/*******************bootstrap css rewrite**********************/
+.table {
+    margin-bottom: 0 !important;
+}
+
+.span2-ext {
+    min-width: 180px;
+    margin-left: 0px !important;
+}
+
+.span3-ext {
+    min-width: 240px;
+    margin-left: 0px !important;
+}
+
+.span4-ext {
+    min-width: 350px;
+    margin-left: 0px !important;
+}
+
+.span8-ext {
+    min-width: 640px;
+    margin-left: 0px !important;
+}
+
+.span5-ext {
+    min-width: 400px;
+    margin-left: 0px !important;
+}
+
+.span9-ext {
+    min-width: 700px;
+    margin-left: 0px !important;
+}
+
+.span12-ext {
+    margin-left: 0px !important;
+}
+
+.span6-ext {
+    margin-left: 0px !important;
+    min-width: 460px;
+}
+
+
+.create-group {
+    margin-top: -18px !important;
+    margin-bottom: -6px !important;
+}
+
+
+
+
+.op-group {
+    padding-right: 13px;
+    padding-left: 6px;
+}
+
+.label-create {
+    float: left;
+    width: 180px;
+    padding-top: 5px;
+    text-align: right;
+}
+
+.label-create-val {
+    float: left;
+    padding-top: 5px;
+    text-align: left;
+}
+
+.form-label-val {
+    float: left;
+    text-align: left;
+    margin-top: 6px;
+}
+
+.label-detail-large {
+    float: left;
+    width: 160px;
+    vertical-align: middle;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.label-detail-val {
+    float: left;
+    padding-left: 2px;
+    vertical-align: middle;
+    text-align: left;
+    min-width: 150px;
+    margin-top: 10px;
+}
+
+
+.header-btn {
+    float: right;
+    margin-left: 10px;
+}
+
+.header-control {
+    margin-bottom: 0px;
+    float: right;
+}
+
+
+
+/**********************form css***********************/
+
+fieldset {
+    padding-top: 25px !important;
+}
+
+.control-group-height-40 {
+    height: 40px !important;
+}
+
+.form-label {
+    width: 100px;
+    float: left;
+    padding-right: 0.8em;
+    padding-top: 5px;
+    text-align: right;
+}
+
+
+/*ngForm validate status*/
+input.ng-pristine {
+    border-color: #cdcdcd;
+}
+
+input.ng-dirty {
+    border-color: #cdcdcd;
+}
+
+input.ng-invalid, div.ng-invalid {
+    border-color: red;
+}
+
+
+
+/*******************Loading 效果*********************/
+#loading-mask {
+    margin-top: 20%;
+}
+
+.loading {
+    width: 80px;
+    height: 40px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+    .loading span {
+        display: inline-block;
+        width: 8px;
+        height: 100%;
+        border-radius: 4px;
+        background: lightgreen;
+        -webkit-animation: load 1s ease infinite;
+    }
+
+@-webkit-keyframes load {
+    0%,100% {
+        height: 40px;
+        background: lightgreen;
+    }
+
+    50% {
+        height: 70px;
+        margin: -15px 0;
+        background: lightblue;
+    }
+}
+
+.loading span:nth-child(2) {
+    -webkit-animation-delay: 0.2s;
+}
+
+.loading span:nth-child(3) {
+    -webkit-animation-delay: 0.4s;
+}
+
+.loading span:nth-child(4) {
+    -webkit-animation-delay: 0.6s;
+}
+
+.loading span:nth-child(5) {
+    -webkit-animation-delay: 0.8s;
+}

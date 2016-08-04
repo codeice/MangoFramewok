@@ -1,0 +1,35 @@
+﻿<!--dirUploadifyDemo-->
+<div class="row-fluid">
+    <div class="span12">
+        <a class="btn btn-small btn-success" dir-uploadify="uploader" settings="uploaderSettings" url="uploadUrl" on-success="onSuccess" return-value="returnValue">
+            <i class="icon-cloud-upload"></i>
+            导入用户
+        </a>
+        <div class="row-fluid">
+            <div class="span8">
+                <div class="progress progress-warning progress-small progress-striped active " ng-hide="uploader.progress==100||uploader.progress==null">
+                    <div class="bar" style="width: {{uploader.progress}}%;"></div>
+                </div>
+            </div>
+        </div>
+        returnValue= {{returnValue}}
+        uploader= {{uploader}}
+    </div>
+</div>
+
+
+
+<!--图片上传demo-->
+<div class="row-fluid">
+    <div class="span12">
+        <div dir-upload-image="uploadedFile" url="uploadUrl"></div>
+    </div>
+</div>
+
+
+<!--多文件件上传-->
+<div class="row-fluid">
+    <div class="span12">
+        <div dir-upload-file="uploadedFiles" url="uploadUrl"></div>
+    </div>
+</div>
