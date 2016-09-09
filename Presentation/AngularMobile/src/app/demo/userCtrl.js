@@ -3,19 +3,22 @@
     var userModule = angular.module('user', ['user.service']);
 
     //----路由配置
-    userModule.config(function ($routeProvider) {
+    userModule.config(['$routeProvider',function ($routeProvider) {
         $routeProvider
             .when('/users',
             {
                 templateUrl: 'app/demo/user-list.html',
                 controller: 'userCtrl',
+/*                footer: false,
+                header: false,
+                auth:true,*/
                 reloadOnSearch: false
             }).when('/users/:id', {
                 templateUrl: 'app/demo/user-detail.html',
                 controller: 'userDetailCtrl',
                 reloadOnSearch: false
             });
-    });
+    }]);
 
 
     //----用户列表

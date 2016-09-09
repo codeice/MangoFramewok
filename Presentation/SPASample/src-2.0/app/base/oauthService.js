@@ -66,11 +66,11 @@ define(['./baseModule'], function (module) {
                 saveIdentityInfo: function () {
 
                     //---保存accessTokenInfo
-                    storage.setItem(accessTokenKey, identityModel.AccessToken, identityModel.ExpiresIn);
+                    storage.saveItem(accessTokenKey, identityModel.AccessToken, identityModel.ExpiresIn);
                     //----保存IdTokenInfo
-                    storage.setItem(idTokenKey, identityModel.IdToken, identityModel.IdTokenExpiresIn);
+                    storage.saveItem(idTokenKey, identityModel.IdToken, identityModel.IdTokenExpiresIn);
                     //-----保存用户信息
-                    storage.setItem(userInfoKey, identityModel.UserInfo, identityModel.UserInfoExpiresIn);
+                    storage.saveItem(userInfoKey, identityModel.UserInfo, identityModel.UserInfoExpiresIn);
                 },
 
                 //----移除身份信息
@@ -95,6 +95,7 @@ define(['./baseModule'], function (module) {
 
                 //----跳转至登录页面
                 goToLoginPage: function () {
+                    service.removeIdentityInfo();
                     var req = $rootScope.oauth.createImplicitFlowRequest(
                        $rootScope.oauthConfig.clientId,
                        $rootScope.oauthConfig.redirectUri,
@@ -129,6 +130,7 @@ define(['./baseModule'], function (module) {
                     return result;
                 },
 
+                //----获取用户信息
                 getUserInfo: function (tokenResult) {
                     var result = {};
                     var userInfoUrl = $rootScope.oauthConfig.userInfoUri + "?nc=" + Math.random();
@@ -138,10 +140,10 @@ define(['./baseModule'], function (module) {
                         var jws = new KJUR.jws.JWS();
                         jws.parseJWS(tokenResult.access_token);
                         var accTokenInfo = $.parseJSON(jws.parsedJWS.payloadS);
-                        var accExpires = accTokenInfo.exp - accTokenInfo.auth_time;
+                        var accExpires = accTokenInfo.exp * 1000;
                         jws.parseJWS(tokenResult.id_token);
                         var idTokenInfo = $.parseJSON(jws.parsedJWS.payloadS);
-                        var idTokenExpires = idTokenInfo.exp - idTokenInfo.auth_time;
+                        var idTokenExpires = idTokenInfo.exp * 1000;
                         //---保存用户信息
                         service.initIdentityModel(tokenResult.access_token, accExpires, tokenResult.id_token, idTokenExpires, userInfo, accExpires);
                         service.saveIdentityInfo();
@@ -158,11 +160,15 @@ define(['./baseModule'], function (module) {
                     var result = [];
                     var defer = $q.defer();
                     result.$promise = defer.promise;
+                    var tokenResult = this.parseHashAsTokenInfo();
                     if (this.isAuthorized()) {
-                        defer.resolve({ code: 200, data: service.getIdentityInfo() });
+                        var redirectUrl = '';
+                        if (tokenResult != null) {
+                            redirectUrl = tokenResult.state;
+                        }
+                        var obj = angular.extend({ state: redirectUrl }, service.getIdentityInfo());
+                        defer.resolve({ code: 200, data: obj });
                     } else {
-                        var tokenResult = this.parseHashAsTokenInfo();
-
                         if (tokenResult && tokenResult.access_token) {
                             //----验证证书
                             this.verifyCert(tokenResult).$promise.then(function (isCertValid) {
@@ -187,7 +193,6 @@ define(['./baseModule'], function (module) {
                 //----注销
                 logout: function () {
                     identityModel = service.getIdentityInfo();
-
                     if (identityModel && identityModel.IdToken) {
                         var idToken = identityModel.IdToken;
                         var logoutEndpoint = $rootScope.oauthConfig.logoutEndpoint + "?id_token_hint=" + idToken + "&post_logout_redirect_uri=" + $rootScope.appConfig.baseUrl;

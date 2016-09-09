@@ -6,9 +6,9 @@
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
-    <!--<meta name="apple-mobile-web-app-status-bar-style" content="yes" />-->
+    <meta name="format-detection" content="telephone=no" />
     <!-- inject:css -->
-    <link rel="stylesheet" href="css/app.bundle.css">
+    <link rel="stylesheet" href="css/app.bundle-1473237902161.css">
     <!-- endinject -->
 </head>
 <body ng-app="mobileApp" ng-controller="mainCtrl" ui-prevent-touchmove-defaults ng-cloak>
@@ -46,13 +46,13 @@
                     <i class="fa icon-cup" aria-hidden="true"></i>
                     <p>Demo</p>
                 </a>
-                <a ng-href="#/matches" class="btn btn-navbar">
+                <a ng-href="#/demo2" class="btn btn-navbar">
                     <i class="fa icon-mark "></i>
-                    <p>Demo1</p>
-                </a>
-                <a ng-href="#/userCenter" class="btn btn-navbar">
-                    <i class="fa icon-user "></i>
                     <p>Demo2</p>
+                </a>
+                <a ng-href="#/mobileLogin" class="btn btn-navbar">
+                    <i class="fa icon-user "></i>
+                    <p>我的</p>
                 </a>
             </div>
         </div>
@@ -116,35 +116,13 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        var apiConfig = {
-            apiServer: 'http://172.16.193.4/CE.Api/',
-            apiBatchServer: 'http://172.16.193.4/CE.Api/batch/',
-            payRoot: 'http://fb.wicresoft.com/PayCenter/WeChatPay/Web/Product?'
-        };
-    </script>
     <!--    <script src="http://172.16.193.4:8001/target/target-script-min.js#anonymous"></script>-->
+    <!--依赖库本地地址-->
+    <!--    <script src="build/vendor.bundle.js"></script>-->
+    <script src="http://saiquaner2-asset.oss-cn-shanghai.aliyuncs.com/angularMobileLibs/vendor.bundle.js"></script>
+    <script src="app/base/config.js"></script>
     <!-- inject:js -->
-    <script src="libs/zepto.min.js"></script>
-    <script src="libs/angular.js"></script>
-    <script src="libs/angular-route.min.js"></script>
-    <script src="libs/angular-animate.min.js"></script>
-    <script src="libs/angular-http-batch.min.js"></script>
-    <script src="libs/mobile-angular-ui.min.js"></script>
-    <script src="libs/mobile-angular-ui.gestures.min.js"></script>
-    <script src="libs/swiper.min.js"></script>
-    <script src="app/demo2/testCtrl.js"></script>
-    <script src="app/demo/userService.js"></script>
-    <script src="app/demo/userCtrl.js"></script>
-    <script src="app/base/validations.js"></script>
-    <script src="app/base/utility.js"></script>
-    <script src="app/base/services.js"></script>
-    <script src="app/base/filters.js"></script>
-    <script src="app/base/directives.js"></script>
-    <script src="app/base/constants.js"></script>
-    <script src="app/base/UIWidget.js"></script>
-    <script src="app/app.main.js"></script>
-    <script src="app/app.js"></script>
+    <script src="build/app.bundle-1473237902161.js"></script>
     <!-- endinject -->
 </body>
 </html>

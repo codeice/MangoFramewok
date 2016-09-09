@@ -820,7 +820,8 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
             for (var n in this.queueData.files) {
                 queuedFile = this.queueData.files[n];
                 if (queuedFile.uploaded != true && queuedFile.name == file.name) {
-                    var replaceQueueItem = confirm('The file named "' + file.name + '" is already in the queue.\nDo you want to replace the existing item in the queue?');
+                    //var replaceQueueItem = confirm('The file named "' + file.name + '" is already in the queue.\nDo you want to replace the existing item in the queue?');
+                    var replaceQueueItem = confirm('文件名 "' + file.name + '" 已经上传过了.\n 你想替换当前上传过的文件吗?');
                     if (!replaceQueueItem) {
                         this.cancelUpload(file.id);
                         this.queueData.filesCancelled++;

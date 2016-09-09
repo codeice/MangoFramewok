@@ -1,0 +1,69 @@
+<div>
+    <div ui-content-for="title">
+        <span>赛圈儿账号登录</span>
+    </div>
+    <div ui-content-for="navbarAction">
+        <a class="btn" dir-back>
+            <i class="fa fa-angle-left"></i>
+        </a>
+    </div>
+    <div ui-content-for="navbarButton">
+        <a class="btn" ng-href="#/mobileRegister">注册</a>
+    </div>
+</div>
+<div class="scrollable login-bg">
+    <div class="scrollable-content">
+        <div class="login-wrapper">
+            <div class="form-logo">
+         欢迎来到赛圈儿
+            </div>
+            <div class="form-wrapper">
+                <form role="form" novalidate="" name="form">
+                    <fieldset>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon-person"></i><i>|</i>
+                                </span>
+                                <input class="form-control " type="text" name="IdentityKey" ng-model="model.IdentityKey" required placeholder="请输入账号...">
+                            </div>
+                            <div class="error-block" ng-if="form.IdentityKey.$dirty||isSubmitted">
+                                <div ng-show="form.IdentityKey.$error.required">账号不能为空！</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class=" input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon-key"></i><i>|</i>
+                                </span>
+                                <input type="password" class="form-control" name="Password" ng-model="model.Password" required placeholder="请输入密码...">
+                            </div>
+                            <div class="error-block" ng-if="form.Password.$dirty||isSubmitted">
+                                <div ng-show="form.Password.$error.required">
+                                    密码不能为空！
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+
+                    <!--<div class="form-desc">
+                        <a ng-href="#/mobileLogin">验证码登录</a>
+                    </div>-->
+                    <!--<div class="form-desc pull-right">
+                        <a ng-href="#/mobileLogin">忘记密码？</a>
+                    </div>-->
+
+                    <div class="form-actions margin-top-20">
+                        <button class="btn btn-orange btn-block" ng-click="accountLogin()">
+                            登　录
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,7 +19,7 @@ define(['./dirModule', "./dirUploadify"], function (module) {
                     scope.uploaderSettings = {
                         isAuto: true,
                         isMultiple: false,
-                        fileTypes: "*.gif;*.jpg;*.jpeg;*png;*.bmp;*.tiff;"//可接受的文件类型  '*.gif; *.jpg; *.png',
+                        fileTypes: "*.gif;*.jpg;*.jpeg;*.png;*.bmp;*.tiff;"//可接受的文件类型  '*.gif; *.jpg; *.png',
                     }
 
                     //上传成功回调

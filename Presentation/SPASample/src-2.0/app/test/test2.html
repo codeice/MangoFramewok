@@ -2,14 +2,14 @@
     <div class="span12">
         <div class="tabbable">
             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue">
-                <li ui-sref-active="active" dir-default-active>
+                <li ui-sref-active="active">
                     <a ui-sref="test2.child1">子视图1</a>
                 </li>
                 <li ui-sref-active="active">
                     <a ui-sref="test2.child2">子视图2</a>
                 </li>
             </ul>
-            <div class="tab-content">
+            <div class="tab-content" style="min-height: 1000px">
                 <div ui-view></div>
             </div>
         </div>

@@ -1,0 +1,66 @@
+﻿<!--手机号+验证码登录 -->
+<div>
+    <div ui-content-for="title">
+        <span>账号登录</span>
+    </div>
+    <div ui-content-for="navbarAction">
+        <a class="btn" href="#/matches">
+            <i class="fa fa-angle-left"></i>
+        </a>
+    </div>
+    <div ui-content-for="navbarButton">
+        <a class="btn" ng-href="#/mobileRegister">注册</a>
+    </div>
+</div>
+<div class="scrollable login-bg">
+    <div class="scrollable-content">
+        <div class="login-wrapper">
+            <div class="form-logo">
+                欢迎登录
+            </div>
+            <div class="form-wrapper">
+                <form role="form" novalidate="" name="form">
+                    <fieldset>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon-phone"></i><i></i>
+                                </span>
+                                <input class="form-control " type="text" name="Mobile" ng-model="loginModel.Mobile" required placeholder="请输入手机号..." mobile>
+                            </div>
+                            <div class="error-block" ng-if="form.Mobile.$dirty||isSubmitted">
+                                <div ng-show="form.Mobile.$error.required">手机号不能为空！</div>
+                                <div ng-show="form.Mobile.$error.mobile">手机号格式不正确！</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class=" input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon-key"></i><i></i>
+                                </span>
+                                <input type="text" class="form-control" name="VerificationCode" ng-model="loginModel.VerificationCode" required placeholder="请输入验证码..." maxlength="6">
+                                <button type="button" class="btn input-btn" ng-click="form.Mobile.$valid && isEnableSend&& sendSMS()">{{btnText}}</button>
+                            </div>
+                            <div class="error-block" ng-if="form.VerificationCode.$dirty||isSubmitted">
+                                <div ng-show="form.VerificationCode.$error.required">
+                                    验证码不能为空！
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-desc">
+                        <a class="pull-left" ng-href="#/mobileLogin">手机密码登录</a>
+                    </div>
+                    <div class="form-actions margin-top-20">
+                        <button class="btn btn-blue btn-block" ng-click="vCodeLogin()">
+                            登　录
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

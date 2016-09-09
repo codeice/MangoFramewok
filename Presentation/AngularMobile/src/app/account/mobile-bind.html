@@ -1,0 +1,59 @@
+﻿<div>
+    <div ui-content-for="title">
+        <span>信息完善</span>
+    </div>
+    <div ui-content-for="navbarAction">
+        <a class="btn" ng-href="#/matches">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+    <div ui-content-for="navbarButton">
+        <a class="btn" href="#/register">注册</a>
+    </div>
+</div>
+<div class="scrollable login-bg">
+    <div class="scrollable-content">
+        <div class="login-wrapper">
+            <div class="form-logo"></div>
+            <div class="form-wrapper">
+                <form role="form" novalidate="" name="form">
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon-phone"></i>
+                                </span>
+                                <input class="form-control " type="text" name="Mobile" ng-model="model.Mobile" required mobile placeholder="请输入手机号...">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class=" input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon-shield"></i>
+                                </span>
+                                <input type="text" class="form-control" name="VerificationCode" ng-model="model.VerificationCode" required placeholder="请输入验证码...">
+                                <button type="button" class="btn input-btn" ng-click="isEnableSend&& sendSMS()">{{btnText}}</button>
+                            </div>
+                        </div>
+
+                        <div class="error-block" ng-show="form.Mobile.$dirty||isSubmitted">
+                            <div ng-show="form.Mobile.$error.required">手机号不能为空！</div>
+                            <div ng-show="form.Mobile.$error.mobile">请输入正确的手机号！</div>
+                        </div>
+                        <div class="error-block" ng-show="form.VerificationCode.$dirty||isSubmitted">
+                            <div ng-show="form.VerificationCode.$error.required">
+                                验证码不能为空！
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <button class="btn btn-green btn-block" ng-click="bindMobile()">
+                            绑定
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

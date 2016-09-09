@@ -1,1 +1,11 @@
-﻿child2 content
+﻿<hr>
+<h3>多选</h3>
+{{model.selectedList}}
+<div class="span6">
+    <ui-select multiple ng-model="model.selectedList" ng-disabled="false" close-on-select="false" theme="select2" class="span6">
+        <ui-select-match placeholder="请选择...">{{$item.name}}</ui-select-match>
+        <ui-select-choices repeat="person as person in people|filter:$select.search">
+            <div ng-bind-html="person.name | highlight: $select.search"></div>
+        </ui-select-choices>
+    </ui-select>
+</div>

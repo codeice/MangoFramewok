@@ -2,10 +2,19 @@
 (function () {
     var module = angular.module('app.filters', []);
 
+
     //----信任的url
     module.filter('trustUrl', ['$sce', function ($sce) {
         return function (url) {
             return $sce.trustAsResourceUrl(url);
+        };
+    }]);
+
+
+    //----信任的url
+    module.filter('trustHtml', ['$sce', function ($sce) {
+        return function (input) {
+            return $sce.trustAsHtml(input);
         };
     }]);
 

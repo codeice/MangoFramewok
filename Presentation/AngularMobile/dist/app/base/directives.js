@@ -29,7 +29,7 @@ directives_v = '1.0.0';
     }]);
 
     //----ng-repeat 完后发射事件
-    module.directive('onFinishRepeat', ["$timeout", function ($timeout) {
+    module.directive('onFinishRepeat', ['$timeout', function ($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -42,27 +42,5 @@ directives_v = '1.0.0';
         }//end return
     }]);
 
-    module.directive('ngViewSlide', function () {
-        return {
-            restrict: 'AE',
-            link: function (scope, element, attrs) {
-                var isGoToChildState, setSlide, slideClass, slideClasses, viewSelector;
-               // viewSelector = '[ng-view]';
-                slideClasses = ['slide-in-right', 'slide-out-right'];
-                slideClass = '';
-                setSlide = function (slide) {
-                    slideClass = slide;
-                    return element.removeClass(slideClasses.join(' ')).addClass(slideClass);
-                   /* return elem.find(viewSelector).removeClass(slideClasses.join(' ')).addClass(slideClass);*/
-                };
-                scope.$on('$routeChangeSuccess', function (scope, next, current) {
-                    setSlide('slide-in-right');
-                });
-                return scope.$on('$viewContentLoaded', function (evt, viewConfig) {
-                    return element.removeClass(slideClasses.join(' ')).addClass(slideClass);
-                });
-            }
-        }//end return
-    });
 
 })();

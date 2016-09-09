@@ -1,4 +1,4 @@
-﻿define(['angular-ui-router', '../directives/dirUploadify', '../directives/dirUploadImage', '../directives/dirUploadFile'], function () {
+﻿define(['angular-ui-router', '../directives/dirUploadify', '../directives/dirUploadImage', '../directives/dirUploadFile', 'angular-ui-select'], function () {
 
     var module = angular.module('test', []);
     module.config(['$stateProvider', function ($stateProvider) {
@@ -30,7 +30,7 @@
     }]);
 
     module.controller('testCtrl', ['$scope', 'fileService', function ($scope, fileService) {
-        $scope.uploadUrl = fileService.getUploadFileUrl();
+        $scope.uploadUrl = fileService.uploadImage();
         //////////////////////////////dirUploadify//////////////////////////////
         $scope.uploader = {};
         $scope.uploaderSettings = {
@@ -53,7 +53,34 @@
 
     }]);
 
-    module.controller('testChildCtrl', ['$scope', 'fileService', function ($scope, fileService) {
-        console.log("进入子状态");
-    }]);
+    module.controller('testChildCtrl', [
+        '$scope', 'fileService', function ($scope, fileService) {
+            console.log("进入子状态");
+            $scope.model = {
+            };
+
+            //select 数据
+            $scope.proviceList = [
+                { id: 1, name: '上海' },
+                { id: 2, name: '北京' },
+                { id: 3, name: '深证' },
+                { id: 4, name: '广东 ' },
+                { id: 5, name: '江西' }
+            ];
+
+            $scope.model.provice = { value: $scope.proviceList[0] };
+
+
+            //-----多选
+            $scope.people = [
+                 { id: 1, name: 'jessie', age: 12 },
+                 { id: 2, name: 'tina', age: 32 },
+                 { id: 3, name: 'max', age: 23 },
+                 { id: 4, name: 'eva', age: 23 },
+                 { id: 5, name: 'bottle', age: 32 }
+            ];
+            $scope.model.selectedList = [];
+
+        }
+    ]);
 });

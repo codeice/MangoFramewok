@@ -1,1 +1,438 @@
 ﻿@import "icons.less";
+@import "app-variables.less";
+@import "icon-sprite.less";
+
+/*-------------------Login form part-----------------------*/
+.login-bg {
+    background-image: url('../images/login-bg.jpg');
+    background-size: cover;
+    color: white;
+}
+
+.login-wrapper {
+    height: 100%;
+    font-family: @base-zh-font-family;
+    padding: 0 20px;
+
+    .form-logo {
+        width: 100%;
+        height: 35px;
+        line-height: 35px;
+        margin-top: 54px;
+        margin-bottom: 54px;
+        color: white;
+        font-size: 24px;
+        font-weight: 500;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .form-header {
+        margin-top: 18px;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 19px;
+    }
+
+    .form-wrapper {
+        margin: auto;
+
+        .form-group {
+            padding-top: 0 !important;
+            padding-bottom: 16px !important;
+        }
+
+        .form-group:last-child {
+            padding-bottom: 13px !important;
+        }
+
+        .input-group {
+            .input-group-addon,
+            input {
+                height: 40px;
+                border: none;
+                background-color: rgba(255,255,255,0.6);
+            }
+
+            .input-group-addon {
+                border: 1px solid white;
+                border-right: none;
+                padding-right: 0px;
+                border-radius: 20px 0 0 20px;
+
+                i:last-child {
+                    font-weight: 600;
+                    font-style: normal;
+                    color: white;
+                    float: right;
+                    line-height: 25px;
+                }
+            }
+
+            .input-group-addon::after {
+                content: '';
+                display: inline-block;
+                width: 1px;
+                height: 24px;
+                background-color: #fff;
+                margin-left: 5px;
+            }
+
+            .form-control {
+                height: 41px;
+            }
+
+            input {
+                padding-left: 10px !important;
+                font-size: 14px;
+                color: white !important;
+                border-radius: 0 20px 20px 0 !important;
+                border: 1px solid white;
+                border-left: 0;
+            }
+
+            ::-webkit-input-placeholder {
+                color: white !important;
+            }
+
+            .input-btn {
+                z-index: 10;
+                position: absolute;
+                right: 0;
+                line-height: 28px;
+                padding: 6px 8px;
+                background: #D39B68;
+                border-radius: 0;
+                border: none;
+                cursor: pointer;
+
+                .icon-eye-open {
+                    .sprite-ritina(@eye-open);
+                }
+
+                .icon-eye-close {
+                    .sprite-ritina(@eye-close);
+                }
+            }
+
+            button {
+                height: 41px;
+                background-color: #dfdfdf !important;
+                border-radius: 0px 20px 20px 0px !important;
+                color: #767676;
+            }
+
+            .icon-eye-open, .icon-eye-close {
+                z-index: 10;
+                position: absolute !important;
+                right: 15px !important;
+                display: inline-block;
+                top: 13px;
+                background-repeat: no-repeat;
+            }
+        }
+
+        .form-desc {
+            color: #fff;
+            overflow: hidden;
+
+            a {
+                text-decoration: none;
+                color: #fff;
+            }
+        }
+
+        .form-actions {
+            margin-top: 10px;
+
+            .btn-blue {
+                margin-top: 40px;
+                height: 40px;
+                background-color: @theme-color;
+                border-radius: 20px;
+                color: white;
+                font-size: 16px;
+                text-align: center !important;
+                outline: none;
+            }
+        }
+
+        .form-bottom {
+            .bottom-block {
+                width: 100%;
+                color: #fff;
+                display: flex;
+                align-items: center;
+
+                .horizontal-line {
+                    display: block;
+                    width: 25%;
+                    height: 1px;
+                    background: #fff;
+                }
+
+                .center-part {
+                    width: 50%;
+                    text-align: center;
+                    position: relative;
+                    top: 10px;
+
+                    .icon-wechat {
+                        width: 70%;
+                        height: 90px;
+                        margin: 0 auto;
+                        background: url('../images/wechat.png') no-repeat;
+                        background-size: 70%;
+                        background-position: center;
+                    }
+
+                    p {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+
+        .form-lable {
+            font-size: 14px;
+            color: white;
+            margin-top: 23px;
+            margin-bottom: 7px;
+        }
+
+        .form-input {
+            input {
+                width: 100%;
+                color: white;
+                font-size: 18px;
+                border: none;
+                background-color: rgba(255,255,255,0.4);
+                border-bottom: 1px solid white;
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            input::-webkit-input-placeholder {
+                color: white !important;
+            }
+            /*input:-webkit-autofill {
+                        border: none;
+                        -webkit-box-shadow: 0 0 0px 1000px white inset;
+                        border-bottom: 1px solid white !important;
+                        color: white;
+                        -webkit-text-fill-color: white;
+                    }*/
+        }
+
+        .btn-next {
+            height: 43px;
+            width: 43px;
+            margin-top: 23px;
+            background-image: url(../images/next.png);
+            background-size: 43px;
+        }
+    }
+}
+
+.error-block {
+    width: 100%;
+    text-align: left !important;
+    background-color: transparent;
+    color: white;
+    margin: 0px 0;
+    padding-left: 50px;
+}
+
+.error-block div {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+/*-------------------register form part-----------------------*/
+.register-wrapper {
+    padding: 0 20px;
+    margin: 0 auto;
+
+    .form-header {
+        margin-top: 18px;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 19px;
+    }
+
+    .form-code-header {
+        margin-top: 44px;
+        margin-bottom: 23px;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .form-code-desc {
+        font-size: 16px;
+        margin-bottom: 39px;
+    }
+
+    .form-underline {
+        .form-lable {
+            font-size: 15px;
+            color: white;
+            margin-top: 23px;
+            margin-bottom: 7px;
+        }
+
+        .form-input {
+            position: relative;
+
+            input {
+                width: 100%;
+                color: white;
+                font-size: 18px;
+                border: none;
+                background-color: transparent;
+                border-bottom: 1px solid white;
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            input::-webkit-input-placeholder {
+                color: white !important;
+            }
+
+            .icon-eye-close, .icon-eye-open {
+                z-index: 10;
+                position: absolute !important;
+                right: 15px !important;
+                display: inline-block;
+                top: 18px;
+                background-repeat: no-repeat;
+            }
+        }
+
+        .input-group {
+            width: 100%;
+
+            .form-control {
+                height: 41px;
+            }
+
+            input {
+                height: 41px;
+                width: 100%;
+                border: none;
+                background-color: transparent !important;
+                font-size: 18px;
+                color: white;
+                border-bottom: 1px solid white;
+                padding: 0 8px;
+            }
+
+            input::-webkit-input-placeholder {
+                color: white !important;
+            }
+
+
+            select {
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                appearance: none;
+                background-color: @theme-color;
+                border-color: transparent;
+                color: white;
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid white;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                font-size: 16px;
+            }
+
+            textarea {
+                width: 100%;
+                font-size: 16px;
+                border: none;
+                border-radius: 0;
+                border-bottom: 1px solid white;
+                resize: none;
+                background: transparent;
+                color: white;
+                padding-bottom: 8px;
+            }
+
+            .input-btn {
+                z-index: 10;
+                position: absolute;
+                right: 0;
+                line-height: 28px;
+                padding: 6px 8px;
+                background: #D39B68;
+                border-radius: 0;
+                border: none;
+                cursor: pointer;
+            }
+
+            button {
+                background-color: @theme-color !important;
+                color: white;
+                border-radius: 5px !important;
+                padding: 2px 8px !important;
+            }
+        }
+
+        .error-block {
+            width: 100%;
+            text-align: left !important;
+            background-color: transparent;
+            color: white !important;
+            margin: 0px 0;
+            padding-left: 0px;
+
+            div {
+                padding: 5px 0;
+            }
+        }
+    }
+
+    .form-actions {
+        margin-top: 10px;
+
+        .btn-blue {
+            border: none;
+            display: inline-block;
+            width: 100%;
+            margin-top: 10px;
+            height: 40px;
+            background-color: @theme-color;
+            border-radius: 20px;
+            color: white;
+            font-size: 16px;
+            text-align: center !important;
+            line-height: 40px;
+            outline: none;
+        }
+
+        .btn-fixed-orange {
+            position: fixed;
+            border: none;
+            display: inline-block;
+            width: 100%;
+            height: 40px;
+            left: 0;
+            bottom: 0;
+            background-color: #ee9021;
+            border-radius: 0px;
+            color: white;
+            font-size: 16px;
+            text-align: center !important;
+            line-height: 40px;
+        }
+
+        .btn-next {
+            height: 43px;
+            width: 43px;
+            margin-top: 23px;
+            background-image: url(../images/next.png);
+            background-size: 43px;
+        }
+    }
+}

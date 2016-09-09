@@ -1,0 +1,43 @@
+﻿<div>
+    <div ui-content-for="title">
+        <span>输入验证码</span>
+    </div>
+    <div ui-content-for="navbarAction">
+        <a class="btn" dir-back>
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+</div>
+<div class="scrollable login-bg">
+    <div class="scrollable-content">
+        <div class="register-wrapper">
+            <div class="form-code-header">
+                输入6位验证码
+            </div>
+            <div class="form-code-desc">
+                我们已经向{{model.Mobile}}发送了一个验证码。请在下面的输入框中填写验证码。
+            </div>
+            <div class="form-underline">
+                <form role="form" novalidate="" name="form">
+                    <fieldset>
+                        <div class="form-lable">
+                            验证码
+                        </div>
+                        <div class="form-input">
+                            <input type="text" name="Code" ng-model="model.VerificationCode" placeholder="请输入验证码..." maxlength="6" required>
+                        </div>
+                        <div class="error-block" ng-if="form.Code.$dirty || isSubmitted">
+                            <div ng-show="form.Code.$error.required">验证码不能为空！</div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <div class="form-actions">
+                    <div class="btn-next pull-right" ng-click="register()">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -422,6 +422,25 @@ input.ng-invalid, div.ng-invalid {
     border-color: red;
 }
 
+/*******************select2 rewrite*********************/
+.select2 > .select2-choice.ui-select-match {
+    -ms-border-radius: 0;
+    border-radius: 0;
+    height: 30px;
+}
+
+.select2-container .select2-choice {
+    background-image: none;
+}
+
+.select2-search:after {
+    display: none;
+}
+
+.select2-result-single {
+    margin-left: 0px;
+    margin-right: 6px;
+}
 
 
 /*******************Loading 效果*********************/

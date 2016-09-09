@@ -10,29 +10,46 @@ var storage = (function (win) {
     }
 
     //----是否过期(expires 时间)
-    function isExpires(key, expiresTimestamp) {
-        var nowTimestamp = new Date().getTime();
+    function isExpires(key, expiresMillisecond) {
+        var nowMillionsecond = new Date().getTime();
         if (!expires) {
             return false;
         }
-        if (expiresTimestamp - nowTimestamp <= 0) {
+        if (expiresMillisecond - nowMillionsecond <= 0) {
             return true;
         }
         return false;
     }
 
-    //----设置项（expireMinutes 过期分钟数）
+    //----设置项（expireSeconds 过期秒数）
     function setItem(key, value, expireSeconds) {
         if (!key) {
             return this;
         }
         expireSeconds = expireSeconds || 0;
         var localKey = getLocalKey(key),
-          epxireTimestamp = expireSeconds ? expireSeconds * 1000 + new Date().getTime() : "";
+          epxireMillionseconde = expireSeconds ? expireSeconds * 1000 + new Date().getTime() : "";
         var item = {
             "key": key,
             "value": value,
-            "expires": epxireTimestamp
+            "expires": epxireMillionseconde
+        };
+        win.localStorage.setItem(localKey, JSON.stringify(item));
+        this._key = key;
+        return this;
+    }
+
+    //----设置项（expires 过期时间(毫秒为单位)）
+    function saveItem(key, value, expiresIn) {
+        if (!key) {
+            return this;
+        }
+        expiresIn = expiresIn || 0;
+        var localKey = getLocalKey(key);
+        var item = {
+            "key": key,
+            "value": value,
+            "expires": expiresIn
         };
         win.localStorage.setItem(localKey, JSON.stringify(item));
         this._key = key;
@@ -82,8 +99,8 @@ var storage = (function (win) {
     }
 
     //----设置某项过期时间
-    function expires(minutes) {
-        if (!minutes) {
+    function expires(seconds) {
+        if (!seconds) {
             return this;
         }
         var key = this._key;
@@ -95,16 +112,17 @@ var storage = (function (win) {
             value = item["value"];
 
         this.removeItem(key);
-        this.setItem(key, value, minutes);
+        this.setItem(key, value, seconds);
         return this;
     }
+
 
     return {
         getItem: getItem,
         setItem: setItem,
+        saveItem: saveItem,
         removeItem: removeItem,
         clear: clear,
         expires: expires
     }
-
 })(window);

@@ -10,6 +10,21 @@
         platform: 'mobile'
     });
 
+    //---手机短信事件
+    module.constant("smsEvent", {
+        // 发送注册验证码
+        sendRegisterVCode: 0,
+        //发送登录验证码
+        sendLoginVCode: 1,
+        // 发送重置密码验证码
+        sendResetPwdVCode: 2,
+        /// 发送修改密码验证码
+        sendChangePwdVCode: 3,
+        // 发送绑定手机号验证码
+        sendBindMobileVCode: 4,
+        // 发送重置后的密码
+        sendResetedPwd: 9
+    });
 
     //----正则表达式
     module.constant('patterns', {

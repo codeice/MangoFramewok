@@ -1,13 +1,8 @@
 ﻿require.config({
     baseUrl: '',
     paths: {
-
         //jquery
         'jquery': 'libs/jquery/jquery-1.10.2.min',
-        'jqueryui': 'libs/jquery/jquery-ui-1.10.3.full.min',
-        'uploadify': 'libs/uploadify/jquery.uploadify.min',
-        'blockui': 'libs/assets/js/jquery.blockUI',
-        'zTree': 'libs/zTree/js/jquery.ztree.all-3.5',
 
         //bootstrap
         'bootstrap': 'libs/assets/js/bootstrap.min',
@@ -23,9 +18,11 @@
 
         //angular
         'angular': 'libs/angular/angular',
-        'angular-route': 'libs/angular-route/angular-route.min',
         'angular-ui-router': 'libs/angular-ui-router/angular-ui-router',
         'angular-batch': 'libs/angular-http-batcher/dist/angular-http-batch',
+        'angular-sanitize': 'libs/angular-sanitize/angular-sanitize.min',
+        'angular-ui-select': 'libs/angular-ui-select/select.min',
+
 
         //oauth
         'crypto': 'libs/oauth/crypto',
@@ -34,35 +31,32 @@
         'jws': 'libs/oauth/jws',
         'OAuthClient': 'libs/oauth/OAuthClient',
 
-        ///////////////////应用模块/////////////////////
-        //app
+        //plugin
+        'uploadify': 'libs/uploadify/jquery.uploadify.min',
+        'blockui': 'libs/assets/js/jquery.blockUI',
+        'zTree': 'libs/zTree/js/jquery.ztree.all-3.5',
+        'umeditor': 'libs/umeditor/umeditor',
+        'umeditorConfig': 'libs/umeditor/umeditor.config',
 
+        ///////////////////应用模块/////////////////////
+        //app directive
 
     },
     shim: {
         //不符合AMD规范的js定义以及依赖关系配置
-        'angular-route': { deps: ['angular'] },
-        'angular-ui-router': { deps: ['angular'] },
+        //----angular
+        'angular-ui-router': { deps: ['angular-sanitize'] },
         'angular-batch': { deps: ['angular'] },
         'angular': { deps: ['jquery'] },
+        'angular-sanitize': { deps: ['angular'] },
+        'angular-ui-select': { deps: ['angular'] },
         'jquery': { deps: [] },
-        ace: {
-            deps: ['aceExtra', 'aceElement']
-        },
-        aceElement: {
-            deps: ['bootstrap', 'bootbox']
-        },
+
+        //----bootstrap
         bootstrap: {
             deps: ['jquery']
         },
-        jqueryui: {
-            deps: ['jquery']
-        },
-        blockui: { deps: ['jquery'] },
-        uploadify: { deps: ['jquery'] },
-        bootbox: {
-            deps: ['jquery', 'bootstrap']
-        },
+
         datepicker: {
             deps: ['jquery', 'bootstrap']
         },
@@ -70,6 +64,15 @@
             deps: ['datepicker']
         },
 
+        //----ace
+        ace: {
+            deps: ['aceExtra', 'aceElement']
+        },
+        aceElement: {
+            deps: ['bootstrap', 'bootbox']
+        },
+
+        //----oauth
         rsa: { deps: ['crypto'] },
         jws: {
             deps: ['jsoneval']
@@ -77,11 +80,19 @@
         OAuthClient: {
             deps: ['rsa', 'jws']
         },
-        zTree: { deps: ['jquery'] }
+        //----plugin
+        blockui: { deps: ['jquery'] },
+        bootbox: {
+            deps: ['jquery', 'bootstrap']
+        },
+        uploadify: { deps: ['jquery'] },
+        zTree: { deps: ['jquery'] },
+        umeditor: { deps: ['umeditorConfig'] },
+        umeditorConfig: { deps: ['jquery'] },
     },
     //开发环境使用，部署无需使用
     /* urlArgs: 'bust=13' + Math.random(),*/
-    waitSeconds: 60
+    waitSeconds: 120
 });
 
 require(['ace', 'app/app'], function () {

@@ -1,0 +1,43 @@
+<div>
+    <div ui-content-for="title">
+        <span>赛圈儿</span>
+    </div>
+    <div ui-content-for="navbarAction">
+        <a class="btn" ng-href="#/matches">
+            <i class="fa fa-angle-left"></i>
+        </a>
+    </div>
+</div>
+<div class="scrollable bg-theme">
+    <div class="welcome-wrapper">
+        <div class="form-logo">
+            <span class="bg-logo"></span>欢迎来到赛圈儿
+        </div>
+        <!--<div class="form-actions" ng-click="accountLogin()">
+                <div class="btn btn-normal btn-block">
+                    <i class="icon-person"></i>
+                    用户号登录
+                </div>
+            </div>-->
+        <div class="form-actions" ng-click="vcodeLogin()">
+            <div class="btn btn-normal btn-block">
+                <i class="icon-key"></i>
+                验证码登录
+            </div>
+        </div>
+
+        <div class="form-actions" ng-click="mobileLogin()">
+            <div class="btn btn-normal btn-block">
+                <i class="icon-phone"></i>
+                手机号登录
+            </div>
+        </div>
+
+        <div class="form-actions" ng-click="goToRegister()">
+            <div class="btn btn-normal btn-block">
+                创建账号
+            </div>
+        </div>
+
+    </div>
+</div>

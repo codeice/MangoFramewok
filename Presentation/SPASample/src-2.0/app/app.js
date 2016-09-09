@@ -7,6 +7,8 @@ define(['OAuthClient', 'angular-batch', 'app/loadScripts'], function () {
     var app = angular.module('app', [
         'ui.router',
         'jcs.angular-http-batch',
+        'ui.select',
+        'ngSanitize',
         //核心木块定义
         'app.core',
         'wsaf',

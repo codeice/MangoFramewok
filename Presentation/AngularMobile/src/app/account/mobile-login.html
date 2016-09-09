@@ -1,0 +1,71 @@
+﻿<div>
+    <div ui-content-for="title">
+        <span>手机登录</span>
+    </div>
+    <div ui-content-for="navbarAction">
+        <a class="btn" href="#/matches">
+            <i class="fa fa-angle-left"></i>
+        </a>
+    </div>
+    <div ui-content-for="navbarButton">
+        <a class="btn" ng-href="#/mobileRegister">注册</a>
+    </div>
+</div>
+<div class="scrollable login-bg">
+    <div class="scrollable-content">
+        <div class="login-wrapper">
+            <div class="form-logo">
+                欢迎登录
+            </div>
+            <div class="form-wrapper">
+                <form role="form" novalidate="" name="form">
+                    <fieldset>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon-phone"></i><i></i>
+                                </span>
+                                <input class="form-control " type="text" name="IdentityKey" ng-model="loginModel.IdentityKey" required mobile placeholder="请输入手机号...">
+                            </div>
+                            <div class="error-block" ng-if="form.IdentityKey.$dirty||isSubmitted">
+                                <div ng-show="form.IdentityKey.$error.required">账号不能为空！</div>
+                                <div ng-show="form.IdentityKey.$error.mobile">请输入正确的手机号码！</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class=" input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon-key"></i><i></i>
+                                </span>
+                                <input type="password" ng-show="!isReadable" class="form-control" name="Password" ng-model="loginModel.Password" required placeholder="请输入密码...">
+                                <input type="text" ng-show="isReadable" class="form-control" name="Password" ng-model="loginModel.Password" required placeholder="请输入密码...">
+                                <i class="fa " ng-class="{'icon-eye-open':isReadable,'icon-eye-close':!isReadable}" ng-click="toggleShow()"></i>
+                            </div>
+                            <div class="error-block" ng-if="form.Password.$dirty || isSubmitted">
+                                <div ng-show="form.Password.$error.required">
+                                    密码不能为空！
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <div class="form-desc">
+                        <a class="pull-left" ng-href="#/vcodeLogin">手机验证码登录</a>
+                        <a class="pull-right" ng-href="#/forgetPwd">忘记密码？</a>
+                    </div>
+
+                    <div class="form-actions margin-top-20">
+                        <button class="btn btn-blue btn-block" ng-click="mobileLogin()" ng-show="isShowSaveBtn">
+                            登录
+                        </button>
+                        <button class="btn btn-blue btn-block" ng-show="!isShowSaveBtn">
+                            登录中...
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 ﻿(function () {
     //api 配置
-    var apiServer = location.protocol + "//" + location.host + '/PS.Api/';
-    var apiBatchServer = location.protocol + "//" + location.host + '/PS.Api/batch/';
+    var apiServer = location.protocol + "//" + location.host + '/Sample.Api/';
+    var apiBatchServer = location.protocol + "//" + location.host + '/Sample.Api/batch/';
     var baseUrl = location.protocol + "//" + location.host + '/SPATemplate2/';
     var entryRoute = "#/home"; //登录后跳转到的页面
 

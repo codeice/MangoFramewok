@@ -6,6 +6,7 @@
     'mobile-angular-ui.gestures',
     //common module 
     'app',
+    'account',
     'user'
     //-----component module
 
@@ -15,12 +16,12 @@
 app.constant('appConfig', {
     apiServer: apiConfig.apiServer,
     apiBatchServer: apiConfig.apiBatchServer,
-    payRoot: apiConfig.payRoot
+    oauthServer: apiConfig.oauthServer
 });
 
-app.run(function ($transform) {
+app.run(['$transform', function ($transform) {
     window.$transform = $transform;
-});
+}]);
 
 setTimeout(function asyncBootstrap() {
     //---启动成功移除启动画面
@@ -32,15 +33,15 @@ setTimeout(function asyncBootstrap() {
 
 //----app 配置
 app.config(['$routeProvider', 'httpBatchConfigProvider', 'appConfig', function ($routeProvider, httpBatchConfigProvider, appConfig) {
-    /*    //----批量请求
-        httpBatchConfigProvider.setAllowedBatchEndpoint(
-            appConfig.apiServer,
-            appConfig.apiBatchServer,
-            {
-                maxBatchedRequestPerCall: 20,
-                minimumBatchSize: 2 //The smallest number of individual calls allowed in a batch request
-            }
-        );*/
+    //----批量请求
+    httpBatchConfigProvider.setAllowedBatchEndpoint(
+        appConfig.apiServer,
+        appConfig.apiBatchServer,
+        {
+            maxBatchedRequestPerCall: 20,
+            minimumBatchSize: 2 //The smallest number of individual calls allowed in a batch request
+        }
+    );
 
     //---路由
     $routeProvider

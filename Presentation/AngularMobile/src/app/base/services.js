@@ -64,7 +64,6 @@ serviceModule.service('uiKit', ['$rootScope', '$q', function ($rootScope, $q) {
             $rootScope.confirmDefer = $q.defer();
             return $rootScope.confirmDefer.promise;
         },
-
         //显示底部的导航菜单
         showFooter: function () {
             angular.element(document.querySelector('.navbar-absolute-bottom')).removeClass('hide').addClass('show');
@@ -85,41 +84,123 @@ serviceModule.service('uiKit', ['$rootScope', '$q', function ($rootScope, $q) {
             angular.element(document.querySelector('.navbar-absolute-top')).removeClass('hide').addClass('show');
             angular.element(document.querySelector('body')).addClass('has-navbar-top');
         },
-
     };
     return service;
 }]);
 
 //----current user service
-serviceModule.factory('oauthService', ['$location', 'platform', function ($location, platform) {
+
+//---current user service with localstorage
+serviceModule.factory('oauthService', ['$location', '$q', '$http', 'appConfig', function ($location, $q, $http, appConfig) {
+
+    var accessTokenKey = "accessToken";
+    var refreshTokenKey = "refreshToken";
+    var userInfoKey = "userInfo";
+    var identityModel = {
+        AccessToken: '',
+        RefreshToken: '',
+        UserInfo: ''
+    };
+
     var service = {
-        isAuthorized: function () {
-            return cookieHelper.getCookie('token') == null || cookieHelper.getCookie('token') == "" ? false : true;
+        //----获取Token 对象
+        getIdentityModel: function () {
+            var accessTokenObj = storage.getItem(accessTokenKey);
+            var refreshTokenObj = storage.getItem(refreshTokenKey);
+            var userInfoObj = storage.getItem(userInfoKey);
+            if (accessTokenObj != "") {
+                identityModel.AccessToken = accessTokenObj.value;
+            } else {
+                identityModel.AccessToken = "";
+            }
+            if (refreshTokenObj != "") {
+                identityModel.RefreshToken = refreshTokenObj.value;
+            } else {
+                identityModel.RefreshToken = "";
+            }
+            if (userInfoObj != "") {
+                identityModel.UserInfo = userInfoObj.value;
+            } else {
+                identityModel.UserInfo = "";
+            }
+
+            return identityModel;
         },
-        getToken: function () {
-            return cookieHelper.getCookie('token');
+
+        //----获取accesstoken
+        getAccessToken: function () {
+            return this.getIdentityModel().AccessToken;
         },
-        saveToken: function (token, redirectUrl) {
-            cookieHelper.setCookie('token', token, platform.tokenLifetime);
+
+        //----获取UserInfo
+        getUserInfo: function () {
+            return this.getIdentityModel().UserInfo;
+        },
+
+        //----获取refreshToken
+        getRefreshToken: function () {
+            return this.getIdentityModel().RefreshToken;
+        },
+
+        //----保存Token(accesstoken 和refreshtoken的信息 用户信息)
+        saveIdentityModel: function (tokenResult, userInfo, redirectUrl) {
+            //---保存accessTokenInfo
+            storage.setItem(accessTokenKey, tokenResult.AccessToken, tokenResult.ExpiresIn);
+            //----保存refeshTokenInfo
+            storage.setItem(refreshTokenKey, tokenResult.RefreshToken, tokenResult.RefreshTokenLifetime);
+
+            //保存用户个人信息
+            storage.setItem(userInfoKey, userInfo, tokenResult.ExpiresIn);
+
             if (redirectUrl == null || redirectUrl == "") {
                 $location.path('/');
             } else {
                 $location.path(redirectUrl);
             }
         },
-        removeToken: function () {
-            cookieHelper.clearCookie('token');
+
+        //----移除当前用户所有信息
+        removeIdentityModel: function () {
+            storage.removeItem(accessTokenKey);
+            storage.removeItem(refreshTokenKey);
+            storage.removeItem(userInfoKey);
         },
+
+        //---到登录页面
+        goToLoginPage: function () {
+            $location.path('/mobileLogin/' + encodeURIComponent(window.location.hash.substring(1)));
+        },
+
+        //---跳转至登录
         goToAuthorize: function () {
-            if (!this.isAuthorized()) {
-                $location.path('/login/' + encodeURIComponent(window.location.hash.substring(1)));
+            var result = [];
+            if (this.getAccessToken() == "" && this.getRefreshToken() == "") {
+                var defer = $q.defer();
+                result.$promise = defer.promise;
+                defer.resolve({ data: { Code: 10 } });
+                service.goToLoginPage();
+            } else if (this.getAccessToken() == "" && this.getRefreshToken() != "") {
+                var refreshModel = {
+                    RefreshToken: this.getRefreshToken()
+                };
+                //----todo 利用refresh token请求请的accessToken(根据各个系统采用的登录系统而异)
+                result.$promise = $http.post(appConfig.oauthServer + "Delegation/refreshtoken", refreshModel);
+                if (result.$promise != null) {
+                    result.$promise.then(function (response) {
+                        var apiResult = response.data;
+                        if (apiResult.Code == 0) {
+                            service.saveIdentityModel(apiResult.Data);
+                        } else {
+                            service.removeIdentityModel();
+                        }
+                    }, function () {
+                        service.goToLoginPage();
+                    });
+                }
             }
-        },
-        getCurrentUser: function () {
-            if (!this.isAuthorized()) {
-                this.goToAuthorize();
-            }
+            return result;
         }
+
     };
     return service;
 }]);
@@ -127,25 +208,22 @@ serviceModule.factory('oauthService', ['$location', 'platform', function ($locat
 //api http
 serviceModule.factory('httpProxy', ['$http', 'appConfig', 'oauthService', 'uiKit', function ($http, appConfig, oauthService, uiKit) {
     var service = {
-        call: function (route, param, methodType, userToken) {
+        call: function (route, param, methodType, accessToken) {
             var result = [];
             result.$promise = null;
             var apihost = "";
             if (route.indexOf('http') >= 0) {
                 apihost = route;
             } else {
-                   if (appConfig.apiServer.substr(appConfig.apiServer.length - 1, 1) != '/') {
+                if (appConfig.apiServer.substr(appConfig.apiServer.length - 1, 1) != '/') {
                     appConfig.apiServer = appConfig.apiServer + "/";
                 }
                 apihost = appConfig.apiServer + route;
             }
 
-            //要求登录(token已参数形式传递 )
-            if (userToken != null && userToken !== "") {
-                apihost = apihost + "?token=" + userToken;
-            }
-            /*      //---token 通过header传递
-                $http.defaults.headers.common.Authorization = 'Bearer ' + userToken;*/
+            //---token 通过header传递
+            $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
+
             if (methodType == undefined)
                 methodType = 'post';
             methodType = methodType.toLowerCase();
@@ -180,12 +258,13 @@ serviceModule.factory('httpProxy', ['$http', 'appConfig', 'oauthService', 'uiKit
             }
             if (result.$promise != null) {
                 result.$promise.then(function (response) {
-                    if (response.data.Code == 10) {
-                        oauthService.goToAuthorize();
-                    }
+                    /*               if (response.data.Code == 10) {
+                                       oauthService.goToAuthorize();
+                                   }*/
                     angular.extend(result, response.data);
                 }, function (response) {
                     if (response.status == 401) {
+                        oauthService.removeIdentityModel();
                         oauthService.goToAuthorize();
                     } else {
                         uiKit.message("数据服务出错！");
@@ -206,7 +285,7 @@ serviceModule.factory('httpProxy', ['$http', 'appConfig', 'oauthService', 'uiKit
 }]);
 
 //api http service
-serviceModule.factory('service', ['$location', 'httpProxy', 'oauthService', 'uiKit', function ($location, httpProxy, oauthService, uiKit) {
+serviceModule.factory('service', ['$location', '$q', 'httpProxy', 'oauthService', 'uiKit', function ($location, $q, httpProxy, oauthService, uiKit) {
     var count = 0;
     var blocked = false;
     var service = {
@@ -239,19 +318,50 @@ serviceModule.factory('service', ['$location', 'httpProxy', 'oauthService', 'uiK
 
         //----授权后call
         authorizedCall: function (route, param, methodType) {
-            if (oauthService.isAuthorized()) {
-                return httpProxy.call(route, param, methodType, oauthService.getToken());
-            } else {
-                oauthService.goToAuthorize();
+            if (oauthService.getAccessToken() != "") {
+                return httpProxy.call(route, param, methodType, oauthService.getAccessToken());
+            }
+            else {
+                var authorizedResult = oauthService.goToAuthorize();
+                var result = [];
+                var d = $q.defer();
+                result.$promise = d.promise;
+                if (authorizedResult.$promise != null) {
+                    authorizedResult.$promise.then(function (response) {
+                        if (response.data.Code == 0) {
+                            var temp = httpProxy.call(route, param, methodType, oauthService.getAccessToken());
+                            temp.$promise.then(function (apiResponse) {
+                                angular.extend(result, apiResponse.data);
+                                d.resolve({ data: apiResponse.data });
+                            });
+                        }
+                    });
+                }
+                return result;
             }
         },
 
         //----授权并带loading效果
         authorizedLoadingCall: function (route, param, methodType) {
-            if (oauthService.isAuthorized()) {
-                return this.call(route, param, methodType, oauthService.getToken());
+            if (oauthService.getAccessToken() != "") {
+                return this.call(route, param, methodType, oauthService.getAccessToken());
             } else {
-                oauthService.goToAuthorize();
+                var authorizedResult = oauthService.goToAuthorize();
+                var result = [];
+                var d = $q.defer();
+                result.$promise = d.promise;
+                if (authorizedResult.$promise != null) {
+                    authorizedResult.$promise.then(function (response) {
+                        if (response.data.Code == 0) {
+                            var temp = this.call(route, param, methodType, oauthService.getAccessToken());
+                            temp.$promise.then(function (apiResponse) {
+                                angular.extend(result, apiResponse.data);
+                                d.resolve({ data: apiResponse.data });
+                            });
+                        }
+                    });
+                }
+                return result;
             }
         }
     };

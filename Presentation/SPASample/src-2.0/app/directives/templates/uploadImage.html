@@ -1,7 +1,7 @@
 ﻿<div>
     <div class="thumbnail">
         <img ng-show="uploadedFile==null" ng-src="images/default-image.png" alt="默认图片">
-        <img ng-show="uploadedFile.url!=null" ng-src="{{appConfig.apiServer+uploadedFile.url}}" alt="uploadedFile.fileName">
+        <img ng-show="uploadedFile.AbsolutePath!=null" ng-src="{{uploadedFile.AbsolutePath}}" alt="uploadedFile.fileName">
     </div>
     <div class="progress progress-warning progress-small progress-striped active " ng-hide="uploader.progress==100||uploader.progress==null">
         <div class="bar" style="width: { {uploader.progress}}%;"></div>
