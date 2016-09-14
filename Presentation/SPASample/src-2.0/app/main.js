@@ -38,6 +38,8 @@
         'umeditor': 'libs/umeditor/umeditor',
         'umeditorConfig': 'libs/umeditor/umeditor.config',
 
+        //ng 模块
+        'ng-core': 'app/core.module'
         ///////////////////应用模块/////////////////////
         //app directive
 

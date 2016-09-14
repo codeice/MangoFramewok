@@ -1,4 +1,4 @@
-﻿define(['angular-ui-router', '../directives/dirUploadify', '../directives/dirUploadImage', '../directives/dirUploadFile', 'angular-ui-select'], function () {
+﻿define(['ng-core', '../directives/dirUploadify', '../directives/dirUploadImage', '../directives/dirUploadFile', 'angular-ui-select'], function () {
 
     var module = angular.module('test', []);
     module.config(['$stateProvider', function ($stateProvider) {

@@ -3,9 +3,9 @@
 * 如果不需要从wsaf读取menu
 *login重构
 */
-define(['./app.menu', './app.menuDatas', './base/loadBaseScripts'], function () {
+define(['./app.menu', './app.menuDatas', './base/loadBaseScripts', './public/wsafService'], function () {
 
-    var module = angular.module('app.core', ['app.base', 'app.directives', 'app.menu']);
+    var module = angular.module('app.core', ['app.base', 'app.directives', 'app.menu','wsaf']);
 
     module.controller('mainCtrl', ['$scope', '$rootScope', '$window', 'oauthService', 'wsafService', function ($scope, $rootScope, $window, oauthService, wsafService) {
 

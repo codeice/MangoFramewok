@@ -2,7 +2,6 @@
 define([
     //----基本模块
     './app.main',
-    './public/wsafService',
 
     //模块controller
     './home/homeCtrl',

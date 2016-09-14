@@ -11,10 +11,9 @@ define(['OAuthClient', 'angular-batch', 'app/loadScripts'], function () {
         'ngSanitize',
         //核心木块定义
         'app.core',
-        'wsaf',
-        'file',
 
         //业务模块
+        'file',
         'home',
         'demo',
         'test'

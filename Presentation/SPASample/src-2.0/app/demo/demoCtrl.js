@@ -1,4 +1,4 @@
-﻿define(['angular-ui-router','../directives/dirPage', '../directives/dirDatepicker'], function () {
+﻿define(['ng-core','../directives/dirPage', '../directives/dirDatepicker'], function () {
     //模块定义
     var module = angular.module('demo', ['demo.service']);
 

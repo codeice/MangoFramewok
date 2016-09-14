@@ -3,7 +3,7 @@
 * 如果不需要从wsaf读取menu,注释mainCtrl中 getUserMenus();调用的地方
 *fix bug for undefined menu bug
  */
-define(['angular-ui-router'], function () {
+define(['ng-core'], function () {
     var module = angular.module('app.menu', []);
     module.controller('menuCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
 

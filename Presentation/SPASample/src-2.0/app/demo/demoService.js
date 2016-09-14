@@ -1,4 +1,4 @@
-﻿define(['angular-ui-router'], function () {
+﻿define(['ng-core'], function () {
 
     function DemoService(service, backgroundService) {
 

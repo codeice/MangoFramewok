@@ -1,4 +1,4 @@
-﻿define(['angular-ui-router'], function () {
+﻿define(['ng-core'], function () {
     var module = angular.module('file', []);
     function FileService($rootScope, service, backgroundService) {
         ///////////////////上传文件的url////////////////////

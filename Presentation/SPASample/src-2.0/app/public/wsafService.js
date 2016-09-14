@@ -1,4 +1,4 @@
-﻿define(['angular-ui-router'], function () {
+﻿define(['ng-core'], function () {
     var module = angular.module('wsaf', []);
     function wsafServiceProxy(backgroundService, $rootScope) {
 
