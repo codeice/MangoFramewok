@@ -7,9 +7,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
     <meta name="format-detection" content="telephone=no" />
+    <!--第三方库css本地地址-->
+    <!--<link href="css/vendor.bundle.css" rel="stylesheet" />-->
+    <link href="http://wpd-asset.oss-cn-shanghai.aliyuncs.com/angularMobile/vendor.bundle.css" rel="stylesheet" />
     <!-- inject:css -->
-    <link rel="stylesheet" href="css/app.bundle-1473237902161.css">
+    <link rel="stylesheet" href="css/app.bundle.css">
     <!-- endinject -->
+
 </head>
 <body ng-app="mobileApp" ng-controller="mainCtrl" ui-prevent-touchmove-defaults ng-cloak>
     <!--splashScreen portion-->
@@ -119,10 +123,29 @@
     <!--    <script src="http://172.16.193.4:8001/target/target-script-min.js#anonymous"></script>-->
     <!--依赖库本地地址-->
     <!--    <script src="build/vendor.bundle.js"></script>-->
-    <script src="http://saiquaner2-asset.oss-cn-shanghai.aliyuncs.com/angularMobileLibs/vendor.bundle.js"></script>
+    <script src="http://wpd-asset.oss-cn-shanghai.aliyuncs.com/angularMobile/vendor.bundle.js"></script>
     <script src="app/base/config.js"></script>
+
+    <!--rap api-->
+    <script src="http://rap.taobao.org/rap.plugin.js?projectId=9789"></script>
     <!-- inject:js -->
-    <script src="build/app.bundle-1473237902161.js"></script>
+    <script src="app/demo2/testCtrl.js"></script>
+    <script src="app/demo2/demo2Service.js"></script>
+    <script src="app/demo2/demo2Ctrl.js"></script>
+    <script src="app/demo/userService.js"></script>
+    <script src="app/demo/userCtrl.js"></script>
+    <script src="app/base/validations.js"></script>
+    <script src="app/base/utility.js"></script>
+    <script src="app/base/storage.js"></script>
+    <script src="app/base/services.js"></script>
+    <script src="app/base/filters.js"></script>
+    <script src="app/base/directives.js"></script>
+    <script src="app/base/constants.js"></script>
+    <script src="app/base/UIWidget.js"></script>
+    <script src="app/account/accountService.js"></script>
+    <script src="app/account/accountCtrl.js"></script>
+    <script src="app/app.main.js"></script>
+    <script src="app/app.js"></script>
     <!-- endinject -->
 </body>
 </html>

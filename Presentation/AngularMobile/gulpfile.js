@@ -51,7 +51,7 @@ var config = {
     sourcePath: {
         icon: ['./src/assets/icons/*'],
         img: ['./src/assets/images/*'],
-        js: ['./src/app/**/*.js'],
+        js: ['./src/app/**/*.js', '!./src/app/base/config.js'],
         html: ['./src/app/**/*.html'],
         indexHtml: ['./src/index.html']
     },

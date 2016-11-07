@@ -26,6 +26,10 @@
         // Some fake testing data
         $scope.persons = demoService.getList();
 
+        demoService.rapTest().$promise.then(function(response){
+                console.log(response);
+        });
+
     }]);
 
     //----用户详情

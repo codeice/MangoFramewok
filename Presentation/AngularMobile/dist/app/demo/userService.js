@@ -115,6 +115,11 @@ function demoServiceProxy(service) {
             }
         }
         return null;
+    },
+
+    //rap test
+    this.rapTest=function(){
+       return service.call("Rap/get",{},"get");
     }
 }
 

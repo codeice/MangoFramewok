@@ -222,7 +222,10 @@ serviceModule.factory('httpProxy', ['$http', 'appConfig', 'oauthService', 'uiKit
             }
 
             //---token 通过header传递
-            $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
+            if(accessToken!=null&&accessToken!=undefined)
+            {
+                $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
+            }
 
             if (methodType == undefined)
                 methodType = 'post';
