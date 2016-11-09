@@ -1,0 +1,33 @@
+{
+  "bitwise": true,
+  "immed": true,
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "nonew": true,
+  "trailing": false,
+  "maxlen": 512,
+  "boss": true,
+  "eqnull": false,
+  "expr": true,
+  "globalstrict": false,
+  "laxbreak": true,
+  "loopfunc": true,
+  "sub": true,
+  "undef": true,
+  "indent": 2,
+  "globals": {
+    "document": true,
+    "window": true,
+    "angular": true,
+    "sinon": true,
+    "module": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "inject": true,
+    "describe": true,
+    "expect": true,
+    "it": true,
+    "should": true
+  }
+}

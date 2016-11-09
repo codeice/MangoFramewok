@@ -1,0 +1,34 @@
+﻿<div class="row-fluid">
+    <div class="span3 pull-left">
+        <div class="dataTables_info font-size-10">当前第{{pageIndex}}页,共{{pageCount}}页{{totalCount}}条记录</div>
+    </div>
+    <div class="span9 pull-right">
+        <div class="dataTables_paginate  pagination">
+            <ul>
+                <li ng-tilte="首页" ng-class="{'disabled':pageIndex==1}" ng-click="pageIndex!=1&& changePage(1)">
+                    <a><i class="icon-double-angle-left"></i></a>
+                </li>
+                <li ng-title="上一页" ng-class="{'disabled':pageIndex==1}" ng-click="pageindex!=1&& prevPage()">
+                    <a>
+                        <i class="icon-angle-left"></i>
+                    </a>
+                </li>
+
+                <li ng-repeat="page in pages" ng-class="{'active':page==pageIndex}" ng-click="changePage(page)">
+                    <a>{{page}}</a>
+                </li>
+
+                <li ng-title="下一页" ng-class="{'disabled':pageIndex==pageCount}" ng-click="pageIndex!=pageCount&& nextPage()">
+                    <a>
+                        <i class="icon-angle-right"></i>
+                    </a>
+                </li>
+                <li ng-title="末页" class="next" ng-class="{'disabled':pageIndex==pageCount}" ng-click="pageIndex!=pageCount&& changePage(pageCount)">
+                    <a>
+                        <i class="icon-double-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

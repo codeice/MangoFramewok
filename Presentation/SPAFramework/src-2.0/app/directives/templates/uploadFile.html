@@ -1,0 +1,35 @@
+﻿<div>
+    <span class="btn btn-small btn-success" dir-uploadify="uploader" url="url" settings="uploaderSettings" return-value="returnValue" on-select="onSelectFile" on-success="onSuccess">
+        <i class=" icon-plus icon-on-right bigger-110"></i>
+        选择文件
+    </span>
+    <span ng-show="uploader.files!=undefined&& uploader.files.length!=0" class="btn btn-small btn-purple" ng-click="startUpload()">
+        <i class="icon-cloud-upload icon-on-right bigger-110"></i>
+        开始上传
+    </span>
+    <div class="progress progress-warning progress-small progress-striped active " ng-hide="uploader.progress==100||uploader.progress==null">
+        <div class="bar" style="width: { {uploader.progress}}% ; "></div>
+    </div>
+    <div ng-hide="uploadedFiles.length==0&& (uploader.files==undefined|| uploader.files.length==0)">
+        <div class="ace-file-input ace-file-multiple">
+            <label class="file-label hide-placeholder selected">
+                <!-- 已上传的文件-->
+                <span class="file-name" ng-repeat="file in uploadedFiles">
+                    <i class="icon-file"></i>
+                    {{file.name}}
+                    <i class="icon-remove remove-circle-icon" ng-click="removeUploadedFile(file)"></i>
+                </span>
+
+                <!-- 等待上传的文件-->
+                <span class="file-name" ng-repeat="file in uploader.files">
+                    <i class="icon-file"></i>
+                    {{file.name}}
+                    <em class="em-normal-red" ng-show="file.isSuccess==undefined">等待上传</em>
+                    <em class="em-normal-red" ng-show="file.isSuccess!=undefined&& file.isSuccess==false">上传失败</em>
+                    <i class="icon-remove remove-circle-icon" ng-click="removeToBeUploadedFile(file)"></i>
+                </span>
+            </label>
+        </div>
+    </div>
+</div>
+

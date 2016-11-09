@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-4.4.4.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <input type="file" id="file" />
+    <input type="button" id="download" value="Download" />
+
+    <script type="text/javascript">
+        var client = new OSS.Wrapper({
+            region: 'oss-cn-shanghai',
+            accessKeyId: 'bRUqWdypn33Ec8YC',
+            accessKeySecret: 'R2M3bMbSEFkq6gLoevmFDdUYyAvapP',
+            bucket: 'saiquaner2-test'
+        });
+        
+        //获取前10条
+        client.list({
+            'max-keys': 10
+        }).then(function (result) {
+            console.log(result);
+        }).catch(function (err) {
+            console.log(err);
+        });
+
+        //上传
+        document.getElementById('file').addEventListener('change', function (e) {
+            var file = e.target.files[0];
+            var storeAs = 'upload-file';
+            console.log(file.name + ' => ' + storeAs);
+            client.multipartUpload(storeAs, file).then(function (result) {
+                console.log(result);
+            }).catch(function (err) {
+                console.log(err);
+            });
+        });
+
+        //下载
+        document.getElementById('download').addEventListener('click', function (e) {
+            var objectKey = 'upload-file';
+            var saveAs = 'download';
+            console.log(objectKey + ' => ' + saveAs);
+            var result = client.signatureUrl(objectKey, {
+                expires: 3600,
+                response: {
+                    'content-disposition': 'attachment; filename="' + saveAs + '.sql"'
+                }
+            });
+            console.log(result);
+            window.location = result;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+﻿<div>
+    <hr>
+    <h3>搜索选择</h3>
+    {{model.province}}
+    <ui-select class="span6" ng-model="model.province" theme="select2">
+        <ui-select-match>
+            <span ng-bind="$select.selected.name"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="item in (proviceList | filter: $select.search) track by item.id">
+            <span ng-bind="item.name"></span>
+        </ui-select-choices>
+    </ui-select>
+</div>
