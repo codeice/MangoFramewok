@@ -3,7 +3,7 @@
  * 为了更好地模块复用，添加common，service,directive Module
 * appConfig添加wsaf配置
  */
-define(['OAuthClient', 'angular-batch', 'app/loadScripts'], function () {
+define(['OAuthClient', 'angular-batch','angular-ui-select', 'app/loadScripts'], function () {
     var app = angular.module('app', [
         'ui.router',
         'jcs.angular-http-batch',

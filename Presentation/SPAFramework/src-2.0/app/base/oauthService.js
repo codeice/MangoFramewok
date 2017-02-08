@@ -16,20 +16,22 @@ define(['./baseModule'], function (module) {
                 IdToken: '',
                 IdTokenExpiresIn: '',
                 UserInfo: '',
-                UserInfoExpiresIn: ''
+                UserInfoExpiresIn: '',
+                State: ''
             };
 
             var service = {
 
                 //----构造IdentityModel
-                initIdentityModel: function (accToken, expiresIn, idToken, idTokenExpires, userInfo, userInfoExpiresIn) {
+                initIdentityModel: function (accToken, expiresIn, idToken, idTokenExpires, userInfo, userInfoExpiresIn, state) {
                     identityModel = {
                         AccessToken: accToken,
                         ExpiresIn: expiresIn,
                         IdToken: idToken,
                         IdTokenExpiresIn: idTokenExpires,
                         UserInfo: userInfo,
-                        UserInfoExpiresIn: userInfoExpiresIn
+                        UserInfoExpiresIn: userInfoExpiresIn,
+                        State: state
                     };
                 },
 
@@ -83,6 +85,15 @@ define(['./baseModule'], function (module) {
                     }
                 },
 
+                getCurrentUser: function () {
+                    var userInfoObj = storage.getItem(userInfoKey);
+                    if (userInfoObj != "") {
+                        return userInfoObj.value;
+                    } else {
+                        return "";
+                    }
+                },
+
                 //----是否已登录
                 isAuthorized: function () {
                     identityModel = this.getIdentityInfo();
@@ -130,6 +141,7 @@ define(['./baseModule'], function (module) {
                     return result;
                 },
 
+
                 //----获取用户信息
                 getUserInfo: function (tokenResult) {
                     var result = {};
@@ -138,12 +150,17 @@ define(['./baseModule'], function (module) {
                     result.$promise = $http.get(userInfoUrl).then(function (response) {
                         var userInfo = response.data;
                         var jws = new KJUR.jws.JWS();
-                        jws.parseJWS(tokenResult.access_token);
-                        var accTokenInfo = $.parseJSON(jws.parsedJWS.payloadS);
-                        var accExpires = accTokenInfo.exp * 1000;
                         jws.parseJWS(tokenResult.id_token);
                         var idTokenInfo = $.parseJSON(jws.parsedJWS.payloadS);
                         var idTokenExpires = idTokenInfo.exp * 1000;
+
+                        var accTokenInfo = idTokenInfo;
+                        var accExpires = idTokenExpires;
+                        if (tokenResult.access_token.length > 32) {
+                            jws.parseJWS(tokenResult.access_token);
+                            accTokenInfo = $.parseJSON(jws.parsedJWS.payloadS);
+                            accExpires = accTokenInfo.exp * 1000;
+                        }
                         //---保存用户信息
                         service.initIdentityModel(tokenResult.access_token, accExpires, tokenResult.id_token, idTokenExpires, userInfo, accExpires);
                         service.saveIdentityInfo();
@@ -166,7 +183,7 @@ define(['./baseModule'], function (module) {
                         if (tokenResult != null) {
                             redirectUrl = tokenResult.state;
                         }
-                        var obj = angular.extend({ state: redirectUrl }, service.getIdentityInfo());
+                        var obj = angular.extend({ State: redirectUrl }, service.getIdentityInfo());
                         defer.resolve({ code: 200, data: obj });
                     } else {
                         if (tokenResult && tokenResult.access_token) {
@@ -174,7 +191,8 @@ define(['./baseModule'], function (module) {
                             this.verifyCert(tokenResult).$promise.then(function (isCertValid) {
                                 if (isCertValid) {
                                     service.getUserInfo(tokenResult).$promise.then(function (response) {
-                                        defer.resolve({ code: 200, data: response });
+                                        var resultData = angular.extend({ State: tokenResult.state }, response);
+                                        defer.resolve({ code: 200, data: resultData });
                                     });
                                 } else {
                                     defer.resolve({ code: 401 });
@@ -199,7 +217,8 @@ define(['./baseModule'], function (module) {
                         service.removeIdentityInfo();
                         $window.location = logoutEndpoint;
                     } else {
-                        console.error("IdToken 丢失无法注销");
+                        console.warn("IdToken 已过期，无法注销，直接跳转至登录页面");
+                        this.goToLoginPage();
                     }
                 }
             };

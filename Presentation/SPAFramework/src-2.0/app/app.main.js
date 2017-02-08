@@ -8,7 +8,7 @@ define(['./app.menu', './app.menuDatas', './base/loadBaseScripts', './directives
     //wsaf模块主要是登录后取菜单
     var module = angular.module('app.core', ['app.base', 'app.directives', 'app.menu', 'wsaf']);
 
-    module.controller('mainCtrl', ['$scope', '$rootScope', '$location', 'oauthService', 'wsafService', function ($scope, $rootScope, $location, oauthService, wsafService) {
+    module.controller('mainCtrl', ['$scope', '$rootScope', '$location', '$window', 'oauthService', 'wsafService', function ($scope, $rootScope, $location, $window,oauthService, wsafService) {
 
         //---用户登录
         oauthService.login().$promise.then(function (response) {
@@ -20,9 +20,22 @@ define(['./app.menu', './app.menuDatas', './base/loadBaseScripts', './directives
                 $rootScope.$broadcast('loadMenusDone');
                 //2.wsaf菜单
                 //getUserMenus();
-                showContent();
+                redirectToUrl(identityModel.State);
             }
         });
+
+        function redirectToUrl(state) {
+            var hash = "";
+            if (state !== undefined && state !== "") {
+                hash = state;
+            } else if ($window.location.hash !== "") {
+                hash = $window.location.hash;
+            } else {
+                hash = $rootScope.appConfig.entryRoute;
+            }
+            $window.location = hash;
+            showContent();
+        }
 
         //显示隐藏内容页
         function showContent() {
